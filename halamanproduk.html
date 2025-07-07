@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toko Digital - Template Excel Profesional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .app-header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); /* slate-900 to slate-800 */
+        }
+        .product-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        .btn-buy {
+            background-color: #4f46e5; /* indigo-600 */
+            transition: background-color 0.3s ease;
+        }
+        .btn-buy:hover {
+            background-color: #4338ca; /* indigo-700 */
+        }
+        .faq-item {
+            border-top: 1px solid #e2e8f0; /* slate-200 */
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <!-- Container Utama -->
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 max-w-6xl">
+
+        <!-- Header -->
+        <header class="app-header text-white text-center p-8 sm:p-12 rounded-2xl mb-12 shadow-xl">
+            <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight">Toko Digital Archisight</h1>
+            <p class="mt-4 text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto">Solusi Cerdas untuk Kebutuhan Analisis Data Anda dengan Template Excel Profesional.</p>
+        </header>
+
+        <main>
+            <!-- Judul Bagian Produk -->
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold tracking-tight">Produk Unggulan Kami</h2>
+                <p class="mt-2 text-md text-slate-600">Dibuat oleh para ahli untuk membantu pekerjaan Anda lebih efisien.</p>
+            </div>
+
+            <!-- Grid Produk -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- Produk 1: Template Laporan Keuangan -->
+                <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+                    <div class="p-6 bg-green-50 flex justify-center items-center">
+                        <!-- Ikon SVG untuk Excel -->
+                        <svg class="w-20 h-20 text-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M21.17 3.25Q21.5 3.25 21.725 3.475Q22 3.7 22 4L22 20Q22 20.3 21.725 20.525Q21.5 20.75 21.17 20.75L2.83 20.75Q2.5 20.75 2.275 20.525Q2 20.3 2 20L2 4Q2 3.7 2.275 3.475Q2.5 3.25 2.83 3.25L21.17 3.25ZM12 12.275L15.3 9L17 10.7L13.7 14L17 17.3L15.3 19L12 15.725L8.7 19L7 17.3L10.3 14L7 10.7L8.7 9L12 12.275Z"/></svg>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <h3 class="text-xl font-bold">Template Laporan Keuangan</h3>
+                        <p class="text-slate-600 mt-2 flex-grow">Otomatiskan laporan laba rugi, neraca, dan arus kas. Cocok untuk UKM dan startup.</p>
+                        <p class="text-3xl font-bold mt-4">Rp 99.000</p>
+                    </div>
+                    <div class="p-6 bg-slate-50">
+                        <!-- PENTING: Ganti '#' dengan link produk Anda di Lynk.id -->
+                        <a href="#" class="btn-buy block w-full text-center text-white font-semibold py-3 rounded-lg">
+                            Beli Sekarang
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Produk 2: Dashboard Penjualan Interaktif -->
+                <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+                    <div class="p-6 bg-blue-50 flex justify-center items-center">
+                         <!-- Ikon SVG untuk Dashboard -->
+                        <svg class="w-20 h-20 text-blue-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13 9V3.5L18.5 9M6 2C4.89 2 4 2.89 4 4V20C4 21.11 4.89 22 6 22H18C19.11 22 20 21.11 20 20V8L14 2H6Z"/></svg>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <h3 class="text-xl font-bold">Dashboard Penjualan Interaktif</h3>
+                        <p class="text-slate-600 mt-2 flex-grow">Visualisasikan data penjualan Anda dengan grafik dinamis dan filter yang mudah digunakan.</p>
+                        <p class="text-3xl font-bold mt-4">Rp 125.000</p>
+                    </div>
+                    <div class="p-6 bg-slate-50">
+                        <!-- PENTING: Ganti '#' dengan link produk Anda di Lynk.id -->
+                        <a href="#" class="btn-buy block w-full text-center text-white font-semibold py-3 rounded-lg">
+                            Beli Sekarang
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Produk 3: Kalkulator Anggaran Proyek -->
+                <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+                    <div class="p-6 bg-amber-50 flex justify-center items-center">
+                        <!-- Ikon SVG untuk Kalkulator -->
+                        <svg class="w-20 h-20 text-amber-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3M13.5 15.5H12.5V17H11.5V15.5H10.5C9.95 15.5 9.5 15.05 9.5 14.5V10.5C9.5 9.95 9.95 9.5 10.5 9.5H13.5C14.05 9.5 14.5 9.95 14.5 10.5V14.5C14.5 15.05 14.05 15.5 13.5 15.5M7 7H8.5V8.5H7V7M7 9.5H8.5V11H7V9.5M7 12H8.5V13.5H7V12M7 14.5H8.5V16H7V14.5M17 17H15V15.5H17V17M17 14.5H15V13H17V14.5M17 12H15V10.5H17V12M17 9.5H15V8H17V9.5M17 7H15V5.5H17V7Z"/></svg>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <h3 class="text-xl font-bold">Kalkulator Anggaran Proyek</h3>
+                        <p class="text-slate-600 mt-2 flex-grow">Lacak pengeluaran dan pemasukan proyek konstruksi atau event dengan detail dan akurat.</p>
+                        <p class="text-3xl font-bold mt-4">Rp 75.000</p>
+                    </div>
+                    <div class="p-6 bg-slate-50">
+                        <!-- PENTING: Ganti '#' dengan link produk Anda di Lynk.id -->
+                        <a href="#" class="btn-buy block w-full text-center text-white font-semibold py-3 rounded-lg">
+                            Beli Sekarang
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bagian Cara Pembelian -->
+            <section class="mt-20 bg-white p-8 rounded-2xl shadow-lg">
+                <h2 class="text-2xl font-bold text-center mb-6">Cara Pembelian Sangat Mudah</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <div>
+                        <div class="bg-indigo-100 text-indigo-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto text-2xl font-bold">1</div>
+                        <h3 class="mt-4 font-semibold text-lg">Pilih Produk</h3>
+                        <p class="text-slate-600 mt-1">Klik tombol "Beli Sekarang" pada produk yang Anda inginkan.</p>
+                    </div>
+                    <div>
+                        <div class="bg-indigo-100 text-indigo-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto text-2xl font-bold">2</div>
+                        <h3 class="mt-4 font-semibold text-lg">Lakukan Pembayaran</h3>
+                        <p class="text-slate-600 mt-1">Anda akan diarahkan ke halaman Lynk.id untuk pembayaran yang aman.</p>
+                    </div>
+                    <div>
+                        <div class="bg-indigo-100 text-indigo-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto text-2xl font-bold">3</div>
+                        <h3 class="mt-4 font-semibold text-lg">Unduh & Gunakan</h3>
+                        <p class="text-slate-600 mt-1">Link unduhan akan dikirim otomatis ke email Anda setelah pembayaran berhasil.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bagian FAQ -->
+            <section class="mt-16">
+                 <h2 class="text-2xl font-bold text-center mb-8">Pertanyaan yang Sering Diajukan (FAQ)</h2>
+                 <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-6">
+                    <div class="faq-item py-4">
+                        <h4 class="font-semibold text-lg">Bagaimana cara saya menerima produknya?</h4>
+                        <p class="text-slate-600 mt-1">Setelah pembayaran berhasil melalui Lynk.id, link untuk mengunduh file Excel akan secara otomatis dikirimkan ke alamat email yang Anda gunakan saat transaksi.</p>
+                    </div>
+                    <div class="faq-item py-4">
+                        <h4 class="font-semibold text-lg">Apa format file yang akan saya dapatkan?</h4>
+                        <p class="text-slate-600 mt-1">Anda akan menerima file dalam format `.xlsx` yang kompatibel dengan Microsoft Excel 2013 ke atas dan juga Google Sheets.</p>
+                    </div>
+                    <div class="faq-item py-4">
+                        <h4 class="font-semibold text-lg">Apakah saya bisa meminta kustomisasi?</h4>
+                        <p class="text-slate-600 mt-1">Saat ini kami hanya menyediakan template siap pakai. Untuk kebutuhan kustomisasi atau jasa pembuatan khusus, silakan hubungi kami melalui kontak yang tertera di profil Lynk.id.</p>
+                    </div>
+                     <div class="faq-item py-4">
+                        <h4 class="font-semibold text-lg">Apakah ada dukungan jika saya mengalami kesulitan?</h4>
+                        <p class="text-slate-600 mt-1">Tentu saja. Setiap produk disertai dengan panduan penggunaan. Jika masih ada kendala, jangan ragu untuk menghubungi kami.</p>
+                    </div>
+                 </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="text-center mt-20 text-sm text-slate-500">
+            <p>&copy; 2025 Archisight Nusantara. Semua Hak Cipta Dilindungi.</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
