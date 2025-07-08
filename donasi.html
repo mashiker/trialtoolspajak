@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dukung Kami - Archisight Tax Assistant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
+        .form-input {
+            border: 1px solid #d1d5db; transition: all 0.2s ease-in-out; padding: 0.5rem; border-radius: 0.375rem; width: 100%;
+        }
+        .form-input:focus { border-color: #4f46e5; box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.3); }
+        .btn-primary { background-image: linear-gradient(to right, #4f46e5, #6366f1); transition: all 0.3s ease; box-shadow: 0 4px 15px 0 rgba(79, 70, 229, 0.3); }
+        .btn-primary:hover { box-shadow: 0 6px 20px 0 rgba(79, 70, 229, 0.4); transform: translateY(-1px); }
+        .app-header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            padding: 1rem;
+            border-radius: 0.75rem;
+            color: white;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .donation-amount-btn {
+            border: 1px solid #d1d5db;
+            transition: all 0.2s ease-in-out;
+        }
+        .donation-amount-btn.selected {
+            border-color: #4f46e5;
+            background-color: #4f46e5;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8 max-w-7xl">
+        <header class="app-header relative text-center mb-8">
+            <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">Dukung Pengembangan Aplikasi</h1>
+            <p class="text-sm sm:text-base text-gray-300 mt-1">Traktir kami secangkir kopi!</p>
+             <a href="index.html" class="absolute top-4 left-4 text-white bg-white/10 hover:bg-white/20 rounded-full p-2 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            </a>
+        </header>
+        
+        <div id="donasi-content">
+             <div class="bg-white p-8 rounded-xl shadow-lg max-w-2xl mx-auto text-center">
+                <p class="text-gray-600 mt-2 mb-6">Jika Anda merasa aplikasi ini bermanfaat dan ingin mendukung pengembangan fitur-fitur baru di masa depan, Anda bisa memberikan apresiasi dengan mentraktir saya secangkir kopi.</p>
+                <div class="mb-4">
+                    <label for="donation-amount" class="block text-sm font-medium text-gray-700 mb-1">Nominal (Rp)</label>
+                    <input type="number" id="donation-amount" class="form-input text-center text-lg" placeholder="Ketik Jumlah Dukungan">
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
+                    <button class="donation-amount-btn p-2 rounded-lg" data-amount="5000">5k</button>
+                    <button class="donation-amount-btn p-2 rounded-lg" data-amount="18000">18k</button>
+                    <button class="donation-amount-btn p-2 rounded-lg" data-amount="25000">25k</button>
+                    <button class="donation-amount-btn p-2 rounded-lg" data-amount="100000">100k</button>
+                </div>
+                 <div class="mb-4">
+                    <label for="donation-name" class="block text-sm font-medium text-gray-700 mb-1">Dari</label>
+                    <input type="text" id="donation-name" class="form-input" placeholder="Nama Anda (Opsional)">
+                </div>
+                 <div class="mb-6">
+                    <label for="donation-message" class="block text-sm font-medium text-gray-700 mb-1">Pesan</label>
+                    <textarea id="donation-message" rows="3" class="form-input" placeholder="Tulis pesan dukungan..."></textarea>
+                </div>
+                <div id="donation-error-container" class="my-4"></div>
+                <button id="donate-btn" class="w-full btn-primary text-white font-bold py-3 px-8 rounded-lg text-lg">
+                    Lanjutkan Pembayaran
+                </button>
+            </div>
+        </div>
+
+        <footer class="text-center py-8 px-4 mt-8">
+            <div class="max-w-3xl mx-auto text-xs text-gray-500">
+                <p class="font-semibold">Disclaimer Privasi:</p>
+                <p>Aplikasi ini adalah alat bantu kalkulasi semata. Seluruh data yang Anda masukkan hanya diproses di perangkat Anda dan tidak disimpan atau dikirim ke server mana pun.</p>
+                <p class="mt-2">Dibuat oleh Jevi S. &copy; 2025</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        function setupDonasiTab() {
+            const donasiContent = document.getElementById('donasi-content');
+            const donationAmountInput = donasiContent.querySelector('#donation-amount');
+            const donationAmountBtns = donasiContent.querySelectorAll('.donation-amount-btn');
+            const errorContainer = donasiContent.querySelector('#donation-error-container');
+            
+            donationAmountBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    donationAmountBtns.forEach(b => b.classList.remove('selected'));
+                    btn.classList.add('selected');
+                    donationAmountInput.value = btn.dataset.amount;
+                });
+            });
+
+            donationAmountInput.addEventListener('input', () => {
+                donationAmountBtns.forEach(b => b.classList.remove('selected'));
+            });
+
+            donasiContent.querySelector('#donate-btn').addEventListener('click', () => {
+                errorContainer.innerHTML = ''; // Clear previous errors
+                const amount = document.getElementById('donation-amount').value;
+                const message = document.getElementById('donation-message').value;
+                const name = document.getElementById('donation-name').value;
+                
+                if(!amount || amount < 1000) {
+                    errorContainer.innerHTML = `<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg" role="alert">Masukkan nominal donasi minimal Rp 1.000</div>`;
+                    return;
+                }
+
+                let finalMessage = message;
+                if (name) {
+                    finalMessage = `${name}: ${message}`;
+                }
+
+                const saweriaUrl = `https://saweria.co/jevissal?amount=${amount}&msg=${encodeURIComponent(finalMessage)}`;
+                window.open(saweriaUrl, '_blank');
+            });
+        }
+
+        // --- INITIALIZE ---
+        setupDonasiTab();
+    });
+    </script>
+</body>
+</html>
