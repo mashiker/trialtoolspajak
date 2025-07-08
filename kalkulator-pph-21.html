@@ -7,178 +7,72 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
         .table-responsive { overflow-x: auto; }
         .form-input, .form-select {
             border: 1px solid #d1d5db; transition: all 0.2s ease-in-out; padding: 0.5rem; border-radius: 0.375rem; width: 100%;
         }
-        .form-input:focus, .form-select:focus { border-color: #4f46e5; box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.3); }
-        .btn-primary { background-image: linear-gradient(to right, #4f46e5, #6366f1); transition: all 0.3s ease; box-shadow: 0 4px 15px 0 rgba(79, 70, 229, 0.3); }
-        .btn-primary:hover { box-shadow: 0 6px 20px 0 rgba(79, 70, 229, 0.4); transform: translateY(-1px); }
-        .sub-tab-btn { transition: all 0.2s ease-in-out; color: #4b5563; }
-        .sub-tab-btn.active { background-color: white; color: #4f46e5; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); }
+        .form-input:focus, .form-select:focus { border-color: #dc2626; box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.3); }
+        .btn-primary { background-color: #dc2626; color: white; transition: background-color 0.2s ease; }
+        .btn-primary:hover { background-color: #b91c1c; }
+        .sub-tab-btn { transition: all 0.2s ease-in-out; color: #4b5563; border-bottom: 2px solid transparent; }
+        .sub-tab-btn.active { color: #dc2626; border-bottom-color: #dc2626; font-weight: 600; }
         .sub-tab-content { display: none; }
         .sub-tab-content.active { display: block; }
         .result-item { display: flex; justify-content: space-between; border-bottom: 1px solid #e5e7eb; padding-bottom: 0.5rem; margin-bottom: 0.5rem;}
-        .app-header {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            padding: 1rem;
-            border-radius: 0.75rem;
-            color: white;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- New Navigation Header -->
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-20 border-b border-gray-200">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-3">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center space-x-2">
+                    <span class="inline-block p-2 bg-red-600 rounded-lg">
+                       <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 8.36364L12 2L18.3636 2L18.3636 8.36364H12ZM12 12.5455V18.3636H18.3636V12.5455H12ZM2 2L2 8.36364H8.36364L8.36364 2H2ZM2 12.5455L2 22L8.36364 22L8.36364 12.5455H2Z"/></svg>
+                    </span>
+                    <span class="text-xl font-bold text-gray-900 tracking-tight">Archisight Tax</span>
+                </a>
+                <!-- Back Button -->
+                <a href="index.html" class="text-gray-600 hover:text-red-600 text-sm font-medium flex items-center space-x-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                    <span>Kembali</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Title Section -->
+    <div class="bg-white border-b border-gray-200">
+        <div class="container mx-auto py-12 px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900">
+                Kalkulator PPh 21
+            </h1>
+            <p class="mt-3 max-w-2xl mx-auto text-base text-gray-500">
+                Sesuai PP-58/2023 & PMK-168/2023
+            </p>
+        </div>
+    </div>
 
     <div class="container mx-auto p-4 sm:p-6 lg:p-8 max-w-7xl">
-        <header class="app-header relative text-center mb-8">
-            <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">Kalkulator PPh 21</h1>
-            <p class="text-sm sm:text-base text-gray-300 mt-1">Sesuai PP-58/2023 & PMK-168/2023</p>
-            <a href="index.html" class="absolute top-4 left-4 text-white bg-white/10 hover:bg-white/20 rounded-full p-2 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-            </a>
-        </header>
-
         <div id="pph21-content" class="tab-content active">
-            <div class="bg-white p-6 rounded-xl shadow-lg">
+            <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
                 <div class="mb-6 flex justify-center border-b border-gray-200">
-                    <div class="flex bg-gray-100 p-1 rounded-lg">
-                        <button class="sub-tab-btn active px-4 py-2 text-sm font-semibold rounded-md" data-subtab="bulanan">Bulanan (TER)</button>
-                        <button class="sub-tab-btn px-4 py-2 text-sm font-semibold rounded-md" data-subtab="akhirtahun">Masa Pajak Terakhir</button>
+                    <div class="flex gap-8">
+                        <button class="sub-tab-btn active py-3 text-sm font-semibold" data-subtab="bulanan">Bulanan (TER)</button>
+                        <button class="sub-tab-btn py-3 text-sm font-semibold" data-subtab="akhirtahun">Masa Pajak Terakhir</button>
                     </div>
                 </div>
                 <div id="pph21-bulanan-content" class="sub-tab-content active">
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        <div class="space-y-6">
-                            <div class="space-y-4 p-4 border rounded-lg">
-                                <h4 class="text-lg font-semibold border-b pb-2">Data Personal</h4>
-                                <div><label for="status-pegawai" class="block text-sm font-medium text-gray-700">Status Pegawai</label><select id="status-pegawai" class="form-select mt-1"><option>Pegawai Tetap</option><option>Pensiunan</option></select></div>
-                                <div><label for="ptkp-status-bulanan" class="block text-sm font-medium text-gray-700">Status Kawin & Tanggungan</label><select id="ptkp-status-bulanan" class="form-select mt-1"></select></div>
-                                <div><label class="block text-sm font-medium text-gray-700">Metode Tunjangan Pajak</label><div class="mt-2 flex gap-4"><label class="inline-flex items-center"><input type="radio" name="tax-method" value="gross" checked> <span class="ml-2">Gross</span></label><label class="inline-flex items-center"><input type="radio" name="tax-method" value="gross-up"> <span class="ml-2">Gross-up</span></label></div></div>
-                            </div>
-                            <div class="space-y-4 p-4 border rounded-lg">
-                                <h4 class="text-lg font-semibold border-b pb-2">A. Penghasilan</h4>
-                                <div class="grid grid-cols-2 gap-4 items-center">
-                                    <label class="text-sm font-medium">Gaji/Pensiun atau THT/JHT</label><input type="number" id="gaji" class="form-input p21-income" placeholder="0">
-                                    <label class="text-sm font-medium">Tunjangan PPh</label><input type="number" id="tunjangan-pph" class="form-input p21-income" placeholder="0">
-                                    <label class="text-sm font-medium">Tunjangan Lainnya, Lembur, dsb.</label><input type="number" id="tunjangan-lain" class="form-input p21-income" placeholder="0">
-                                    <label class="text-sm font-medium">Honorarium & Imbalan Lain</label><input type="number" id="honorarium" class="form-input p21-income" placeholder="0">
-                                    <label class="text-sm font-medium">Premi Asuransi (oleh Pemberi Kerja)</label><input type="number" id="premi-asuransi" class="form-input p21-income" placeholder="0">
-                                    <label class="text-sm font-medium">Natura & Kenikmatan Lainnya</label><input type="number" id="natura" class="form-input p21-income" placeholder="0">
-                                    <label class="text-sm font-medium">Tantiem, Bonus, Gratifikasi, THR</label><input type="number" id="bonus" class="form-input p21-income" placeholder="0">
-                                    <label class="text-sm font-bold">Penghasilan Bruto</label><input type="number" id="penghasilan-bruto-bulanan" class="form-input bg-gray-100 font-bold" disabled>
-                                </div>
-                            </div>
-                            <div class="flex gap-4"><button id="resetBtn-pph21-bulanan" class="w-1/2 bg-gray-200 hover:bg-gray-300 font-bold py-2 px-4 rounded-lg">Reset</button><button id="calculateBtn-pph21-bulanan" class="w-1/2 btn-primary text-white font-bold py-2 px-4 rounded-lg">Hitung</button></div>
-                        </div>
-                        <div class="space-y-6 lg:col-start-2">
-                            <div id="result-pph21-bulanan" class="p-4 bg-white border rounded-lg sticky top-6"><h4 class="text-lg font-semibold border-b pb-2 mb-4">B. Penghitungan PPh Pasal 21</h4><div class="text-center text-gray-500">Hasil perhitungan akan muncul di sini.</div></div>
-                            <div class="p-4 bg-white border rounded-lg">
-                                <h4 class="text-lg font-semibold mb-3">Kalkulasi Massal</h4>
-                                <div class="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg text-sm text-blue-800">
-                                    <h5 class="font-bold mb-2">Cara Menggunakan Fitur Impor:</h5>
-                                    <ol class="list-decimal list-inside space-y-1">
-                                        <li><strong>Unduh Template:</strong> Klik tombol "Unduh Template" untuk mendapatkan file Excel.</li>
-                                        <li><strong>Isi Data:</strong> Buka file dan isi data karyawan sesuai kolom yang tersedia. Gunakan sheet "Referensi PTKP" untuk kode status yang benar.</li>
-                                        <li><strong>Impor File:</strong> Klik "Impor dari Excel" dan pilih file yang sudah Anda isi.</li>
-                                        <li><strong>Ekspor Hasil:</strong> Setelah hasil perhitungan muncul di bawah, Anda bisa mengekspornya ke dalam file Excel baru.</li>
-                                    </ol>
-                                </div>
-                                <div class="flex flex-col sm:flex-row justify-center gap-4">
-                                    <button id="template-excel-btn-pph21" class="text-sm bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg flex-1">Unduh Template</button>
-                                    <label for="import-excel-pph21" class="text-sm bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg cursor-pointer flex-1 text-center">Impor dari Excel</label>
-                                    <input type="file" id="import-excel-pph21" class="hidden" accept=".xlsx, .xls">
-                                </div>
-                            </div>
-                            <div id="import-result-pph21" class="hidden"><h4 class="text-lg font-semibold mb-2">Hasil Impor Data</h4><div class="table-responsive max-h-80 border rounded-lg"><table class="min-w-full text-sm whitespace-nowrap"></table></div><button id="export-excel-btn-pph21" class="mt-4 w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg">Ekspor Hasil ke Excel</button></div>
-                        </div>
-                    </div>
+                    <!-- Content for PPh 21 Bulanan will be injected by JS -->
                 </div>
                 <div id="pph21-akhirtahun-content" class="sub-tab-content">
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        <!-- Left Column: Inputs -->
-                        <div class="space-y-6">
-                            <!-- A. Informasi Pegawai -->
-                            <div class="space-y-4 p-4 border rounded-lg">
-                                <h4 class="text-lg font-semibold border-b pb-2">A. Informasi Pegawai & Metode</h4>
-                                <div><label for="status-pegawai-tahunan" class="block text-sm font-medium text-gray-700">Status Pegawai</label><select id="status-pegawai-tahunan" class="form-select mt-1"><option value="tetap">Pegawai Tetap</option><option value="pensiunan">Pensiunan</option></select></div>
-                                <div><label for="status-kawin-tahunan" class="block text-sm font-medium text-gray-700">Status Perkawinan</label><select id="status-kawin-tahunan" class="form-select mt-1"><option value="TK">Tidak Kawin</option><option value="K">Kawin</option><option value="KI">Kawin (Penghasilan Istri Digabung)</option></select></div>
-                                <div><label for="tanggungan-tahunan" class="block text-sm font-medium text-gray-700">Jumlah Tanggungan</label><input type="number" id="tanggungan-tahunan" class="form-input mt-1" min="0" max="3" value="0"></div>
-                                <div><label class="block text-sm font-medium text-gray-700 mt-2">Metode Tunjangan Pajak</label><div class="mt-2 flex gap-4"><label class="inline-flex items-center"><input type="radio" name="tax-method-tahunan" value="gross" checked> <span class="ml-2">Gross</span></label><label class="inline-flex items-center"><input type="radio" name="tax-method-tahunan" value="gross-up"> <span class="ml-2">Gross-up</span></label></div></div>
-                            </div>
-                            
-                            <!-- B. Penghasilan Bruto Setahun -->
-                            <div class="space-y-4 p-4 border rounded-lg">
-                                 <h4 class="text-lg font-semibold border-b pb-2">B. Penghasilan Bruto Setahun</h4>
-                                 <div class="grid grid-cols-2 gap-x-4 gap-y-2 items-center">
-                                     <label class="text-sm font-medium">Gaji/Pensiun Setahun</label><input type="number" id="gaji-tahunan" class="form-input p21-income-tahunan" placeholder="0">
-                                     <label class="text-sm font-medium">Tunjangan PPh</label><input type="number" id="tunjangan-pph-tahunan" class="form-input p21-income-tahunan" placeholder="0">
-                                     <label class="text-sm font-medium">Tunjangan Lainnya, Uang Lembur, dll.</label><input type="number" id="tunjangan-lain-tahunan" class="form-input p21-income-tahunan" placeholder="0">
-                                     <label class="text-sm font-medium">Honorarium dan Imbalan Sejenis</label><input type="number" id="honorarium-tahunan" class="form-input p21-income-tahunan" placeholder="0">
-                                     <label class="text-sm font-medium">Premi Asuransi</label><input type="number" id="premi-asuransi-tahunan" class="form-input p21-income-tahunan" placeholder="0">
-                                     <label class="text-sm font-medium">Natura & Kenikmatan</label><input type="number" id="natura-tahunan" class="form-input p21-income-tahunan" placeholder="0">
-                                     <label class="text-sm font-medium">Bonus, THR, dsb.</label><input type="number" id="bonus-tahunan" class="form-input p21-income-tahunan" placeholder="0">
-                                     <label class="text-sm font-bold">Total Penghasilan Bruto</label><input type="text" id="total-bruto-tahunan" class="form-input bg-gray-100 font-bold" disabled>
-                                 </div>
-                            </div>
-                            
-                            <!-- C. Pengurang -->
-                            <div class="space-y-4 p-4 border rounded-lg">
-                                <h4 class="text-lg font-semibold border-b pb-2">C. Pengurang</h4>
-                                <div class="grid grid-cols-2 gap-x-4 gap-y-2 items-center">
-                                    <label class="text-sm font-medium">Iuran Pensiun / THT / JHT</label><input type="number" id="iuran-pensiun-tahunan" class="form-input p21-pengurang-tahunan" placeholder="0">
-                                    <label class="text-sm font-medium">Zakat/Sumbangan Wajib</label><input type="number" id="zakat-tahunan" class="form-input p21-pengurang-tahunan" placeholder="0">
-                                    <label class="text-sm font-medium">Biaya Jabatan/Pensiun</label><input type="text" id="biaya-jabatan-pensiun-tahunan" class="form-input bg-gray-100" disabled>
-                                    <label class="text-sm font-bold">Jumlah Pengurang</label><input type="text" id="total-pengurang-tahunan" class="form-input bg-gray-100 font-bold" disabled>
-                                </div>
-                            </div>
-                            
-                            <!-- D. PPh 21 Telah Dipotong -->
-                            <div class="space-y-4 p-4 border rounded-lg">
-                                 <h4 class="text-lg font-semibold border-b pb-2">D. PPh 21 Telah Dipotong</h4>
-                                 <div><label for="pph21-dipotong-sebelumnya" class="block text-sm font-medium text-gray-700">Total PPh 21 dipotong (Jan - Nov)</label><input type="number" id="pph21-dipotong-sebelumnya" class="form-input mt-1" placeholder="0"></div>
-                            </div>
-                            
-                            <div id="error-container-pph21-tahunan" class="my-4"></div>
-                            <div class="flex gap-4"><button id="resetBtn-pph21-tahunan" class="w-1/2 bg-gray-200 hover:bg-gray-300 font-bold py-2 px-4 rounded-lg">Reset</button><button id="calculateBtn-pph21-tahunan" class="w-1/2 btn-primary text-white font-bold py-2 px-4 rounded-lg">Hitung</button></div>
-                        </div>
-                        
-                        <!-- Right Column: Results & Bulk Calc -->
-                        <div class="space-y-6">
-                            <div id="result-pph21-akhirtahun" class="p-4 bg-white border rounded-lg sticky top-6">
-                                <h4 class="text-lg font-semibold border-b pb-2 mb-4">E. Hasil Perhitungan</h4>
-                                <div class="text-center text-gray-500">Hasil perhitungan akan muncul di sini.</div>
-                            </div>
-                             <div class="p-4 bg-white border rounded-lg">
-                                <h4 class="text-lg font-semibold mb-3">Kalkulasi Massal (Masa Terakhir)</h4>
-                                <div class="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg text-sm text-blue-800">
-                                    <h5 class="font-bold mb-2">Cara Menggunakan Fitur Impor:</h5>
-                                    <ol class="list-decimal list-inside space-y-1">
-                                        <li><strong>Unduh Template:</strong> Dapatkan file Excel untuk diisi.</li>
-                                        <li><strong>Isi Data:</strong> Masukkan data tahunan setiap karyawan.</li>
-                                        <li><strong>Impor File:</strong> Pilih file yang sudah diisi untuk dihitung.</li>
-                                        <li><strong>Ekspor Hasil:</strong> Simpan hasil perhitungan PPh masa terakhir ke file Excel baru.</li>
-                                    </ol>
-                                </div>
-                                <div class="flex flex-col sm:flex-row justify-center gap-4">
-                                    <button id="template-excel-btn-pph21-tahunan" class="text-sm bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg flex-1">Unduh Template</button>
-                                    <label for="import-excel-pph21-tahunan" class="text-sm bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg cursor-pointer flex-1 text-center">Impor dari Excel</label>
-                                    <input type="file" id="import-excel-pph21-tahunan" class="hidden" accept=".xlsx, .xls">
-                                </div>
-                            </div>
-                            <div id="import-result-pph21-tahunan" class="hidden">
-                                <h4 class="text-lg font-semibold mb-2">Hasil Impor Data (Masa Terakhir)</h4>
-                                <div class="table-responsive max-h-80 border rounded-lg">
-                                    <table class="min-w-full text-sm whitespace-nowrap"></table>
-                                </div>
-                                <button id="export-excel-btn-pph21-tahunan" class="mt-4 w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg">Ekspor Hasil ke Excel</button>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Content for PPh 21 Akhir Tahun will be injected by JS -->
                 </div>
             </div>
         </div>
@@ -194,8 +88,130 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
+
+        const bulananContent = `
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                    <div class="space-y-4 p-4 border rounded-lg">
+                        <h4 class="text-lg font-semibold border-b pb-2">Data Personal</h4>
+                        <div><label for="status-pegawai" class="block text-sm font-medium text-gray-700">Status Pegawai</label><select id="status-pegawai" class="form-select mt-1"><option>Pegawai Tetap</option><option>Pensiunan</option></select></div>
+                        <div><label for="ptkp-status-bulanan" class="block text-sm font-medium text-gray-700">Status Kawin & Tanggungan</label><select id="ptkp-status-bulanan" class="form-select mt-1"></select></div>
+                        <div><label class="block text-sm font-medium text-gray-700">Metode Tunjangan Pajak</label><div class="mt-2 flex gap-4"><label class="inline-flex items-center"><input type="radio" name="tax-method" value="gross" checked> <span class="ml-2">Gross</span></label><label class="inline-flex items-center"><input type="radio" name="tax-method" value="gross-up"> <span class="ml-2">Gross-up</span></label></div></div>
+                    </div>
+                    <div class="space-y-4 p-4 border rounded-lg">
+                        <h4 class="text-lg font-semibold border-b pb-2">A. Penghasilan</h4>
+                        <div class="grid grid-cols-2 gap-4 items-center">
+                            <label class="text-sm font-medium">Gaji/Pensiun atau THT/JHT</label><input type="number" id="gaji" class="form-input p21-income" placeholder="0">
+                            <label class="text-sm font-medium">Tunjangan PPh</label><input type="number" id="tunjangan-pph" class="form-input p21-income" placeholder="0">
+                            <label class="text-sm font-medium">Tunjangan Lainnya, Lembur, dsb.</label><input type="number" id="tunjangan-lain" class="form-input p21-income" placeholder="0">
+                            <label class="text-sm font-medium">Honorarium & Imbalan Lain</label><input type="number" id="honorarium" class="form-input p21-income" placeholder="0">
+                            <label class="text-sm font-medium">Premi Asuransi (oleh Pemberi Kerja)</label><input type="number" id="premi-asuransi" class="form-input p21-income" placeholder="0">
+                            <label class="text-sm font-medium">Natura & Kenikmatan Lainnya</label><input type="number" id="natura" class="form-input p21-income" placeholder="0">
+                            <label class="text-sm font-medium">Tantiem, Bonus, Gratifikasi, THR</label><input type="number" id="bonus" class="form-input p21-income" placeholder="0">
+                            <label class="text-sm font-bold">Penghasilan Bruto</label><input type="number" id="penghasilan-bruto-bulanan" class="form-input bg-gray-100 font-bold" disabled>
+                        </div>
+                    </div>
+                    <div class="flex gap-4"><button id="resetBtn-pph21-bulanan" class="w-1/2 bg-gray-200 hover:bg-gray-300 font-bold py-2 px-4 rounded-lg">Reset</button><button id="calculateBtn-pph21-bulanan" class="w-1/2 btn-primary text-white font-bold py-2 px-4 rounded-lg">Hitung</button></div>
+                </div>
+                <div class="space-y-6 lg:col-start-2">
+                    <div id="result-pph21-bulanan" class="p-4 bg-white border rounded-lg sticky top-24"><h4 class="text-lg font-semibold border-b pb-2 mb-4">B. Penghitungan PPh Pasal 21</h4><div class="text-center text-gray-500">Hasil perhitungan akan muncul di sini.</div></div>
+                    <div class="p-4 bg-white border rounded-lg">
+                        <h4 class="text-lg font-semibold mb-3">Kalkulasi Massal</h4>
+                        <div class="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-800">
+                            <h5 class="font-bold mb-2">Cara Menggunakan Fitur Impor:</h5>
+                            <ol class="list-decimal list-inside space-y-1">
+                                <li><strong>Unduh Template:</strong> Klik tombol "Unduh Template" untuk mendapatkan file Excel.</li>
+                                <li><strong>Isi Data:</strong> Buka file dan isi data karyawan sesuai kolom yang tersedia. Gunakan sheet "Referensi PTKP" untuk kode status yang benar.</li>
+                                <li><strong>Impor File:</strong> Klik "Impor dari Excel" dan pilih file yang sudah Anda isi.</li>
+                                <li><strong>Ekspor Hasil:</strong> Setelah hasil perhitungan muncul di bawah, Anda bisa mengekspornya ke dalam file Excel baru.</li>
+                            </ol>
+                        </div>
+                        <div class="flex flex-col sm:flex-row justify-center gap-4">
+                            <button id="template-excel-btn-pph21" class="text-sm bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg flex-1">Unduh Template</button>
+                            <label for="import-excel-pph21" class="btn-primary text-sm font-bold py-2 px-4 rounded-lg cursor-pointer flex-1 text-center">Impor dari Excel</label>
+                            <input type="file" id="import-excel-pph21" class="hidden" accept=".xlsx, .xls">
+                        </div>
+                    </div>
+                    <div id="import-result-pph21" class="hidden"><h4 class="text-lg font-semibold mb-2">Hasil Impor Data</h4><div class="table-responsive max-h-80 border rounded-lg"><table class="min-w-full text-sm whitespace-nowrap"></table></div><button id="export-excel-btn-pph21" class="mt-4 w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg">Ekspor Hasil ke Excel</button></div>
+                </div>
+            </div>`;
+
+        const akhirTahunContent = `
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Left Column: Inputs -->
+                <div class="space-y-6">
+                    <div class="space-y-4 p-4 border rounded-lg">
+                        <h4 class="text-lg font-semibold border-b pb-2">A. Informasi Pegawai & Metode</h4>
+                        <div><label for="status-pegawai-tahunan" class="block text-sm font-medium text-gray-700">Status Pegawai</label><select id="status-pegawai-tahunan" class="form-select mt-1"><option value="tetap">Pegawai Tetap</option><option value="pensiunan">Pensiunan</option></select></div>
+                        <div><label for="status-kawin-tahunan" class="block text-sm font-medium text-gray-700">Status Perkawinan</label><select id="status-kawin-tahunan" class="form-select mt-1"><option value="TK">Tidak Kawin</option><option value="K">Kawin</option><option value="KI">Kawin (Penghasilan Istri Digabung)</option></select></div>
+                        <div><label for="tanggungan-tahunan" class="block text-sm font-medium text-gray-700">Jumlah Tanggungan</label><input type="number" id="tanggungan-tahunan" class="form-input mt-1" min="0" max="3" value="0"></div>
+                        <div><label class="block text-sm font-medium text-gray-700 mt-2">Metode Tunjangan Pajak</label><div class="mt-2 flex gap-4"><label class="inline-flex items-center"><input type="radio" name="tax-method-tahunan" value="gross" checked> <span class="ml-2">Gross</span></label><label class="inline-flex items-center"><input type="radio" name="tax-method-tahunan" value="gross-up"> <span class="ml-2">Gross-up</span></label></div></div>
+                    </div>
+                    <div class="space-y-4 p-4 border rounded-lg">
+                         <h4 class="text-lg font-semibold border-b pb-2">B. Penghasilan Bruto Setahun</h4>
+                         <div class="grid grid-cols-2 gap-x-4 gap-y-2 items-center">
+                             <label class="text-sm font-medium">Gaji/Pensiun Setahun</label><input type="number" id="gaji-tahunan" class="form-input p21-income-tahunan" placeholder="0">
+                             <label class="text-sm font-medium">Tunjangan PPh</label><input type="number" id="tunjangan-pph-tahunan" class="form-input p21-income-tahunan" placeholder="0">
+                             <label class="text-sm font-medium">Tunjangan Lainnya, Uang Lembur, dll.</label><input type="number" id="tunjangan-lain-tahunan" class="form-input p21-income-tahunan" placeholder="0">
+                             <label class="text-sm font-medium">Honorarium dan Imbalan Sejenis</label><input type="number" id="honorarium-tahunan" class="form-input p21-income-tahunan" placeholder="0">
+                             <label class="text-sm font-medium">Premi Asuransi</label><input type="number" id="premi-asuransi-tahunan" class="form-input p21-income-tahunan" placeholder="0">
+                             <label class="text-sm font-medium">Natura & Kenikmatan</label><input type="number" id="natura-tahunan" class="form-input p21-income-tahunan" placeholder="0">
+                             <label class="text-sm font-medium">Bonus, THR, dsb.</label><input type="number" id="bonus-tahunan" class="form-input p21-income-tahunan" placeholder="0">
+                             <label class="text-sm font-bold">Total Penghasilan Bruto</label><input type="text" id="total-bruto-tahunan" class="form-input bg-gray-100 font-bold" disabled>
+                         </div>
+                    </div>
+                    <div class="space-y-4 p-4 border rounded-lg">
+                        <h4 class="text-lg font-semibold border-b pb-2">C. Pengurang</h4>
+                        <div class="grid grid-cols-2 gap-x-4 gap-y-2 items-center">
+                            <label class="text-sm font-medium">Iuran Pensiun / THT / JHT</label><input type="number" id="iuran-pensiun-tahunan" class="form-input p21-pengurang-tahunan" placeholder="0">
+                            <label class="text-sm font-medium">Zakat/Sumbangan Wajib</label><input type="number" id="zakat-tahunan" class="form-input p21-pengurang-tahunan" placeholder="0">
+                            <label class="text-sm font-medium">Biaya Jabatan/Pensiun</label><input type="text" id="biaya-jabatan-pensiun-tahunan" class="form-input bg-gray-100" disabled>
+                            <label class="text-sm font-bold">Jumlah Pengurang</label><input type="text" id="total-pengurang-tahunan" class="form-input bg-gray-100 font-bold" disabled>
+                        </div>
+                    </div>
+                    <div class="space-y-4 p-4 border rounded-lg">
+                         <h4 class="text-lg font-semibold border-b pb-2">D. PPh 21 Telah Dipotong</h4>
+                         <div><label for="pph21-dipotong-sebelumnya" class="block text-sm font-medium text-gray-700">Total PPh 21 dipotong (Jan - Nov)</label><input type="number" id="pph21-dipotong-sebelumnya" class="form-input mt-1" placeholder="0"></div>
+                    </div>
+                    <div id="error-container-pph21-tahunan" class="my-4"></div>
+                    <div class="flex gap-4"><button id="resetBtn-pph21-tahunan" class="w-1/2 bg-gray-200 hover:bg-gray-300 font-bold py-2 px-4 rounded-lg">Reset</button><button id="calculateBtn-pph21-tahunan" class="w-1/2 btn-primary text-white font-bold py-2 px-4 rounded-lg">Hitung</button></div>
+                </div>
+                <div class="space-y-6">
+                    <div id="result-pph21-akhirtahun" class="p-4 bg-white border rounded-lg sticky top-24">
+                        <h4 class="text-lg font-semibold border-b pb-2 mb-4">E. Hasil Perhitungan</h4>
+                        <div class="text-center text-gray-500">Hasil perhitungan akan muncul di sini.</div>
+                    </div>
+                     <div class="p-4 bg-white border rounded-lg">
+                        <h4 class="text-lg font-semibold mb-3">Kalkulasi Massal (Masa Terakhir)</h4>
+                        <div class="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-800">
+                            <h5 class="font-bold mb-2">Cara Menggunakan Fitur Impor:</h5>
+                            <ol class="list-decimal list-inside space-y-1">
+                                <li><strong>Unduh Template:</strong> Dapatkan file Excel untuk diisi.</li>
+                                <li><strong>Isi Data:</strong> Masukkan data tahunan setiap karyawan.</li>
+                                <li><strong>Impor File:</strong> Pilih file yang sudah diisi untuk dihitung.</li>
+                                <li><strong>Ekspor Hasil:</strong> Simpan hasil perhitungan PPh masa terakhir ke file Excel baru.</li>
+                            </ol>
+                        </div>
+                        <div class="flex flex-col sm:flex-row justify-center gap-4">
+                            <button id="template-excel-btn-pph21-tahunan" class="text-sm bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg flex-1">Unduh Template</button>
+                            <label for="import-excel-pph21-tahunan" class="btn-primary text-sm font-bold py-2 px-4 rounded-lg cursor-pointer flex-1 text-center">Impor dari Excel</label>
+                            <input type="file" id="import-excel-pph21-tahunan" class="hidden" accept=".xlsx, .xls">
+                        </div>
+                    </div>
+                    <div id="import-result-pph21-tahunan" class="hidden">
+                        <h4 class="text-lg font-semibold mb-2">Hasil Impor Data (Masa Terakhir)</h4>
+                        <div class="table-responsive max-h-80 border rounded-lg">
+                            <table class="min-w-full text-sm whitespace-nowrap"></table>
+                        </div>
+                        <button id="export-excel-btn-pph21-tahunan" class="mt-4 w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg">Ekspor Hasil ke Excel</button>
+                    </div>
+                </div>
+            </div>`;
         
-        // --- DATA & HELPER FUNCTIONS ---
+        document.getElementById('pph21-bulanan-content').innerHTML = bulananContent;
+        document.getElementById('pph21-akhirtahun-content').innerHTML = akhirTahunContent;
+
+        const fullPph21Script = () => {
         const formatNumber = (num) => new Intl.NumberFormat('id-ID').format(Math.round(num));
         function showError(containerId, message) {
             const errorContainer = document.getElementById(containerId);
@@ -206,7 +222,6 @@
             if(errorContainer) errorContainer.innerHTML = '';
         }
         
-        // --- PPh 21 DATA ---
         const ptkpRates = {
             'TK0': { ptkp: 54000000, category: 'A' }, 'TK1': { ptkp: 58500000, category: 'A' },
             'TK2': { ptkp: 63000000, category: 'B' }, 'TK3': { ptkp: 67500000, category: 'B' },
@@ -217,12 +232,11 @@
         };
 
         const ter_A = [{ from: 0, to: 5400000, rate: 0.0 }, { from: 5400001, to: 5650000, rate: 0.0025 }, { from: 5650001, to: 5950000, rate: 0.005 }, { from: 5950001, to: 6300000, rate: 0.0075 }, { from: 6300001, to: 6750000, rate: 0.01 }, { from: 6750001, to: 7500000, rate: 0.0125 }, { from: 7500001, to: 8550000, rate: 0.015 }, { from: 8550001, to: 9650000, rate: 0.0175 }, { from: 9650001, to: 10050000, rate: 0.02 }, { from: 10050001, to: 10350000, rate: 0.0225 }, { from: 10350001, to: 10700000, rate: 0.025 }, { from: 10700001, to: 11050000, rate: 0.03 }, { from: 11050001, to: 11600000, rate: 0.035 }, { from: 11600001, to: 12500000, rate: 0.04 }, { from: 12500001, to: 13750000, rate: 0.05 }, { from: 13750001, to: 15100000, rate: 0.06 }, { from: 15100001, to: 16950000, rate: 0.07 }, { from: 16950001, to: 19750000, rate: 0.08 }, { from: 19750001, to: 24150000, rate: 0.09 }, { from: 24150001, to: 26450000, rate: 0.1 }, { from: 26450001, to: 28000000, rate: 0.11 }, { from: 28000001, to: 30050000, rate: 0.12 }, { from: 30050001, to: 32400000, rate: 0.13 }, { from: 32400001, to: 35400000, rate: 0.14 }, { from: 35400001, to: 39100000, rate: 0.15 }, { from: 39100001, to: 43850000, rate: 0.16 }, { from: 43850001, to: 47800000, rate: 0.17 }, { from: 47800001, to: 51400000, rate: 0.18 }, { from: 51400001, to: 56300000, rate: 0.19 }, { from: 56300001, to: 62200000, rate: 0.2 }, { from: 62200001, to: 68600000, rate: 0.21 }, { from: 68600001, to: 77500000, rate: 0.22 }, { from: 77500001, to: 89000000, rate: 0.23 }, { from: 89000001, to: 103000000, rate: 0.24 }, { from: 103000001, to: 125000000, rate: 0.25 }, { from: 125000001, to: 157000000, rate: 0.26 }, { from: 157000001, to: 206000000, rate: 0.27 }, { from: 206000001, to: 337000000, rate: 0.28 }, { from: 337000001, to: 454000000, rate: 0.29 }, { from: 454000001, to: 550000000, rate: 0.3 }, { from: 550000001, to: 695000000, rate: 0.31 }, { from: 695000001, to: 910000000, rate: 0.32 }, { from: 910000001, to: 1400000000, rate: 0.33 }, { from: 1400000001, to: Infinity, rate: 0.34 }];
-        const ter_B = [{ from: 0, to: 6200000, rate: 0.0 }, { from: 6200001, to: 6500000, rate: 0.0025 }, { from: 6500001, to: 6850000, rate: 0.005 }, { from: 6850001, to: 7300000, rate: 0.0075 }, { from: 7300001, to: 9200000, rate: 0.01 }, { from: 9200001, to: 10750000, rate: 0.015 }, { from: 10750001, to: 11250000, rate: 0.02 }, { from: 11250001, to: 11600000, rate: 0.025 }, { from: 11600001, to: 12600000, rate: 0.03 }, { from: 12600001, to: 13600000, rate: 0.04 }, { from: 13600001, to: 14950000, rate: 0.05 }, { from: 14950001, to: 16400000, rate: 0.06 }, { from: 16400001, to: 18450000, rate: 0.07 }, { from: 18450001, to: 21850000, rate: 0.08 }, { from: 21850001, to: 26000000, rate: 0.09 }, { from: 26000001, to: 27700000, rate: 0.1 }, { from: 27700001, to: 29350000, rate: 0.11 }, { from: 29350001, to: 31450000, rate: 0.12 }, { from: 31450001, to: 33950000, rate: 0.13 }, { from: 33950001, to: 37100000, rate: 0.14 }, { from: 37100001, to: 41100000, rate: 0.15 }, { from: 41100001, to: 45800000, rate: 0.16 }, { from: 45800001, to: 49500000, rate: 0.17 }, { from: 49500001, to: 53800000, rate: 0.18 }, { from: 53800001, to: 58500000, rate: 0.19 }, { from: 58500001, to: 64000000, rate: 0.2 }, { from: 64000001, to: 71000000, rate: 0.21 }, { from: 71000001, to: 80000000, rate: 0.22 }, { from: 80000001, to: 93000000, rate: 0.23 }, { from: 93000001, to: 109000000, rate: 0.24 }, { from: 109000001, to: 129000000, rate: 0.25 }, { from: 129000001, to: 163000000, rate: 0.26 }, { from: 163000001, to: 211000000, rate: 0.27 }, { from: 211000001, to: 374000000, rate: 0.28 }, { from: 374000001, to: 459000000, rate: 0.29 }, { from: 459000001, to: 555000000, rate: 0.3 }, { from: 555000001, to: 704000000, rate: 0.31 }, { from: 704000001, to: 957000000, rate: 0.32 }, { from: 957000001, to: 1405000000, rate: 0.33 }, { from: 1405000001, to: Infinity, rate: 0.34 }];
-        const ter_C = [{ from: 0, to: 6600000, rate: 0.0 }, { from: 6600001, to: 6950000, rate: 0.0025 }, { from: 6950001, to: 7350000, rate: 0.005 }, { from: 7350001, to: 7800000, rate: 0.0075 }, { from: 7800001, to: 8850000, rate: 0.01 }, { from: 8850001, to: 9800000, rate: 0.0125 }, { from: 9800001, to: 10950000, rate: 0.015 }, { from: 10950001, to: 11200000, rate: 0.0175 }, { from: 11200001, to: 12050000, rate: 0.02 }, { from: 12050001, to: 12950000, rate: 0.03 }, { from: 12950001, to: 14150000, rate: 0.04 }, { from: 14150001, to: 15550000, rate: 0.05 }, { from: 15550001, to: 17050000, rate: 0.06 }, { from: 17050001, to: 19500000, rate: 0.07 }, { from: 19500001, to: 22700000, rate: 0.08 }, { from: 22700001, to: 26600000, rate: 0.09 }, { from: 26600001, to: 28100000, rate: 0.1 }, { from: 28100001, to: 30100000, rate: 0.11 }, { from: 30100001, to: 32600000, rate: 0.12 }, { from: 32600001, to: 35400000, rate: 0.13 }, { from: 35400001, to: 38900000, rate: 0.14 }, { from: 38900001, to: 43000000, rate: 0.15 }, { from: 4300001, to: 47400000, rate: 0.16 }, { from: 47400001, to: 51200000, rate: 0.17 }, { from: 51200001, to: 55800000, rate: 0.18 }, { from: 55800001, to: 60400000, rate: 0.19 }, { from: 60400001, to: 66700000, rate: 0.2 }, { from: 66700001, to: 74500000, rate: 0.21 }, { from: 74500001, to: 83200000, rate: 0.22 }, { from: 83200001, to: 95600000, rate: 0.23 }, { from: 95600001, to: 110000000, rate: 0.24 }, { from: 110000001, to: 134000000, rate: 0.25 }, { from: 134000001, to: 169000000, rate: 0.26 }, { from: 169000001, to: 221000000, rate: 0.27 }, { from: 221000001, to: 390000000, rate: 0.28 }, { from: 390000001, to: 463000000, rate: 0.29 }, { from: 463000001, to: 561000000, rate: 0.3 }, { from: 561000001, to: 709000000, rate: 0.31 }, { from: 709000001, to: 965000000, rate: 0.32 }, { from: 965000001, to: 1419000000, rate: 0.33 }, { from: 1419000001, to: Infinity, rate: 0.34 }];
+        const ter_B = [{ from: 0, to: 6200000, rate: 0.0 }, { from: 6200001, to: 6500000, rate: 0.0025 }, { from: 6500001, to: 6850000, rate: 0.005 }, { from: 6850001, to: 7300000, rate: 0.0075 }, { from: 7300001, to: 9200000, rate: 0.01 }, { from: 9200001, to: 10750000, rate: 0.015 }, { from: 10750001, to: 11250000, rate: 0.02 }, { from: 11250001, to: 11600000, rate: 0.025 }, { from: 11600001, to: 12600000, rate: 0.03 }, { from: 12600001, to: 13600000, rate: 0.04 }, { from: 13600001, to: 14950000, rate: 0.05 }, { from: 14950001, to: 16400000, rate: 0.06 }, { from: 16400001, to: 18450000, rate: 0.07 }, { from: 18450001, to: 21850000, rate: 0.08 }, { from: 21850001, to: 26000000, rate: 0.09 }, { from: 26000001, to: 27700000, rate: 0.1 }, { from: 27700001, to: 29350000, rate: 0.11 }, { from: 29350001, to: 31450000, rate: 0.12 }, { from: 31450001, to: 33950000, rate: 0.13 }, { from: 33950001, to: 37100000, rate: 0.14 }, { from: 37100001, to: 41100000, rate: 0.15 }, { from: 411000001, to: 45800000, rate: 0.16 }, { from: 45800001, to: 49500000, rate: 0.17 }, { from: 49500001, to: 53800000, rate: 0.18 }, { from: 53800001, to: 58500000, rate: 0.19 }, { from: 58500001, to: 64000000, rate: 0.2 }, { from: 64000001, to: 71000000, rate: 0.21 }, { from: 71000001, to: 80000000, rate: 0.22 }, { from: 80000001, to: 93000000, rate: 0.23 }, { from: 93000001, to: 109000000, rate: 0.24 }, { from: 109000001, to: 129000000, rate: 0.25 }, { from: 129000001, to: 163000000, rate: 0.26 }, { from: 163000001, to: 211000000, rate: 0.27 }, { from: 211000001, to: 374000000, rate: 0.28 }, { from: 374000001, to: 459000000, rate: 0.29 }, { from: 459000001, to: 555000000, rate: 0.3 }, { from: 555000001, to: 704000000, rate: 0.31 }, { from: 704000001, to: 957000000, rate: 0.32 }, { from: 957000001, to: 1405000000, rate: 0.33 }, { from: 1405000001, to: Infinity, rate: 0.34 }];
+        const ter_C = [{ from: 0, to: 6600000, rate: 0.0 }, { from: 6600001, to: 6950000, rate: 0.0025 }, { from: 6950001, to: 7350000, rate: 0.005 }, { from: 7350001, to: 7800000, rate: 0.0075 }, { from: 7800001, to: 8850000, rate: 0.01 }, { from: 8850001, to: 9800000, rate: 0.0125 }, { from: 9800001, to: 10950000, rate: 0.015 }, { from: 10950001, to: 11200000, rate: 0.0175 }, { from: 11200001, to: 12050000, rate: 0.02 }, { from: 12050001, to: 12950000, rate: 0.03 }, { from: 12950001, to: 14150000, rate: 0.04 }, { from: 14150001, to: 15550000, rate: 0.05 }, { from: 15550001, to: 17050000, rate: 0.06 }, { from: 17050001, to: 19500000, rate: 0.07 }, { from: 19500001, to: 22700000, rate: 0.08 }, { from: 22700001, to: 26600000, rate: 0.09 }, { from: 26600001, to: 28100000, rate: 0.1 }, { from: 28100001, to: 30100000, rate: 0.11 }, { from: 30100001, to: 32600000, rate: 0.12 }, { from: 32600001, to: 35400000, rate: 0.13 }, { from: 35400001, to: 38900000, rate: 0.14 }, { from: 38900001, to: 43000000, rate: 0.15 }, { from: 43000001, to: 47400000, rate: 0.16 }, { from: 47400001, to: 51200000, rate: 0.17 }, { from: 51200001, to: 55800000, rate: 0.18 }, { from: 55800001, to: 60400000, rate: 0.19 }, { from: 60400001, to: 66700000, rate: 0.2 }, { from: 66700001, to: 74500000, rate: 0.21 }, { from: 74500001, to: 83200000, rate: 0.22 }, { from: 83200001, to: 95600000, rate: 0.23 }, { from: 95600001, to: 110000000, rate: 0.24 }, { from: 110000001, to: 134000000, rate: 0.25 }, { from: 134000001, to: 169000000, rate: 0.26 }, { from: 169000001, to: 221000000, rate: 0.27 }, { from: 221000001, to: 390000000, rate: 0.28 }, { from: 390000001, to: 463000000, rate: 0.29 }, { from: 463000001, to: 561000000, rate: 0.3 }, { from: 561000001, to: 709000000, rate: 0.31 }, { from: 709000001, to: 965000000, rate: 0.32 }, { from: 965000001, to: 1419000000, rate: 0.33 }, { from: 1419000001, to: Infinity, rate: 0.34 }];
         
         const ptkpOptions = [ { value: 'TK0', text: 'TK/0 - Tidak Kawin, 0 Tanggungan' }, { value: 'TK1', text: 'TK/1 - Tidak Kawin, 1 Tanggungan' }, { value: 'TK2', text: 'TK/2 - Tidak Kawin, 2 Tanggungan' }, { value: 'TK3', text: 'TK/3 - Tidak Kawin, 3 Tanggungan' }, { value: 'K0', text: 'K/0 - Kawin, 0 Tanggungan' }, { value: 'K1', text: 'K/1 - Kawin, 1 Tanggungan' }, { value: 'K2', text: 'K/2 - Kawin, 2 Tanggungan' }, { value: 'K3', text: 'K/3 - Kawin, 3 Tanggungan' }, { value: 'KI0', text: 'K/I/0 - Kawin (Istri Bekerja), 0 Tanggungan' }, { value: 'KI1', text: 'K/I/1 - Kawin (Istri Bekerja), 1 Tanggungan' }, { value: 'KI2', text: 'K/I/2 - Kawin (Istri Bekerja), 2 Tanggungan' }, { value: 'KI3', text: 'K/I/3 - Kawin (Istri Bekerja), 3 Tanggungan' } ];
 
-        // --- PPh 21 LOGIC ---
         let lastPph21ImportResults = [];
         let lastPph21TahunanImportResults = [];
         function setupPph21() {
@@ -230,15 +244,6 @@
             const ptkpSelectBulanan = pph21Content.querySelector('#ptkp-status-bulanan');
             if(ptkpSelectBulanan) ptkpOptions.forEach(opt => { ptkpSelectBulanan.add(new Option(opt.text, opt.value)); });
             
-            pph21Content.querySelectorAll('.sub-tab-btn').forEach(tab => {
-                tab.addEventListener('click', () => {
-                    pph21Content.querySelectorAll('.sub-tab-btn').forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                    pph21Content.querySelectorAll('.sub-tab-content').forEach(content => { content.classList.toggle('active', content.id === `pph21-${tab.dataset.subtab}-content`); });
-                });
-            });
-
-            // Bulanan
             pph21Content.querySelectorAll('.p21-income').forEach(input => input.addEventListener('input', updateBrutoBulanan));
             pph21Content.querySelectorAll('input[name="tax-method"]').forEach(radio => radio.addEventListener('change', updateBrutoBulanan));
             pph21Content.querySelector('#calculateBtn-pph21-bulanan').addEventListener('click', calculatePph21Bulanan);
@@ -246,18 +251,15 @@
             pph21Content.querySelector('#template-excel-btn-pph21').addEventListener('click', downloadPph21Template);
             pph21Content.querySelector('#import-excel-pph21').addEventListener('change', handlePph21Import);
 
-            // Tahunan
             pph21Content.querySelectorAll('#status-pegawai-tahunan, #status-kawin-tahunan, #tanggungan-tahunan').forEach(el => el.addEventListener('change', updateTahunanTotals));
             pph21Content.querySelectorAll('.p21-income-tahunan, .p21-pengurang-tahunan').forEach(input => input.addEventListener('input', updateTahunanTotals));
             pph21Content.querySelectorAll('input[name="tax-method-tahunan"]').forEach(radio => radio.addEventListener('change', handleTaxMethodChangeTahunan));
             pph21Content.querySelector('#calculateBtn-pph21-tahunan').addEventListener('click', calculatePph21AkhirTahun);
             pph21Content.querySelector('#resetBtn-pph21-tahunan').addEventListener('click', resetFormTahunan);
             
-            // Tahunan - Massal
             pph21Content.querySelector('#template-excel-btn-pph21-tahunan').addEventListener('click', downloadPph21TemplateTahunan);
             pph21Content.querySelector('#import-excel-pph21-tahunan').addEventListener('change', handlePph21ImportTahunan);
 
-            // Initial calls
             handleTaxMethodChangeTahunan();
             updateTahunanTotals();
         }
@@ -266,7 +268,6 @@
             bruto = Math.round(bruto);
             const ptkpInfo = ptkpRates[ptkpStatus];
             if (!ptkpInfo) return { pph21: 0, terRate: 0, category: 'N/A', bruto };
-
             const category = ptkpInfo.category;
             const terTable = category === 'A' ? ter_A : (category === 'B' ? ter_B : ter_C);
             const foundRate = terTable.find(range => bruto >= range.from && bruto <= range.to);
@@ -277,23 +278,17 @@
 
         function calculateGrossUp(baseIncome, ptkpStatus) {
             let tunjanganPph = 0;
-            let pph21, terRate, category, bruto;
-
-            for (let i = 0; i < 10; i++) { // Max 10 iterations
-                bruto = Math.round(baseIncome + tunjanganPph);
+            for (let i = 0; i < 10; i++) {
+                let bruto = Math.round(baseIncome + tunjanganPph);
                 const terResult = calculateTer(bruto, ptkpStatus);
-                
-                if (Math.abs(terResult.pph21 - tunjanganPph) < 1) { // Converged
+                if (Math.abs(terResult.pph21 - tunjanganPph) < 1) {
                     tunjanganPph = terResult.pph21;
                     break;
                 }
                 tunjanganPph = terResult.pph21;
             }
-            
-            // Final calculation with the converged allowance
             const finalBruto = Math.round(baseIncome + tunjanganPph);
             const finalResult = calculateTer(finalBruto, ptkpStatus);
-
             return { 
                 tunjanganPph: Math.round(tunjanganPph), 
                 pphFinal: finalResult.pph21,
@@ -330,13 +325,10 @@
         function calculatePph21Bulanan() {
             let baseBruto = 0;
             document.querySelectorAll('.p21-income').forEach(input => { if(input.id !== 'penghasilan-bruto-bulanan' && input.id !== 'tunjangan-pph') baseBruto += parseFloat(input.value) || 0; });
-            
             const ptkpStatus = document.getElementById('ptkp-status-bulanan').value;
             const resultDiv = document.getElementById('result-pph21-bulanan');
             const isGrossUp = document.querySelector('input[name="tax-method"]:checked').value === 'gross-up';
-
             let finalBruto, pph21, terRate, category, tunjanganPph;
-
             if (isGrossUp) {
                 const grossUpResult = calculateGrossUp(baseBruto, ptkpStatus);
                 tunjanganPph = grossUpResult.tunjanganPph;
@@ -344,7 +336,6 @@
                 finalBruto = grossUpResult.finalBruto;
                 terRate = grossUpResult.terRate;
                 category = grossUpResult.category;
-                
                 document.getElementById('tunjangan-pph').value = tunjanganPph;
                 document.getElementById('penghasilan-bruto-bulanan').value = finalBruto;
             } else {
@@ -358,20 +349,16 @@
                 terRate = terResult.terRate;
                 category = terResult.category;
             }
-
-            resultDiv.innerHTML = `<h4 class="font-bold text-lg mb-3">Hasil Perhitungan</h4><div class="space-y-3 text-sm"><div class="result-item"><span>Penghasilan Bruto</span> <span class="font-semibold">Rp ${formatNumber(finalBruto)}</span></div><div class="result-item"><span>Status PTKP / Kategori</span> <span class="font-semibold">${ptkpStatus} / ${category}</span></div><div class="result-item"><span>Tarif Efektif (TER)</span> <span class="font-semibold">${(terRate * 100).toFixed(4).replace(/\.?0+$/, '')}%</span></div></div><div class="mt-4 pt-4 border-t-2 border-dashed"><div class="flex justify-between items-center"><span class="text-base font-semibold">PPh 21 Terutang Bulan Ini</span><span class="text-xl font-bold text-indigo-600">Rp ${formatNumber(pph21)}</span></div></div>`;
+            resultDiv.innerHTML = `<h4 class="font-bold text-lg mb-3">Hasil Perhitungan</h4><div class="space-y-3 text-sm"><div class="result-item"><span>Penghasilan Bruto</span> <span class="font-semibold">Rp ${formatNumber(finalBruto)}</span></div><div class="result-item"><span>Status PTKP / Kategori</span> <span class="font-semibold">${ptkpStatus} / ${category}</span></div><div class="result-item"><span>Tarif Efektif (TER)</span> <span class="font-semibold">${(terRate * 100).toFixed(4).replace(/\.?0+$/, '')}%</span></div></div><div class="mt-4 pt-4 border-t-2 border-dashed border-red-300"><div class="flex justify-between items-center"><span class="text-base font-semibold">PPh 21 Terutang Bulan Ini</span><span class="text-xl font-bold text-red-600">Rp ${formatNumber(pph21)}</span></div></div>`;
         }
 
         function downloadPph21Template() {
             const mainHeaders = [['NIK', 'Nama Pegawai', 'Status PTKP (e.g., K0, TK2)', 'Metode (GROSS / GROSSUP)', 'Gaji/Pensiun', 'Tunjangan PPh (jika GROSS)', 'Tunjangan Lain', 'Honorarium', 'Premi Asuransi', 'Natura', 'Bonus/THR']];
             const refHeaders = [['Kode PTKP', 'Keterangan'], ...ptkpOptions.map(o => [o.value, o.text])];
-            
             const wsMain = XLSX.utils.aoa_to_sheet(mainHeaders);
             wsMain['!cols'] = [{wch: 18}, {wch: 25}, {wch: 25}, {wch: 25}, {wch: 15}, {wch: 25}, {wch: 15}, {wch: 15}, {wch: 15}, {wch: 15}, {wch: 15}];
-            
             const wsRef = XLSX.utils.aoa_to_sheet(refHeaders);
             wsRef['!cols'] = [{wch: 15}, {wch: 40}];
-
             const wb = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(wb, wsMain, "Template Impor");
             XLSX.utils.book_append_sheet(wb, wsRef, "Referensi PTKP");
@@ -398,9 +385,7 @@
                 const ptkpStatus = row['Status PTKP (e.g., K0, TK2)']?.trim().toUpperCase() || 'TK0';
                 const baseIncome = (parseFloat(row['Gaji/Pensiun']) || 0) + (parseFloat(row['Tunjangan Lain']) || 0) + (parseFloat(row['Honorarium']) || 0) + (parseFloat(row['Premi Asuransi']) || 0) + (parseFloat(row['Natura']) || 0) + (parseFloat(row['Bonus/THR']) || 0);
                 const method = row['Metode (GROSS / GROSSUP)']?.trim().toUpperCase() === 'GROSSUP' ? 'gross-up' : 'gross';
-
                 let finalBruto, pph21, tunjanganPph = 0;
-
                 if(method === 'gross-up') {
                     const grossUpResult = calculateGrossUp(baseIncome, ptkpStatus);
                     tunjanganPph = grossUpResult.tunjanganPph;
@@ -412,7 +397,6 @@
                     const terResult = calculateTer(finalBruto, ptkpStatus);
                     pph21 = terResult.pph21;
                 }
-                
                 return { NIK: row['NIK'], 'Nama Pegawai': row['Nama Pegawai'], 'Status PTKP': ptkpStatus, 'Metode': method.toUpperCase(), 'Tunjangan PPh': tunjanganPph, 'Penghasilan Bruto': finalBruto, 'PPh 21 Terutang': pph21 };
             });
             displayPph21ImportResults(lastPph21ImportResults);
@@ -468,12 +452,10 @@
                 bruto += parseFloat(input.value) || 0;
             });
             document.getElementById('total-bruto-tahunan').value = `Rp ${formatNumber(bruto)}`;
-
             const statusPegawai = document.getElementById('status-pegawai-tahunan').value;
             const maxBiayaJabatan = statusPegawai === 'tetap' ? 6000000 : 2400000;
             const biayaJabatan = Math.min(bruto * 0.05, maxBiayaJabatan);
             document.getElementById('biaya-jabatan-pensiun-tahunan').value = `Rp ${formatNumber(biayaJabatan)}`;
-
             const iuranPensiun = parseFloat(document.getElementById('iuran-pensiun-tahunan').value) || 0;
             const zakat = parseFloat(document.getElementById('zakat-tahunan').value) || 0;
             const totalPengurang = biayaJabatan + iuranPensiun + zakat;
@@ -489,7 +471,7 @@
                 }
             });
             document.querySelector('input[name="tax-method-tahunan"][value="gross"]').checked = true;
-            handleTaxMethodChangeTahunan(); // This will also call updateTahunanTotals
+            handleTaxMethodChangeTahunan(); 
             document.getElementById('result-pph21-akhirtahun').innerHTML = `<h4 class="text-lg font-semibold border-b pb-2 mb-4">E. Hasil Perhitungan</h4><div class="text-center text-gray-500">Hasil perhitungan akan muncul di sini.</div>`;
             clearError('error-container-pph21-tahunan');
         }
@@ -516,14 +498,12 @@
         function calculateGrossUpTahunan(baseBruto, pengurangLain, ptkp, statusPegawai) {
             let tunjanganPph = 0;
             const maxBiayaJabatan = statusPegawai === 'tetap' ? 6000000 : 2400000;
-
             for(let i=0; i < 10; i++) {
                 const brutoSetahun = baseBruto + tunjanganPph;
                 const biayaJabatan = Math.min(brutoSetahun * 0.05, maxBiayaJabatan);
                 const nettoSetahun = brutoSetahun - biayaJabatan - pengurangLain;
                 const pkpSetahun = Math.max(0, Math.floor((nettoSetahun - ptkp) / 1000) * 1000);
                 const pphTerutang = calculatePphTerutang(pkpSetahun);
-
                 if (Math.abs(pphTerutang - tunjanganPph) < 1) {
                     tunjanganPph = pphTerutang;
                     break;
@@ -535,36 +515,28 @@
 
         function calculatePph21AkhirTahun() {
             clearError('error-container-pph21-tahunan');
-            
             const isGrossUp = document.querySelector('input[name="tax-method-tahunan"]:checked').value === 'gross-up';
-            
             let baseBrutoSetahun = 0;
             document.querySelectorAll('.p21-income-tahunan').forEach(input => {
                 if(input.id !== 'tunjangan-pph-tahunan') {
                     baseBrutoSetahun += parseFloat(input.value) || 0;
                 }
             });
-
             const iuranPensiun = parseFloat(document.getElementById('iuran-pensiun-tahunan').value) || 0;
             const zakat = parseFloat(document.getElementById('zakat-tahunan').value) || 0;
             const pengurangLain = iuranPensiun + zakat;
-            
             const pph21Dipotong = parseFloat(document.getElementById('pph21-dipotong-sebelumnya').value) || 0;
             const resultDiv = document.getElementById('result-pph21-akhirtahun');
-            
             const statusPegawai = document.getElementById('status-pegawai-tahunan').value;
             const statusKawin = document.getElementById('status-kawin-tahunan').value;
             const tanggungan = parseInt(document.getElementById('tanggungan-tahunan').value) || 0;
             const ptkpTahunan = getPtkpTahunan(statusKawin, tanggungan);
-            
             if (ptkpTahunan === null) {
                 showError('error-container-pph21-tahunan', 'Status kawin atau tanggungan tidak valid.');
                 return;
             }
-
             let brutoSetahun = 0;
             let tunjanganPph = 0;
-
             if (isGrossUp) {
                 const grossUpResult = calculateGrossUpTahunan(baseBrutoSetahun, pengurangLain, ptkpTahunan, statusPegawai);
                 tunjanganPph = grossUpResult.tunjanganPph;
@@ -574,16 +546,12 @@
                 tunjanganPph = parseFloat(document.getElementById('tunjangan-pph-tahunan').value) || 0;
                 brutoSetahun = baseBrutoSetahun + tunjanganPph;
             }
-
-            // --- Final Calculation using the determined Bruto ---
             const maxBiayaJabatan = statusPegawai === 'tetap' ? 6000000 : 2400000;
             const biayaJabatan = Math.min(brutoSetahun * 0.05, maxBiayaJabatan);
             const totalPengurang = biayaJabatan + pengurangLain;
             const nettoSetahun = brutoSetahun - totalPengurang;
             const pkpSetahun = Math.max(0, Math.floor((nettoSetahun - ptkpTahunan) / 1000) * 1000);
-
             const pphTerutang = calculatePphTerutang(pkpSetahun);
-            
             let detailPerhitungan = '';
             let sisaPkp = pkpSetahun;
             const tarifLayers = [ { limit: 60000000, rate: 0.05 }, { limit: 250000000, rate: 0.15 }, { limit: 500000000, rate: 0.25 }, { limit: 5000000000, rate: 0.30 }, { limit: Infinity, rate: 0.35 }];
@@ -598,14 +566,10 @@
                 sisaPkp -= pkpDiLayer;
                 batasBawah = layer.limit;
             }
-
             const pph21MasaTerakhir = Math.round(pphTerutang - pph21Dipotong);
             const statusPotong = pph21MasaTerakhir >= 0 ? "Kurang Bayar" : "Lebih Bayar";
-
-            // Update UI
-            updateTahunanTotals(); // To update displayed totals based on final bruto
+            updateTahunanTotals(); 
             document.getElementById('total-bruto-tahunan').value = `Rp ${formatNumber(brutoSetahun)}`;
-
             resultDiv.innerHTML = `
                 <h4 class="font-bold text-lg mb-3 border-b pb-2">E. Hasil Perhitungan</h4>
                 <div class="space-y-2 text-sm">
@@ -632,10 +596,10 @@
                         <div class="flex justify-between"><span>Telah Dipotong (Jan-Nov)</span> <span>- Rp ${formatNumber(pph21Dipotong)}</span></div>
                     </div>
                 </div>
-                <div class="mt-4 pt-4 border-t-2 border-indigo-500">
+                <div class="mt-4 pt-4 border-t-2 border-red-500">
                     <div class="flex justify-between items-center">
                         <span class="text-base font-semibold">PPh 21 Masa Pajak Terakhir</span>
-                        <span class="text-xl font-bold text-indigo-600">Rp ${formatNumber(Math.abs(pph21MasaTerakhir))}</span>
+                        <span class="text-xl font-bold text-red-600">Rp ${formatNumber(Math.abs(pph21MasaTerakhir))}</span>
                     </div>
                     <p class="text-sm text-center font-semibold mt-2 text-gray-700">(${statusPotong})</p>
                 </div>
@@ -645,7 +609,6 @@
             `;
         }
         
-        // --- PPh 21 Tahunan Massal ---
         function downloadPph21TemplateTahunan() {
             const headers = [['NIK', 'Nama Pegawai', 'Status Pegawai (tetap/pensiunan)', 'Status Kawin (TK/K/KI)', 'Jml Tanggungan (0-3)', 'Metode (GROSS/GROSSUP)', 'Gaji/Pensiun Setahun', 'Tunjangan PPh (jika GROSS)', 'Tunjangan Lainnya', 'Honorarium', 'Premi Asuransi', 'Natura', 'Bonus/THR', 'Iuran Pensiun/THT', 'Zakat/Sumbangan Wajib', 'PPh 21 Dipotong (Jan-Nov)']];
             const ws = XLSX.utils.aoa_to_sheet(headers);
@@ -674,19 +637,15 @@
             lastPph21TahunanImportResults = data.map(row => {
                 const method = row['Metode (GROSS/GROSSUP)']?.trim().toUpperCase() === 'GROSSUP' ? 'gross-up' : 'gross';
                 const baseBruto = (parseFloat(row['Gaji/Pensiun Setahun']) || 0) + (parseFloat(row['Tunjangan Lainnya']) || 0) + (parseFloat(row['Honorarium']) || 0) + (parseFloat(row['Premi Asuransi']) || 0) + (parseFloat(row['Natura']) || 0) + (parseFloat(row['Bonus/THR']) || 0);
-
                 const iuranPensiun = parseFloat(row['Iuran Pensiun/THT']) || 0;
                 const zakat = parseFloat(row['Zakat/Sumbangan Wajib']) || 0;
                 const pengurangLain = iuranPensiun + zakat;
-
                 const statusPegawai = row['Status Pegawai (tetap/pensiunan)']?.toLowerCase() === 'pensiunan' ? 'pensiunan' : 'tetap';
                 const statusKawin = row['Status Kawin (TK/K/KI)']?.toUpperCase() || 'TK';
                 const tanggungan = Math.min(3, Math.max(0, parseInt(row['Jml Tanggungan (0-3)']) || 0));
                 const ptkpTahunan = getPtkpTahunan(statusKawin, tanggungan) || 0;
-
                 let brutoSetahun = 0;
                 let tunjanganPph = 0;
-
                 if (method === 'gross-up') {
                     const grossUpResult = calculateGrossUpTahunan(baseBruto, pengurangLain, ptkpTahunan, statusPegawai);
                     tunjanganPph = grossUpResult.tunjanganPph;
@@ -695,7 +654,6 @@
                     tunjanganPph = parseFloat(row['Tunjangan PPh (jika GROSS)']) || 0;
                     brutoSetahun = baseBruto + tunjanganPph;
                 }
-
                 const maxBiayaJabatan = statusPegawai === 'tetap' ? 6000000 : 2400000;
                 const biayaJabatan = Math.min(brutoSetahun * 0.05, maxBiayaJabatan);
                 const totalPengurang = biayaJabatan + pengurangLain;
@@ -704,18 +662,11 @@
                 const pphTerutang = calculatePphTerutang(pkpSetahun);
                 const pph21Dipotong = parseFloat(row['PPh 21 Dipotong (Jan-Nov)']) || 0;
                 const pph21MasaTerakhir = Math.round(pphTerutang - pph21Dipotong);
-
                 return {
-                    'NIK': row['NIK'],
-                    'Nama Pegawai': row['Nama Pegawai'],
-                    'Metode': method.toUpperCase(),
-                    'Tunjangan PPh': tunjanganPph,
-                    'Penghasilan Bruto Setahun': brutoSetahun,
-                    'PKP Setahun': pkpSetahun,
-                    'PPh 21 Terutang Setahun': Math.round(pphTerutang),
-                    'PPh 21 Dipotong (Jan-Nov)': pph21Dipotong,
-                    'PPh 21 Masa Terakhir': pph21MasaTerakhir,
-                    'Status': pph21MasaTerakhir >= 0 ? 'Kurang Bayar' : 'Lebih Bayar'
+                    'NIK': row['NIK'], 'Nama Pegawai': row['Nama Pegawai'], 'Metode': method.toUpperCase(),
+                    'Tunjangan PPh': tunjanganPph, 'Penghasilan Bruto Setahun': brutoSetahun, 'PKP Setahun': pkpSetahun,
+                    'PPh 21 Terutang Setahun': Math.round(pphTerutang), 'PPh 21 Dipotong (Jan-Nov)': pph21Dipotong,
+                    'PPh 21 Masa Terakhir': pph21MasaTerakhir, 'Status': pph21MasaTerakhir >= 0 ? 'Kurang Bayar' : 'Lebih Bayar'
                 };
             });
             displayPph21ImportResultsTahunan(lastPph21TahunanImportResults);
@@ -726,16 +677,11 @@
             const tableContainer = resultContainer.querySelector('.table-responsive > table');
             tableContainer.innerHTML = `
                 <thead class="bg-gray-100"><tr>
-                    <th class="p-2 border">NIK</th>
-                    <th class="p-2 border">Nama</th>
-                    <th class="p-2 border">Metode</th>
-                    <th class="p-2 border">Tunjangan PPh</th>
-                    <th class="p-2 border">PPh Masa Terakhir</th>
-                    <th class="p-2 border">Status</th>
+                    <th class="p-2 border">NIK</th> <th class="p-2 border">Nama</th> <th class="p-2 border">Metode</th>
+                    <th class="p-2 border">Tunjangan PPh</th> <th class="p-2 border">PPh Masa Terakhir</th> <th class="p-2 border">Status</th>
                 </tr></thead>
                 <tbody>${results.map(res => `<tr>
-                    <td class="p-2 border">${res['NIK']}</td>
-                    <td class="p-2 border">${res['Nama Pegawai']}</td>
+                    <td class="p-2 border">${res['NIK']}</td> <td class="p-2 border">${res['Nama Pegawai']}</td>
                     <td class="p-2 border text-center">${res['Metode']}</td>
                     <td class="p-2 border text-right">${formatNumber(res['Tunjangan PPh'])}</td>
                     <td class="p-2 border text-right font-semibold">${formatNumber(Math.abs(res['PPh 21 Masa Terakhir']))}</td>
@@ -747,15 +693,10 @@
 
         function exportPph21ResultsToExcelTahunan() {
             const exportData = lastPph21TahunanImportResults.map(res => ({
-                'NIK': res['NIK'],
-                'Nama Pegawai': res['Nama Pegawai'],
-                'Metode': res['Metode'],
-                'Tunjangan PPh': res['Tunjangan PPh'],
-                'Penghasilan Bruto Setahun': res['Penghasilan Bruto Setahun'],
-                'PKP Setahun': res['PKP Setahun'],
-                'PPh 21 Terutang Setahun': res['PPh 21 Terutang Setahun'],
-                'PPh 21 Dipotong (Jan-Nov)': res['PPh 21 Dipotong (Jan-Nov)'],
-                'PPh 21 Masa Terakhir': res['PPh 21 Masa Terakhir'],
+                'NIK': res['NIK'], 'Nama Pegawai': res['Nama Pegawai'], 'Metode': res['Metode'],
+                'Tunjangan PPh': res['Tunjangan PPh'], 'Penghasilan Bruto Setahun': res['Penghasilan Bruto Setahun'],
+                'PKP Setahun': res['PKP Setahun'], 'PPh 21 Terutang Setahun': res['PPh 21 Terutang Setahun'],
+                'PPh 21 Dipotong (Jan-Nov)': res['PPh 21 Dipotong (Jan-Nov)'], 'PPh 21 Masa Terakhir': res['PPh 21 Masa Terakhir'],
                 'Status': res['Status']
             }));
             const ws = XLSX.utils.json_to_sheet(exportData);
@@ -764,9 +705,23 @@
             XLSX.utils.book_append_sheet(wb, ws, "Hasil Impor PPh 21 Tahunan");
             XLSX.writeFile(wb, "Hasil_Impor_PPh_21_Tahunan.xlsx");
         }
-
-        // --- INITIALIZE ---
+        
         setupPph21();
+        };
+        fullPph21Script();
+
+        const subTabs = document.querySelectorAll('.sub-tab-btn');
+        const subContents = document.querySelectorAll('.sub-tab-content');
+        subTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                subTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                subContents.forEach(content => {
+                    content.classList.toggle('active', content.id === `pph21-${tab.dataset.subtab}-content`);
+                });
+            });
+        });
+
     });
     </script>
 </body>
