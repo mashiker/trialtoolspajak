@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Tarif Efektif (TER) - Archisight Tax Assistant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
+        .table-responsive { overflow-x: auto; }
+        .sub-tab-btn { transition: all 0.2s ease-in-out; color: #4b5563; }
+        .sub-tab-btn.active { background-color: white; color: #4f46e5; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); }
+        .ter-sub-tab-content { display: none; }
+        .ter-sub-tab-content.active { display: block; }
+        .app-header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            padding: 1rem;
+            border-radius: 0.75rem;
+            color: white;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8 max-w-7xl">
+        <header class="app-header relative text-center mb-8">
+            <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">Daftar Tarif Efektif (TER)</h1>
+            <p class="text-sm sm:text-base text-gray-300 mt-1">Referensi Tarif untuk PPh Pasal 21</p>
+             <a href="index.html" class="absolute top-4 left-4 text-white bg-white/10 hover:bg-white/20 rounded-full p-2 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            </a>
+        </header>
+        
+        <div id="ter-content" class="tab-content active">
+            <div class="bg-white p-6 rounded-xl shadow-lg">
+                <h3 class="text-xl font-bold mb-2 text-gray-800">Penjelasan Tarif Efektif Rata-rata (TER)</h3>
+                <p class="text-gray-600 mb-6">Sesuai Peraturan Pemerintah Nomor 58 Tahun 2023, Tarif Efektif Rata-rata (TER) digunakan untuk menyederhanakan perhitungan PPh Pasal 21 bagi pegawai tetap dan pensiunan untuk masa pajak selain Masa Pajak Terakhir (Januari - November). Tarif ditentukan berdasarkan Penghasilan Kena Pajak (PTKP) Wajib Pajak.</p>
+                <div class="mb-6">
+                    <h4 class="text-lg font-semibold mb-2">Kategori TER</h4>
+                    <ul class="list-disc list-inside space-y-1 text-gray-600">
+                        <li><b>Kategori A:</b> Untuk Wajib Pajak dengan status PTKP TK/0, TK/1, dan K/0.</li>
+                        <li><b>Kategori B:</b> Untuk Wajib Pajak dengan status PTKP TK/2, TK/3, K/1, dan K/2.</li>
+                        <li><b>Kategori C:</b> Untuk Wajib Pajak dengan status PTKP K/3.</li>
+                    </ul>
+                </div>
+                <div class="mb-6 p-4 border-l-4 border-yellow-400 bg-yellow-50">
+                    <h4 class="text-lg font-semibold mb-2 text-yellow-800">Contoh Kasus</h4>
+                    <p class="text-yellow-700">Tuan Budi (status K/1, menikah dengan 1 tanggungan) memiliki penghasilan bruto sebulan sebesar Rp 10.000.000. Berapa PPh 21 yang harus dipotong?</p>
+                    <ol class="list-decimal list-inside mt-2 text-yellow-700 space-y-1">
+                        <li><b>Tentukan Kategori:</b> Status K/1 masuk ke dalam <b>Kategori B</b>.</li>
+                        <li><b>Cari Tarif di Tabel TER B:</b> Penghasilan Rp 10.000.000 berada di rentang Rp 9.200.001 s.d. Rp 10.750.000. Tarif TER yang berlaku adalah <b>1.5%</b>.</li>
+                        <li><b>Hitung PPh 21:</b> Rp 10.000.000 x 1.5% = <b>Rp 150.000</b>.</li>
+                    </ol>
+                </div>
+                <div class="mb-6 flex justify-center border-b border-gray-200">
+                    <div class="flex bg-gray-100 p-1 rounded-lg">
+                        <button class="sub-tab-btn active px-4 py-2 text-sm font-semibold rounded-md" data-tertab="A">TER A</button>
+                        <button class="sub-tab-btn px-4 py-2 text-sm font-semibold rounded-md" data-tertab="B">TER B</button>
+                        <button class="sub-tab-btn px-4 py-2 text-sm font-semibold rounded-md" data-tertab="C">TER C</button>
+                        <button class="sub-tab-btn px-4 py-2 text-sm font-semibold rounded-md" data-tertab="Harian">TER Harian</button>
+                    </div>
+                </div>
+                <div id="ter-tables-container"></div>
+            </div>
+        </div>
+
+        <footer class="text-center py-8 px-4 mt-8">
+            <div class="max-w-3xl mx-auto text-xs text-gray-500">
+                <p class="font-semibold">Disclaimer Privasi:</p>
+                <p>Aplikasi ini adalah alat bantu kalkulasi semata. Seluruh data yang Anda masukkan hanya diproses di perangkat Anda dan tidak disimpan atau dikirim ke server mana pun.</p>
+                <p class="mt-2">Dibuat oleh Jevi S. &copy; 2025</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- HELPER FUNCTIONS ---
+        const formatNumber = (num) => new Intl.NumberFormat('id-ID').format(Math.round(num));
+
+        // --- TER DATA ---
+        const ter_Harian = [{ from: 0, to: 450000, rate: 0.0 }, { from: 450001, to: 2500000, rate: 0.005 }];
+        const ter_A = [{ from: 0, to: 5400000, rate: 0.0 }, { from: 5400001, to: 5650000, rate: 0.0025 }, { from: 5650001, to: 5950000, rate: 0.005 }, { from: 5950001, to: 6300000, rate: 0.0075 }, { from: 6300001, to: 6750000, rate: 0.01 }, { from: 6750001, to: 7500000, rate: 0.0125 }, { from: 7500001, to: 8550000, rate: 0.015 }, { from: 8550001, to: 9650000, rate: 0.0175 }, { from: 9650001, to: 10050000, rate: 0.02 }, { from: 10050001, to: 10350000, rate: 0.0225 }, { from: 10350001, to: 10700000, rate: 0.025 }, { from: 10700001, to: 11050000, rate: 0.03 }, { from: 11050001, to: 11600000, rate: 0.035 }, { from: 11600001, to: 12500000, rate: 0.04 }, { from: 12500001, to: 13750000, rate: 0.05 }, { from: 13750001, to: 15100000, rate: 0.06 }, { from: 15100001, to: 16950000, rate: 0.07 }, { from: 16950001, to: 19750000, rate: 0.08 }, { from: 19750001, to: 24150000, rate: 0.09 }, { from: 24150001, to: 26450000, rate: 0.1 }, { from: 26450001, to: 28000000, rate: 0.11 }, { from: 28000001, to: 30050000, rate: 0.12 }, { from: 30050001, to: 32400000, rate: 0.13 }, { from: 32400001, to: 35400000, rate: 0.14 }, { from: 35400001, to: 39100000, rate: 0.15 }, { from: 39100001, to: 43850000, rate: 0.16 }, { from: 43850001, to: 47800000, rate: 0.17 }, { from: 47800001, to: 51400000, rate: 0.18 }, { from: 51400001, to: 56300000, rate: 0.19 }, { from: 56300001, to: 62200000, rate: 0.2 }, { from: 62200001, to: 68600000, rate: 0.21 }, { from: 68600001, to: 77500000, rate: 0.22 }, { from: 77500001, to: 89000000, rate: 0.23 }, { from: 89000001, to: 103000000, rate: 0.24 }, { from: 103000001, to: 125000000, rate: 0.25 }, { from: 125000001, to: 157000000, rate: 0.26 }, { from: 157000001, to: 206000000, rate: 0.27 }, { from: 206000001, to: 337000000, rate: 0.28 }, { from: 337000001, to: 454000000, rate: 0.29 }, { from: 454000001, to: 550000000, rate: 0.3 }, { from: 550000001, to: 695000000, rate: 0.31 }, { from: 695000001, to: 910000000, rate: 0.32 }, { from: 910000001, to: 1400000000, rate: 0.33 }, { from: 1400000001, to: Infinity, rate: 0.34 }];
+        const ter_B = [{ from: 0, to: 6200000, rate: 0.0 }, { from: 6200001, to: 6500000, rate: 0.0025 }, { from: 6500001, to: 6850000, rate: 0.005 }, { from: 6850001, to: 7300000, rate: 0.0075 }, { from: 7300001, to: 9200000, rate: 0.01 }, { from: 9200001, to: 10750000, rate: 0.015 }, { from: 10750001, to: 11250000, rate: 0.02 }, { from: 11250001, to: 11600000, rate: 0.025 }, { from: 11600001, to: 12600000, rate: 0.03 }, { from: 12600001, to: 13600000, rate: 0.04 }, { from: 13600001, to: 14950000, rate: 0.05 }, { from: 14950001, to: 16400000, rate: 0.06 }, { from: 16400001, to: 18450000, rate: 0.07 }, { from: 18450001, to: 21850000, rate: 0.08 }, { from: 21850001, to: 26000000, rate: 0.09 }, { from: 26000001, to: 27700000, rate: 0.1 }, { from: 27700001, to: 29350000, rate: 0.11 }, { from: 29350001, to: 31450000, rate: 0.12 }, { from: 31450001, to: 33950000, rate: 0.13 }, { from: 33950001, to: 37100000, rate: 0.14 }, { from: 37100001, to: 41100000, rate: 0.15 }, { from: 41100001, to: 45800000, rate: 0.16 }, { from: 45800001, to: 49500000, rate: 0.17 }, { from: 49500001, to: 53800000, rate: 0.18 }, { from: 53800001, to: 58500000, rate: 0.19 }, { from: 58500001, to: 64000000, rate: 0.2 }, { from: 64000001, to: 71000000, rate: 0.21 }, { from: 71000001, to: 80000000, rate: 0.22 }, { from: 8000001, to: 93000000, rate: 0.23 }, { from: 93000001, to: 109000000, rate: 0.24 }, { from: 109000001, to: 129000000, rate: 0.25 }, { from: 129000001, to: 163000000, rate: 0.26 }, { from: 163000001, to: 211000000, rate: 0.27 }, { from: 211000001, to: 374000000, rate: 0.28 }, { from: 374000001, to: 459000000, rate: 0.29 }, { from: 459000001, to: 555000000, rate: 0.3 }, { from: 555000001, to: 704000000, rate: 0.31 }, { from: 704000001, to: 957000000, rate: 0.32 }, { from: 957000001, to: 1405000000, rate: 0.33 }, { from: 1405000001, to: Infinity, rate: 0.34 }];
+        const ter_C = [{ from: 0, to: 6600000, rate: 0.0 }, { from: 6600001, to: 6950000, rate: 0.0025 }, { from: 6950001, to: 7350000, rate: 0.005 }, { from: 7350001, to: 7800000, rate: 0.0075 }, { from: 7800001, to: 8850000, rate: 0.01 }, { from: 8850001, to: 9800000, rate: 0.0125 }, { from: 9800001, to: 10950000, rate: 0.015 }, { from: 10950001, to: 11200000, rate: 0.0175 }, { from: 11200001, to: 12050000, rate: 0.02 }, { from: 12050001, to: 12950000, rate: 0.03 }, { from: 12950001, to: 14150000, rate: 0.04 }, { from: 14150001, to: 15550000, rate: 0.05 }, { from: 15550001, to: 17050000, rate: 0.06 }, { from: 17050001, to: 19500000, rate: 0.07 }, { from: 19500001, to: 22700000, rate: 0.08 }, { from: 22700001, to: 26600000, rate: 0.09 }, { from: 26600001, to: 28100000, rate: 0.1 }, { from: 28100001, to: 30100000, rate: 0.11 }, { from: 30100001, to: 32600000, rate: 0.12 }, { from: 32600001, to: 35400000, rate: 0.13 }, { from: 35400001, to: 38900000, rate: 0.14 }, { from: 38900001, to: 43000000, rate: 0.15 }, { from: 4300001, to: 47400000, rate: 0.16 }, { from: 47400001, to: 51200000, rate: 0.17 }, { from: 51200001, to: 55800000, rate: 0.18 }, { from: 55800001, to: 60400000, rate: 0.19 }, { from: 60400001, to: 66700000, rate: 0.2 }, { from: 66700001, to: 74500000, rate: 0.21 }, { from: 74500001, to: 83200000, rate: 0.22 }, { from: 83200001, to: 95600000, rate: 0.23 }, { from: 95600001, to: 110000000, rate: 0.24 }, { from: 110000001, to: 134000000, rate: 0.25 }, { from: 134000001, to: 169000000, rate: 0.26 }, { from: 169000001, to: 221000000, rate: 0.27 }, { from: 221000001, to: 390000000, rate: 0.28 }, { from: 390000001, to: 463000000, rate: 0.29 }, { from: 463000001, to: 561000000, rate: 0.3 }, { from: 561000001, to: 709000000, rate: 0.31 }, { from: 709000001, to: 965000000, rate: 0.32 }, { from: 965000001, to: 1419000000, rate: 0.33 }, { from: 1419000001, to: Infinity, rate: 0.34 }];
+
+        function setupTerTab() {
+            const terContent = document.getElementById('ter-content');
+            const terTablesContainer = terContent.querySelector('#ter-tables-container');
+            
+            function createTerTable(data, category) {
+                const tableId = `ter-table-${category}`;
+                let tableHtml = `<div id="${tableId}" class="ter-sub-tab-content"><div class="table-responsive max-h-96"><table class="min-w-full divide-y divide-gray-200"><thead><tr><th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase">Penghasilan Bruto (Dari)</th><th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase">Penghasilan Bruto (Sampai)</th><th class="px-6 py-3 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase">Tarif Efektif</th></tr></thead><tbody class="bg-white divide-y divide-gray-200">`;
+                data.forEach(row => {
+                    const fromValue = `Rp ${formatNumber(row.from)}`;
+                    const toValue = row.to === Infinity ? 'ke atas' : `Rp ${formatNumber(row.to)}`;
+                    const rateDisplay = (row.rate * 100).toFixed(4).replace(/\.?0+$/, "") + '%';
+                    tableHtml += `<tr><td class="px-6 py-4 whitespace-nowrap text-sm">${fromValue}</td><td class="px-6 py-4 whitespace-nowrap text-sm">${toValue}</td><td class="px-6 py-4 whitespace-nowrap text-sm text-right">${rateDisplay}</td></tr>`;
+                });
+                tableHtml += `</tbody></table></div></div>`;
+                return tableHtml;
+            }
+
+            terTablesContainer.innerHTML = createTerTable(ter_A, 'A') + createTerTable(ter_B, 'B') + createTerTable(ter_C, 'C') + createTerTable(ter_Harian, 'Harian');
+            
+            const terSubTabs = terContent.querySelectorAll('.sub-tab-btn');
+            const terSubContents = terContent.querySelectorAll('.ter-sub-tab-content');
+            
+            terSubContents.forEach((content, index) => {
+                 content.classList.toggle('active', index === 0);
+            });
+
+            terSubTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    terSubTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    terSubContents.forEach(content => {
+                        content.classList.toggle('active', content.id === `ter-table-${tab.dataset.tertab}`);
+                    });
+                });
+            });
+        }
+
+        // --- INITIALIZE ---
+        setupTerTab();
+    });
+    </script>
+</body>
+</html>
