@@ -7,21 +7,18 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="https://placehold.co/32x32/4f46e5/white?text=A" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://placehold.co/32x32/ef4444/white?text=A" type="image/png">
     <style>
         body { 
             font-family: 'Inter', sans-serif; 
-            background-color: #f3f4f6; 
-        }
-        .app-header {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: white;
+            background-color: #f8fafc; /* Lighter gray background */
         }
         .feature-card {
             background-color: white;
             border-radius: 0.75rem;
-            box-shadow: 0 4px_6px_-1px_rgb(0_0_0_/_0.1),_0_2px_4px_-2px_rgb(0_0_0_/_0.1);
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px 0 rgba(0,0,0,0.03);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: flex;
             flex-direction: column;
@@ -29,109 +26,139 @@
         }
         .feature-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0_10px_15px_-3px_rgb(0_0_0_/_0.1),_0_4px_6px_-4px_rgb(0_0_0_/_0.1);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.07), 0 4px 6px -4px rgb(0 0 0 / 0.07);
         }
         .card-icon {
-            background-color: #e0e7ff;
-            color: #4f46e5;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
+            background-color: #fee2e2; /* light red */
+            color: #dc2626; /* medium red */
+            border-radius: 0.5rem; /* rounded square */
+            width: 48px;
+            height: 48px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
         .card-link {
-            background-image: linear-gradient(to right, #4f46e5, #6366f1);
-            color: white;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px 0 rgba(79, 70, 229, 0.3);
+            background-color: #f1f5f9;
+            color: #b91c1c;
+            font-weight: 600;
+            transition: all 0.2s ease;
         }
         .card-link:hover {
-            box-shadow: 0 6px 20px 0 rgba(79, 70, 229, 0.4);
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+        .btn-primary {
+            background-color: #dc2626;
+            color: white;
+            transition: background-color 0.2s ease;
+        }
+        .btn-primary:hover {
+            background-color: #b91c1c;
         }
     </style>
 </head>
 <body class="text-gray-800">
 
     <div class="min-h-screen flex flex-col">
-        <!-- Header -->
-        <header class="app-header shadow-lg">
-            <div class="container mx-auto p-6 text-center">
-                <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">Archisight Tax Assistant</h1>
-                <p class="text-md sm:text-lg text-gray-300 mt-2">Pusat Alat Bantu Perpajakan Profesional Anda</p>
+        <!-- New Navigation Header -->
+        <header class="bg-white/80 backdrop-blur-md sticky top-0 z-20 border-b border-gray-200">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-start items-center py-3">
+                    <!-- Logo -->
+                    <a href="#" class="flex items-center space-x-2">
+                        <span class="inline-block p-2 bg-red-600 rounded-lg">
+                           <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 8.36364L12 2L18.3636 2L18.3636 8.36364H12ZM12 12.5455V18.3636H18.3636V12.5455H12ZM2 2L2 8.36364H8.36364L8.36364 2H2ZM2 12.5455L2 22L8.36364 22L8.36364 12.5455H2Z"/></svg>
+                        </span>
+                        <span class="text-xl font-bold text-gray-900 tracking-tight">Archisight Tax</span>
+                    </a>
+                </div>
             </div>
         </header>
 
-        <!-- Main Content -->
-        <main class="flex-grow container mx-auto p-4 sm:p-6 lg:p-8">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <!-- Main Title Section -->
+        <div class="bg-white">
+            <div class="container mx-auto py-16 px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-gray-900">
+                    Semua alat yang Anda butuhkan untuk pajak
+                </h1>
+                <p class="mt-4 max-w-2xl mx-auto text-base sm:text-lg text-gray-500">
+                    Kumpulan alat bantu untuk menyederhanakan perhitungan PPh Unifikasi, PPh 21, dan kebutuhan perpajakan lainnya. Cepat, akurat, dan mudah digunakan.
+                </p>
+            </div>
+        </div>
 
-                <!-- Card: Kalkulator PPh Unifikasi -->
-                <div class="feature-card p-6">
-                    <div>
-                        <div class="card-icon mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+        <!-- Main Content (Feature Cards) -->
+        <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+            <div class="relative" style="top: -4rem;"> <!-- Pull up the cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+                    <!-- Card: Kalkulator PPh Unifikasi -->
+                    <div class="feature-card p-6">
+                        <div>
+                            <div class="card-icon mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                            </div>
+                            <h2 class="text-lg font-bold mb-2">Kalkulator PPh Unifikasi</h2>
+                            <p class="text-gray-600 text-sm mb-4">Hitung PPh 22, 23, 4(2), dan PPN untuk berbagai transaksi dalam satu tempat.</p>
                         </div>
-                        <h2 class="text-xl font-bold mb-2">Kalkulator PPh Unifikasi</h2>
-                        <p class="text-gray-600 text-sm mb-4">Hitung berbagai jenis PPh Potong/Pungut (PPh 22, 23, 4(2)) dan PPN dengan mudah.</p>
+                        <a href="kalkulator-pph-unifikasi.html" class="card-link py-2 px-4 rounded-lg text-center mt-4 text-sm">Buka Kalkulator</a>
                     </div>
-                    <a href="kalkulator-pph-unifikasi.html" class="card-link font-bold py-2 px-4 rounded-lg text-center mt-4">Buka Kalkulator</a>
-                </div>
 
-                <!-- Card: Kalkulator PPh 21 -->
-                <div class="feature-card p-6">
-                    <div>
-                        <div class="card-icon mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    <!-- Card: Kalkulator PPh 21 -->
+                    <div class="feature-card p-6">
+                        <div>
+                            <div class="card-icon mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                            </div>
+                            <h2 class="text-lg font-bold mb-2">Kalkulator PPh 21</h2>
+                            <p class="text-gray-600 text-sm mb-4">Perhitungan PPh 21 bulanan (TER) dan tahunan sesuai peraturan terbaru.</p>
                         </div>
-                        <h2 class="text-xl font-bold mb-2">Kalkulator PPh 21</h2>
-                        <p class="text-gray-600 text-sm mb-4">Hitung PPh 21 bulanan (TER) dan tahunan sesuai peraturan terbaru (PP-58/2023).</p>
+                        <a href="kalkulator-pph-21.html" class="card-link py-2 px-4 rounded-lg text-center mt-4 text-sm">Buka Kalkulator</a>
                     </div>
-                    <a href="kalkulator-pph-21.html" class="card-link font-bold py-2 px-4 rounded-lg text-center mt-4">Buka Kalkulator</a>
-                </div>
 
-                <!-- Card: Daftar TER -->
-                <div class="feature-card p-6">
-                    <div>
-                        <div class="card-icon mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    <!-- Card: Daftar TER -->
+                    <div class="feature-card p-6">
+                        <div>
+                            <div class="card-icon mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            </div>
+                            <h2 class="text-lg font-bold mb-2">Daftar Tarif Efektif (TER)</h2>
+                            <p class="text-gray-600 text-sm mb-4">Lihat tabel lengkap Tarif Efektif Rata-rata (TER) untuk PPh 21 kategori A, B, C, dan Harian.</p>
                         </div>
-                        <h2 class="text-xl font-bold mb-2">Daftar Tarif Efektif (TER)</h2>
-                        <p class="text-gray-600 text-sm mb-4">Lihat tabel lengkap Tarif Efektif Rata-rata (TER) untuk PPh 21 kategori A, B, dan C.</p>
+                        <a href="daftar-ter.html" class="card-link py-2 px-4 rounded-lg text-center mt-4 text-sm">Lihat Daftar</a>
                     </div>
-                    <a href="daftar-ter.html" class="card-link font-bold py-2 px-4 rounded-lg text-center mt-4">Lihat Daftar</a>
-                </div>
 
-                <!-- Card: XML Generator -->
-                <div class="feature-card p-6">
-                    <div>
-                        <div class="card-icon mb-4">
-                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    <!-- Card: XML Generator -->
+                    <div class="feature-card p-6">
+                        <div>
+                            <div class="card-icon mb-4">
+                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </div>
+                            <h2 class="text-lg font-bold mb-2">XML Generator PPN</h2>
+                            <p class="text-gray-600 text-sm mb-4">Buat file XML untuk PPN Digunggung (Formulir 1111 A5) yang siap untuk diimpor.</p>
                         </div>
-                        <h2 class="text-xl font-bold mb-2">XML Generator PPN</h2>
-                        <p class="text-gray-600 text-sm mb-4">Buat file XML untuk PPN Digunggung (Formulir 1111 A5) yang siap untuk diimpor.</p>
+                        <a href="xml-generator.html" class="card-link py-2 px-4 rounded-lg text-center mt-4 text-sm">Buka Generator</a>
                     </div>
-                    <a href="xml-generator.html" class="card-link font-bold py-2 px-4 rounded-lg text-center mt-4">Buka Generator</a>
-                </div>
 
-                <!-- Card: Donasi -->
-                <div class="feature-card p-6">
-                    <div>
-                        <div class="card-icon mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    <!-- Card: Donasi -->
+                    <div class="feature-card p-6">
+                        <div>
+                            <div class="card-icon mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                            </div>
+                            <h2 class="text-lg font-bold mb-2">Dukung Kami</h2>
+                            <p class="text-gray-600 text-sm mb-4">Suka dengan aplikasi ini? Dukung pengembangan kami dengan secangkir kopi.</p>
                         </div>
-                        <h2 class="text-xl font-bold mb-2">Dukung Kami</h2>
-                        <p class="text-gray-600 text-sm mb-4">Suka dengan aplikasi ini? Dukung pengembangan kami dengan secangkir kopi.</p>
+                        <a href="donasi.html" class="card-link py-2 px-4 rounded-lg text-center mt-4 text-sm">Beri Dukungan</a>
                     </div>
-                    <a href="donasi.html" class="card-link font-bold py-2 px-4 rounded-lg text-center mt-4">Beri Dukungan</a>
-                </div>
 
+                </div>
             </div>
         </main>
 
         <!-- Footer -->
-        <footer class="text-center py-6 px-4 bg-gray-200">
+        <footer class="text-center py-6 px-4 bg-gray-100">
             <div class="max-w-3xl mx-auto text-xs text-gray-600">
                 <p class="font-semibold">Disclaimer Privasi:</p>
                 <p>Aplikasi ini adalah alat bantu kalkulasi semata. Seluruh data yang Anda masukkan hanya diproses di perangkat Anda dan tidak disimpan atau dikirim ke server mana pun.</p>
