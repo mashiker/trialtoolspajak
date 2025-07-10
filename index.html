@@ -1,9 +1,20 @@
+Tentu, ini adalah versi revisi dari file `index.html` Anda yang lebih menonjolkan fitur-fitur alat perpajakan langsung di halaman utama.
+
+Perubahan utama:
+
+  * **Struktur Baru**: Bagian "Alat Unggulan" sekarang menjadi fokus utama, ditempatkan lebih strategis di bawah bagian hero.
+  * **Deskripsi yang Disempurnakan**: Setiap kartu alat sekarang memiliki deskripsi yang lebih jelas dan tombol ajakan (call-to-action) yang lebih menonjol untuk mendorong pengguna menjelajahi setiap alat.
+  * **Integrasi Konten**: Informasi dari `alat-pajak.html` telah diintegrasikan ke dalam `index.html` untuk mengurangi klik yang tidak perlu dan menyajikan informasi penting di muka.
+
+Berikut adalah kode HTML yang telah direvisi:
+
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Archisight Tax Assistant - Solusi & Artikel Pajak Anda</title>
+    <title>Archisight Tax Assistant - Solusi & Alat Pajak Anda</title>
     <meta name="description" content="Platform terpadu untuk alat bantu pajak PPh 21 & Unifikasi, serta kumpulan artikel dan panduan perpajakan terbaru di Indonesia.">
     <meta name="keywords" content="pajak, pph 21, pph unifikasi, kalkulator pajak, artikel pajak, blog pajak, indonesia">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -22,14 +33,40 @@
             background-size: 2rem 2rem;
         }
         .tool-card {
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            background-color: white;
+            border-radius: 0.75rem;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px 0 rgba(0,0,0,0.03);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         .tool-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px -4px rgb(0 0 0 / 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.07), 0 4px 6px -4px rgb(0 0 0 / 0.07);
         }
-        .article-card-featured {
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        .card-icon {
+            background-color: #fee2e2;
+            color: #dc2626;
+            border-radius: 0.5rem;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .card-link {
+            background-color: #dc2626;
+            color: white;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+        }
+        .card-link:hover {
+            background-color: #b91c1c;
         }
         .article-card-featured:hover {
             transform: translateY(-6px);
@@ -39,18 +76,15 @@
 </head>
 <body class="text-gray-800">
 
-    <!-- Navigation Header -->
     <header class="bg-white/80 backdrop-blur-md sticky top-0 z-30 border-b border-gray-200">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <nav class="flex justify-between items-center py-3">
-                <!-- Logo -->
                 <a href="index.html" class="flex items-center space-x-2">
                     <span class="inline-block p-2 bg-red-600 rounded-lg">
                        <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 8.36364L12 2L18.3636 2L18.3636 8.36364H12ZM12 12.5455V18.3636H18.3636V12.5455H12ZM2 2L2 8.36364H8.36364L8.36364 2H2ZM2 12.5455L2 22L8.36364 22L8.36364 12.5455H2Z"/></svg>
                     </span>
                     <span class="text-xl font-bold text-gray-900 tracking-tight">Archisight Tax</span>
                 </a>
-                <!-- Menu -->
                 <div class="hidden md:flex items-center space-x-6 text-sm font-semibold">
                     <a href="alat-pajak.html" class="text-gray-600 hover:text-red-600">Alat Pajak</a>
                     <a href="https://blog.alatpajak.id" target="_blank" class="text-gray-600 hover:text-red-600">Blog</a>
@@ -62,7 +96,6 @@
     </header>
 
     <main>
-        <!-- Hero Section -->
         <section class="hero-section text-white">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
                 <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight">
@@ -71,45 +104,50 @@
                 <p class="mt-6 max-w-2xl mx-auto text-lg text-gray-300">
                     Dapatkan akses ke alat bantu pajak gratis dan wawasan mendalam untuk menavigasi kompleksitas perpajakan di Indonesia.
                 </p>
-                <div class="mt-8 flex justify-center gap-4">
-                    <a href="alat-pajak.html" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition-colors">
-                        Jelajahi Alat Pajak
-                    </a>
-                    <a href="https://blog.alatpajak.id" target="_blank" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition-colors">
-                        Baca Artikel Terbaru
-                    </a>
-                </div>
             </div>
         </section>
 
-        <!-- Featured Tools Section -->
         <section class="py-16">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl font-bold tracking-tight text-gray-900">Alat Unggulan Kami</h2>
-                    <p class="mt-3 text-gray-500">Dirancang untuk kecepatan, akurasi, dan kemudahan penggunaan.</p>
+                    <p class="mt-3 text-gray-500">Pilih alat bantu yang Anda butuhkan untuk menyederhanakan perhitungan dan administrasi pajak Anda.</p>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Tool 1 -->
-                    <a href="kalkulator-pph-21.html" class="tool-card block bg-white p-6 rounded-lg border">
-                        <h3 class="font-bold text-lg text-gray-900">Kalkulator PPh 21 (TER)</h3>
-                        <p class="mt-2 text-sm text-gray-600">Hitung PPh 21 bulanan dan tahunan sesuai peraturan terbaru dengan mudah.</p>
-                    </a>
-                    <!-- Tool 2 -->
-                    <a href="kalkulator-pph-unifikasi.html" class="tool-card block bg-white p-6 rounded-lg border">
-                        <h3 class="font-bold text-lg text-gray-900">Kalkulator PPh Unifikasi</h3>
-                        <p class="mt-2 text-sm text-gray-600">Kalkulasi PPh Pasal 4(2), 15, 22, dan 23 dalam satu platform terintegrasi.</p>
-                    </a>
-                    <!-- Tool 3 -->
-                    <a href="xml-generator.html" class="tool-card block bg-white p-6 rounded-lg border">
-                        <h3 class="font-bold text-lg text-gray-900">XML Generator PPN</h3>
-                        <p class="mt-2 text-sm text-gray-600">Buat file XML PPN Digunggung (1111 A5) yang siap diimpor ke e-Faktur.</p>
-                    </a>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="tool-card p-6">
+                        <div>
+                            <div class="card-icon mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                            </div>
+                            <h3 class="font-bold text-lg text-gray-900">Kalkulator PPh 21 (TER)</h3>
+                            <p class="mt-2 text-sm text-gray-600 mb-4 flex-grow">Hitung PPh 21 bulanan dan tahunan sesuai peraturan terbaru (PP-58/2023 & PMK-168/2023) dengan mudah.</p>
+                        </div>
+                        <a href="kalkulator-pph-21.html" class="card-link mt-4 text-center">Buka Kalkulator</a>
+                    </div>
+                    <div class="tool-card p-6">
+                        <div>
+                             <div class="card-icon mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                            </div>
+                            <h3 class="font-bold text-lg text-gray-900">Kalkulator PPh Unifikasi</h3>
+                            <p class="mt-2 text-sm text-gray-600 mb-4 flex-grow">Kalkulasi PPh Pasal 4(2), 15, 22, dan 23 dalam satu platform terintegrasi untuk berbagai jenis transaksi.</p>
+                        </div>
+                         <a href="kalkulator-pph-unifikasi.html" class="card-link mt-4 text-center">Buka Kalkulator</a>
+                    </div>
+                    <div class="tool-card p-6">
+                        <div>
+                            <div class="card-icon mb-4">
+                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </div>
+                            <h3 class="font-bold text-lg text-gray-900">XML Generator PPN</h3>
+                            <p class="mt-2 text-sm text-gray-600 mb-4 flex-grow">Buat file XML PPN Digunggung (Formulir 1111 A5) yang siap untuk diimpor langsung ke aplikasi e-Faktur.</p>
+                        </div>
+                         <a href="xml-generator.html" class="card-link mt-4 text-center">Buka Generator</a>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Latest Articles Section -->
         <section class="bg-white py-20">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12">
@@ -117,7 +155,6 @@
                     <p class="mt-3 text-gray-500">Tetap terinformasi dengan analisis dan panduan terbaru dari para ahli.</p>
                 </div>
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <!-- Featured Article -->
                     <div class="lg:col-span-2">
                         <a href="https://blog.alatpajak.id/panduan-lengkap-pph-21-metode-gross-gross-up-dan-nett" target="_blank" class="article-card-featured group block bg-white rounded-xl shadow-lg overflow-hidden">
                             <div class="md:flex">
@@ -132,7 +169,6 @@
                             </div>
                         </a>
                     </div>
-                    <!-- Other Articles -->
                     <div class="space-y-8">
                         <a href="https://blog.alatpajak.id/5-jenis-jasa-wajib-pph-23" target="_blank" class="group block">
                             <h4 class="font-bold text-gray-900 group-hover:text-red-700">5 Jenis Jasa yang Wajib Dikenakan PPh Pasal 23</h4>
@@ -152,7 +188,6 @@
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="text-center py-6 px-4 bg-gray-100">
         <div class="max-w-3xl mx-auto text-xs text-gray-600">
             <div class="flex justify-center flex-wrap gap-x-4 gap-y-2 mb-4 text-sm">
@@ -170,3 +205,4 @@
 
 </body>
 </html>
+```
