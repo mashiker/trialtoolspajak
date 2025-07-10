@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Archisight Tax Assistant - Kalkulator Pajak PPh 21 & Unifikasi</title>
-    <meta name="description" content="Kumpulan alat bantu pajak gratis untuk menyederhanakan perhitungan PPh Unifikasi, PPh 21 (TER), dan kebutuhan perpajakan lainnya. Cepat, akurat, dan aman.">
-    <meta name="keywords" content="kalkulator pajak, pph 21, pph unifikasi, ter, pajak, indonesia, tax calculator">
+    <title>Archisight Tax Assistant - Solusi & Artikel Pajak Anda</title>
+    <meta name="description" content="Platform terpadu untuk alat bantu pajak PPh 21 & Unifikasi, serta kumpulan artikel dan panduan perpajakan terbaru di Indonesia.">
+    <meta name="keywords" content="pajak, pph 21, pph unifikasi, kalkulator pajak, artikel pajak, blog pajak, indonesia">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,177 +14,159 @@
     <style>
         body { 
             font-family: 'Inter', sans-serif; 
-            background-color: #f8fafc; /* Lighter gray background */
+            background-color: #f8fafc;
         }
-        .feature-card {
-            background-color: white;
-            border-radius: 0.75rem;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 1px 3px 0 rgba(0,0,0,0.03);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+        .hero-section {
+            background-color: #111827;
+            background-image: radial-gradient(circle at 1px 1px, #4b5563 1px, transparent 0);
+            background-size: 2rem 2rem;
         }
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.07), 0 4px 6px -4px rgb(0 0 0 / 0.07);
+        .tool-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        .card-icon {
-            background-color: #fee2e2; /* light red */
-            color: #dc2626; /* medium red */
-            border-radius: 0.5rem; /* rounded square */
-            width: 48px;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px -4px rgb(0 0 0 / 0.1);
         }
-        .card-link {
-            background-color: #f1f5f9;
-            color: #b91c1c;
-            font-weight: 600;
-            transition: all 0.2s ease;
+        .article-card-featured {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        .card-link:hover {
-            background-color: #fee2e2;
-            color: #991b1b;
-        }
-        .btn-primary {
-            background-color: #dc2626;
-            color: white;
-            transition: background-color 0.2s ease;
-        }
-        .btn-primary:hover {
-            background-color: #b91c1c;
+        .article-card-featured:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
         }
     </style>
 </head>
 <body class="text-gray-800">
 
-    <div class="min-h-screen flex flex-col">
-        <!-- New Navigation Header -->
-        <header class="bg-white/80 backdrop-blur-md sticky top-0 z-20 border-b border-gray-200">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-start items-center py-3">
-                    <!-- Logo -->
-                    <a href="#" class="flex items-center space-x-2">
-                        <span class="inline-block p-2 bg-red-600 rounded-lg">
-                           <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 8.36364L12 2L18.3636 2L18.3636 8.36364H12ZM12 12.5455V18.3636H18.3636V12.5455H12ZM2 2L2 8.36364H8.36364L8.36364 2H2ZM2 12.5455L2 22L8.36364 22L8.36364 12.5455H2Z"/></svg>
-                        </span>
-                        <span class="text-xl font-bold text-gray-900 tracking-tight">Archisight Tax</span>
+    <!-- Navigation Header -->
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-30 border-b border-gray-200">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <nav class="flex justify-between items-center py-3">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center space-x-2">
+                    <span class="inline-block p-2 bg-red-600 rounded-lg">
+                       <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 8.36364L12 2L18.3636 2L18.3636 8.36364H12ZM12 12.5455V18.3636H18.3636V12.5455H12ZM2 2L2 8.36364H8.36364L8.36364 2H2ZM2 12.5455L2 22L8.36364 22L8.36364 12.5455H2Z"/></svg>
+                    </span>
+                    <span class="text-xl font-bold text-gray-900 tracking-tight">Archisight Tax</span>
+                </a>
+                <!-- Menu -->
+                <div class="hidden md:flex items-center space-x-6 text-sm font-semibold">
+                    <a href="alat-pajak.html" class="text-gray-600 hover:text-red-600">Alat Pajak</a>
+                    <a href="blog.html" class="text-gray-600 hover:text-red-600">Blog</a>
+                    <a href="about-us.html" class="text-gray-600 hover:text-red-600">Tentang Kami</a>
+                    <a href="donasi.html" class="text-gray-600 hover:text-red-600">Donasi</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section text-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight">
+                    Pajak Lebih Sederhana, Bisnis Lebih Lancar
+                </h1>
+                <p class="mt-6 max-w-2xl mx-auto text-lg text-gray-300">
+                    Dapatkan akses ke alat bantu pajak gratis dan wawasan mendalam untuk menavigasi kompleksitas perpajakan di Indonesia.
+                </p>
+                <div class="mt-8 flex justify-center gap-4">
+                    <a href="alat-pajak.html" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition-colors">
+                        Jelajahi Alat Pajak
+                    </a>
+                    <a href="blog.html" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition-colors">
+                        Baca Artikel Terbaru
                     </a>
                 </div>
             </div>
-        </header>
+        </section>
 
-        <!-- Main Title Section -->
-        <div class="bg-white">
-            <div class="container mx-auto py-16 px-4 sm:px-6 lg:px-8 text-center">
-                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-gray-900">
-                    Semua alat yang Anda butuhkan untuk pajak
-                </h1>
-                <p class="mt-4 max-w-2xl mx-auto text-base sm:text-lg text-gray-500">
-                    Kumpulan alat bantu untuk menyederhanakan perhitungan PPh Unifikasi, PPh 21, dan kebutuhan perpajakan lainnya. Cepat, akurat, dan mudah digunakan.
-                </p>
+        <!-- Featured Tools Section -->
+        <section class="py-16">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold tracking-tight text-gray-900">Alat Unggulan Kami</h2>
+                    <p class="mt-3 text-gray-500">Dirancang untuk kecepatan, akurasi, dan kemudahan penggunaan.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Tool 1 -->
+                    <a href="kalkulator-pph-21.html" class="tool-card block bg-white p-6 rounded-lg border">
+                        <h3 class="font-bold text-lg text-gray-900">Kalkulator PPh 21 (TER)</h3>
+                        <p class="mt-2 text-sm text-gray-600">Hitung PPh 21 bulanan dan tahunan sesuai peraturan terbaru dengan mudah.</p>
+                    </a>
+                    <!-- Tool 2 -->
+                    <a href="kalkulator-pph-unifikasi.html" class="tool-card block bg-white p-6 rounded-lg border">
+                        <h3 class="font-bold text-lg text-gray-900">Kalkulator PPh Unifikasi</h3>
+                        <p class="mt-2 text-sm text-gray-600">Kalkulasi PPh Pasal 4(2), 15, 22, dan 23 dalam satu platform terintegrasi.</p>
+                    </a>
+                    <!-- Tool 3 -->
+                    <a href="xml-generator.html" class="tool-card block bg-white p-6 rounded-lg border">
+                        <h3 class="font-bold text-lg text-gray-900">XML Generator PPN</h3>
+                        <p class="mt-2 text-sm text-gray-600">Buat file XML PPN Digunggung (1111 A5) yang siap diimpor ke e-Faktur.</p>
+                    </a>
+                </div>
             </div>
+        </section>
+
+        <!-- Latest Articles Section -->
+        <section class="bg-white py-20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold tracking-tight text-gray-900">Wawasan dari Blog Kami</h2>
+                    <p class="mt-3 text-gray-500">Tetap terinformasi dengan analisis dan panduan terbaru dari para ahli.</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Featured Article -->
+                    <div class="lg:col-span-2">
+                        <a href="artikel-pajak-1.html" class="article-card-featured group block bg-white rounded-xl shadow-lg overflow-hidden">
+                            <div class="md:flex">
+                                <div class="md:flex-shrink-0">
+                                    <img class="h-48 w-full object-cover md:w-48" src="https://placehold.co/400x300/dc2626/white?text=PPh+21" alt="Ilustrasi metode PPh 21">
+                                </div>
+                                <div class="p-8">
+                                    <div class="uppercase tracking-wide text-sm text-red-600 font-semibold">PPh 21</div>
+                                    <h3 class="mt-1 text-xl leading-tight font-extrabold text-black group-hover:text-red-700">Panduan Lengkap PPh 21: Metode Gross, Gross Up, dan Nett</h3>
+                                    <p class="mt-4 text-gray-600">Pelajari perbedaan mendasar antara tiga metode perhitungan PPh 21 dan dampaknya pada gaji karyawan serta beban pajak perusahaan.</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Other Articles -->
+                    <div class="space-y-8">
+                        <a href="#" class="group block">
+                            <h4 class="font-bold text-gray-900 group-hover:text-red-700">5 Jenis Jasa yang Wajib Dikenakan PPh Pasal 23</h4>
+                            <p class="text-sm text-gray-500 mt-1">Kenali jenis jasa yang termasuk objek PPh 23 dalam skema unifikasi.</p>
+                        </a>
+                        <a href="#" class="group block">
+                            <h4 class="font-bold text-gray-900 group-hover:text-red-700">Cara Efektif Mengelola Bukti Potong Unifikasi</h4>
+                            <p class="text-sm text-gray-500 mt-1">Tips praktis untuk mengelola bukti potong agar terhindar dari denda.</p>
+                        </a>
+                         <a href="#" class="group block">
+                            <h4 class="font-bold text-gray-900 group-hover:text-red-700">Memahami Tarif Efektif Rata-rata (TER) PPh 21</h4>
+                            <p class="text-sm text-gray-500 mt-1">Penjelasan mendalam tentang kategori dan cara penggunaan TER.</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-6 px-4 bg-gray-100">
+        <div class="max-w-3xl mx-auto text-xs text-gray-600">
+            <div class="flex justify-center flex-wrap gap-x-4 gap-y-2 mb-4 text-sm">
+                <a href="about-us.html" class="text-gray-700 hover:text-red-600 font-semibold">Tentang Kami</a>
+                <span class="text-gray-400 hidden sm:inline">|</span>
+                <a href="kebijakan-privasi.html" class="text-gray-700 hover:text-red-600 font-semibold">Kebijakan Privasi</a>
+                <span class="text-gray-400 hidden sm:inline">|</span>
+                <a href="sitemap.html" class="text-gray-700 hover:text-red-600 font-semibold">Peta Situs</a>
+            </div>
+            <p class="font-semibold">Disclaimer Privasi:</p>
+            <p>Aplikasi ini adalah alat bantu kalkulasi semata. Seluruh data yang Anda masukkan hanya diproses di perangkat Anda dan tidak disimpan atau dikirim ke server mana pun.</p>
+            <p class="mt-2">Dibuat oleh Tim Archisight Tax. &copy; 2025</p>
         </div>
-
-        <!-- Main Content (Feature Cards) -->
-        <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-            <div class="relative" style="top: -4rem;"> <!-- Pull up the cards -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-
-                    <!-- Card: Kalkulator PPh Unifikasi -->
-                    <div class="feature-card p-6">
-                        <div>
-                            <div class="card-icon mb-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
-                            </div>
-                            <h2 class="text-lg font-bold mb-2">Kalkulator PPh Unifikasi</h2>
-                            <p class="text-gray-600 text-sm mb-4">Hitung PPh 22, 23, 4(2), dan PPN untuk berbagai transaksi dalam satu tempat.</p>
-                        </div>
-                        <a href="kalkulator-pph-unifikasi.html" class="card-link py-2 px-4 rounded-lg text-center mt-4 text-sm">Buka Kalkulator</a>
-                    </div>
-
-                    <!-- Card: Kalkulator PPh 21 -->
-                    <div class="feature-card p-6">
-                        <div>
-                            <div class="card-icon mb-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                            </div>
-                            <h2 class="text-lg font-bold mb-2">Kalkulator PPh 21</h2>
-                            <p class="text-gray-600 text-sm mb-4">Perhitungan PPh 21 bulanan (TER) dan tahunan sesuai peraturan terbaru.</p>
-                        </div>
-                        <a href="kalkulator-pph-21.html" class="card-link py-2 px-4 rounded-lg text-center mt-4 text-sm">Buka Kalkulator</a>
-                    </div>
-
-                    <!-- Card: Daftar TER -->
-                    <div class="feature-card p-6">
-                        <div>
-                            <div class="card-icon mb-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                            </div>
-                            <h2 class="text-lg font-bold mb-2">Daftar Tarif Efektif (TER)</h2>
-                            <p class="text-gray-600 text-sm mb-4">Lihat tabel lengkap Tarif Efektif Rata-rata (TER) untuk PPh 21 kategori A, B, C, dan Harian.</p>
-                        </div>
-                        <a href="daftar-ter.html" class="card-link py-2 px-4 rounded-lg text-center mt-4 text-sm">Lihat Daftar</a>
-                    </div>
-
-                    <!-- Card: XML Generator -->
-                    <div class="feature-card p-6">
-                        <div>
-                            <div class="card-icon mb-4">
-                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                            </div>
-                            <h2 class="text-lg font-bold mb-2">XML Generator PPN</h2>
-                            <p class="text-gray-600 text-sm mb-4">Buat file XML untuk PPN Digunggung (Formulir 1111 A5) yang siap untuk diimpor.</p>
-                        </div>
-                        <a href="xml-generator.html" class="card-link py-2 px-4 rounded-lg text-center mt-4 text-sm">Buka Generator</a>
-                    </div>
-
-                    <!-- Card: Blog & Artikel -->
-                    <div class="feature-card p-6">
-                        <div>
-                            <div class="card-icon mb-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v15H6.5A2.5 2.5 0 0 1 4 14.5v-10A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-                            </div>
-                            <h2 class="text-lg font-bold mb-2">Blog & Artikel</h2>
-                            <p class="text-gray-600 text-sm mb-4">Dapatkan wawasan, panduan, dan berita terbaru seputar perpajakan di Indonesia.</p>
-                        </div>
-                        <a href="blog.html" class="card-link py-2 px-4 rounded-lg text-center mt-4 text-sm">Kunjungi Blog</a>
-                    </div>
-
-                    <!-- Card: Donasi -->
-                    <div class="feature-card p-6">
-                        <div>
-                            <div class="card-icon mb-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                            </div>
-                            <h2 class="text-lg font-bold mb-2">Dukung Kami</h2>
-                            <p class="text-gray-600 text-sm mb-4">Suka dengan aplikasi ini? Dukung pengembangan kami dengan secangkir kopi.</p>
-                        </div>
-                        <a href="donasi.html" class="card-link py-2 px-4 rounded-lg text-center mt-4 text-sm">Beri Dukungan</a>
-                    </div>
-
-                </div>
-            </div>
-        </main>
-
-        <!-- Footer -->
-        <footer class="text-center py-6 px-4 bg-gray-100">
-            <div class="max-w-3xl mx-auto text-xs text-gray-600">
-                <div class="flex justify-center gap-4 mb-4 text-sm">
-                    <a href="about-us.html" class="text-gray-700 hover:text-red-600 font-semibold">Tentang Kami</a>
-                    <span class="text-gray-400">|</span>
-                    <a href="kebijakan-privasi.html" class="text-gray-700 hover:text-red-600 font-semibold">Kebijakan Privasi</a>
-                </div>
-                <p class="font-semibold">Disclaimer Privasi:</p>
-                <p>Aplikasi ini adalah alat bantu kalkulasi semata. Seluruh data yang Anda masukkan hanya diproses di perangkat Anda dan tidak disimpan atau dikirim ke server mana pun.</p>
-                <p class="mt-2">Dibuat oleh Tim Archisight Tax. &copy; 2025</p>
-            </div>
-        </footer>
-    </div>
+    </footer>
 
 </body>
 </html>
