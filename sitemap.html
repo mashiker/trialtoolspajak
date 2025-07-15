@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Peta Situs - Archisight Tax Assistant</title>
-    <meta name="description" content="Navigasi semua halaman yang tersedia di Archisight Tax Assistant. Temukan kalkulator pajak, artikel, dan informasi penting lainnya dengan mudah.">
-    <link rel="canonical" href="https://yourwebsite.com/sitemap.html"> <!-- Ganti dengan URL Anda -->
+    <title>Peta Situs - AlatPajak.id</title>
+    <meta name="description" content="Navigasi semua halaman yang tersedia di AlatPajak.id. Temukan kalkulator pajak, artikel, dan informasi penting lainnya dengan mudah.">
+    <link rel="canonical" href="https://alatpajak.id/sitemap.html">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,13 +21,28 @@
             margin-bottom: 1rem;
         }
         .sitemap-link {
-            display: block;
+            display: flex;
+            align-items: center;
             padding: 0.75rem 1rem;
             border-radius: 0.5rem;
-            transition: background-color 0.2s ease-in-out;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            color: #374151;
+            font-weight: 500;
         }
         .sitemap-link:hover {
             background-color: #fef2f2;
+            color: #dc2626;
+        }
+        .sitemap-link svg {
+            margin-right: 0.75rem;
+            flex-shrink: 0;
+        }
+        .sitemap-link.sub-link {
+            padding-left: 2.5rem;
+            font-weight: 400;
+            color: #4b5563;
+        }
+        .sitemap-link.sub-link:hover {
             color: #dc2626;
         }
     </style>
@@ -43,12 +58,12 @@
                     <span class="inline-block p-2 bg-red-600 rounded-lg">
                        <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 8.36364L12 2L18.3636 2L18.3636 8.36364H12ZM12 12.5455V18.3636H18.3636V12.5455H12ZM2 2L2 8.36364H8.36364L8.36364 2H2ZM2 12.5455L2 22L8.36364 22L8.36364 12.5455H2Z"/></svg>
                     </span>
-                    <span class="text-xl font-bold text-gray-900 tracking-tight">Archisight Tax</span>
+                    <span class="text-xl font-bold text-gray-900 tracking-tight">AlatPajak.id</span>
                 </a>
                 <!-- Back Button -->
                 <a href="index.html" class="text-gray-600 hover:text-red-600 text-sm font-medium flex items-center space-x-1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                    <span>Kembali ke Dashboard</span>
+                    <span>Kembali ke Beranda</span>
                 </a>
             </div>
         </div>
@@ -63,34 +78,81 @@
             </header>
 
             <div class="space-y-10">
-                <!-- Section: Alat Utama -->
+                <!-- Section: Halaman Utama -->
                 <section class="sitemap-section">
-                    <h2>Alat Utama</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <a href="kalkulator-pph-unifikasi.html" class="sitemap-link font-semibold">Kalkulator PPh Unifikasi</a>
-                        <a href="kalkulator-pph-21.html" class="sitemap-link font-semibold">Kalkulator PPh 21</a>
-                        <a href="xml-generator.html" class="sitemap-link font-semibold">XML Generator PPN</a>
+                    <h2>Halaman Utama</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+                        <a href="index.html" class="sitemap-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                            Beranda
+                        </a>
+                        <a href="about-us.html" class="sitemap-link">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                            Tentang Kami
+                        </a>
+                    </div>
+                </section>
+
+                <!-- Section: Alat Pajak -->
+                <section class="sitemap-section">
+                    <h2>Alat Pajak & Produktivitas</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+                        <a href="alat-pajak.html" class="sitemap-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+                            Semua Alat Pajak
+                        </a>
+                        <a href="kalkulator-pph-unifikasi.html" class="sitemap-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                            Kalkulator PPh Unifikasi
+                        </a>
+                        <a href="kalkulator-pph-21.html" class="sitemap-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                            Kalkulator PPh 21
+                        </a>
+                        <a href="xml-generator.html" class="sitemap-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                            XML Generator PPN
+                        </a>
+                        <a href="gantinamabatchpdf.html" class="sitemap-link">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13.5V4a2 2 0 0 1 2-2h8.5L20 7.5V20a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V13.5"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M10 15l-1.5 1.5L10 18"></path><path d="M14 15l1.5 1.5L14 18"></path><path d="M8 20l4-4 4 4"></path></svg>
+                            Ganti Nama PDF Batch
+                        </a>
                     </div>
                 </section>
 
                 <!-- Section: Informasi & Artikel -->
                 <section class="sitemap-section">
                     <h2>Informasi & Artikel</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <a href="daftar-ter.html" class="sitemap-link font-semibold">Daftar Tarif Efektif (TER)</a>
-                        <a href="blog.html" class="sitemap-link font-semibold">Blog & Artikel</a>
-                        <a href="artikel-pajak-1.html" class="sitemap-link font-semibold ml-4 text-gray-600">→ Panduan PPh 21: Gross, Gross Up, Nett</a>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+                        <a href="blog.html" class="sitemap-link">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                            Blog & Wawasan
+                        </a>
+                        <a href="daftar-ter.html" class="sitemap-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            Daftar Tarif Efektif (TER)
+                        </a>
+                        <a href="Artikel-Panduan-Lengkap-PPh-21.html" class="sitemap-link sub-link">→ Panduan Lengkap PPh 21</a>
+                        <a href="artikel-per-11-2025.html" class="sitemap-link sub-link">→ Mengupas Tuntas PER-11/PJ/2025</a>
                     </div>
                 </section>
                 
                 <!-- Section: Halaman Lainnya -->
                 <section class="sitemap-section">
                     <h2>Halaman Lainnya</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <a href="about-us.html" class="sitemap-link font-semibold">Tentang Kami</a>
-                        <a href="kebijakan-privasi.html" class="sitemap-link font-semibold">Kebijakan Privasi</a>
-                        <a href="donasi.html" class="sitemap-link font-semibold">Dukung Kami</a>
-                        <a href="halamanproduk.html" class="sitemap-link font-semibold">Toko Digital</a>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+                        <a href="halamanproduk.html" class="sitemap-link">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                            Toko Digital
+                        </a>
+                        <a href="donasi.html" class="sitemap-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                            Dukung Kami
+                        </a>
+                        <a href="kebijakan-privasi.html" class="sitemap-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                            Kebijakan Privasi
+                        </a>
                     </div>
                 </section>
             </div>
@@ -107,9 +169,7 @@
                 <span class="text-gray-400 hidden sm:inline">|</span>
                 <a href="sitemap.html" class="text-gray-700 hover:text-red-600 font-semibold">Peta Situs</a>
             </div>
-            <p class="font-semibold">Disclaimer Privasi:</p>
-            <p>Aplikasi ini adalah alat bantu kalkulasi semata. Seluruh data yang Anda masukkan hanya diproses di perangkat Anda dan tidak disimpan atau dikirim ke server mana pun.</p>
-            <p class="mt-2">Dibuat oleh Tim Archisight Tax. &copy; 2025</p>
+            <p class="font-semibold">© Copyright 2025 - AlatPajak.id</p>
         </div>
     </footer>
 
