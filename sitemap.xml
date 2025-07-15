@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Halaman Utama -->
+  <url>
+    <loc>https://alatpajak.id/index.html</loc>
+    <lastmod>2025-07-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.00</priority>
+  </url>
+  
+  <!-- Halaman Alat Pajak Utama -->
+  <url>
+    <loc>https://alatpajak.id/alat-pajak.html</loc>
+    <lastmod>2025-07-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://alatpajak.id/kalkulator-pph-unifikasi.html</loc>
+    <lastmod>2025-07-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://alatpajak.id/kalkulator-pph-21.html</loc>
+    <lastmod>2025-07-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://alatpajak.id/xml-generator.html</loc>
+    <lastmod>2025-07-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://alatpajak.id/gantinamabatchpdf.html</loc>
+    <lastmod>2025-07-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  
+  <!-- Halaman Informasi & Blog -->
+  <url>
+    <loc>https://alatpajak.id/daftar-ter.html</loc>
+    <lastmod>2025-07-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://alatpajak.id/blog.html</loc>
+    <lastmod>2025-07-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://alatpajak.id/Artikel-Panduan-Lengkap-PPh-21.html</loc>
+    <lastmod>2025-07-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://alatpajak.id/artikel-per-11-2025.html</loc>
+    <lastmod>2025-07-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  
+  <!-- Halaman Lainnya -->
+  <url>
+    <loc>https://alatpajak.id/about-us.html</loc>
+    <lastmod>2025-07-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://alatpajak.id/halamanproduk.html</loc>
+    <lastmod>2025-07-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://alatpajak.id/donasi.html</loc>
+    <lastmod>2025-07-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.50</priority>
+  </url>
+  <url>
+    <loc>https://alatpajak.id/kebijakan-privasi.html</loc>
+    <lastmod>2025-07-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.40</priority>
+  </url>
+  <url>
+    <loc>https://alatpajak.id/sitemap.html</loc>
+    <lastmod>2025-07-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.30</priority>
+  </url>
+</urlset>
