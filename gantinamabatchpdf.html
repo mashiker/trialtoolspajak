@@ -105,6 +105,26 @@
             border-color: #ef4444;
             background-color: #fef2f2; /* red-50 */
         }
+        /* Tutorial specific styles */
+        .tutorial-section {
+            font-size: 0.875rem; /* text-sm */
+            padding: 1rem; /* p-4 */
+        }
+        .tutorial-section h2 {
+            font-size: 1rem; /* text-base */
+            margin-bottom: 0.5rem; /* mb-2 */
+        }
+        .tutorial-section ol {
+            line-height: 1.5; /* leading-relaxed */
+            margin-left: 0.5rem; /* ml-2 */
+        }
+        .tutorial-section li {
+            margin-bottom: 0.5rem; /* mb-1 */
+        }
+        .tutorial-section ul {
+            margin-left: 1rem; /* ml-4 */
+            margin-top: 0.25rem; /* mt-1 */
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -139,42 +159,26 @@
             </div>
 
             <!-- Tutorial Section -->
-            <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
-                <h2 class="text-xl font-bold text-gray-800 mb-4">Cara Penggunaan</h2>
-                <ol class="list-decimal list-inside space-y-3 text-gray-700">
+            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 tutorial-section">
+                <h2 class="font-bold text-gray-800 mb-2">Cara Penggunaan</h2>
+                <ol class="list-decimal list-inside space-y-1 text-gray-700">
                     <li>
-                        <strong>Pilih Metode Unggah:</strong>
-                        Pilih apakah Anda ingin mengunggah file ZIP (berisi banyak PDF), satu file PDF individual, atau beberapa file PDF individual secara langsung.
+                        <strong>Pilih Metode Unggah:</strong> Pilih apakah Anda ingin mengunggah file ZIP, satu PDF, atau beberapa PDF.
                     </li>
                     <li>
-                        <strong>Unggah File Anda:</strong>
-                        Seret & lepas file Anda ke area "Seret & lepas..." atau klik tombol "Pilih File..." untuk memilih file dari komputer Anda.
-                        Setelah file diunggah, daftar file PDF yang terdeteksi akan muncul di bawahnya.
+                        <strong>Unggah File Anda:</strong> Seret & lepas file ke area yang tersedia, atau klik tombol "Pilih File..." untuk memilih file dari komputer Anda.
                     </li>
                     <li>
-                        <strong>Periksa & Edit Nama File:</strong>
-                        Lihat daftar file PDF yang terdeteksi. Anda dapat mengedit nama baru untuk setiap file secara manual di kolom "Nama Baru".
+                        <strong>Periksa & Edit Nama File:</strong> Daftar file PDF yang terdeteksi akan muncul. Anda dapat mengedit nama baru untuk setiap file secara manual.
                     </li>
                     <li>
-                        <strong>Tentukan Pola Penggantian Nama (Opsional):</strong>
-                        Jika Anda ingin mengganti nama banyak file secara otomatis, masukkan pola di kolom "Tentukan Pola Penggantian Nama".
-                        Gunakan placeholder berikut:
-                        <ul class="list-disc list-inside ml-4 mt-1 text-sm">
-                            <li><code>{nomor}</code>: Akan diganti dengan nomor urut file (misal: 001, 002, dst.).</li>
-                            <li><code>{nama_lama}</code>: Akan diganti dengan nama asli file (tanpa ekstensi).</li>
-                            <li><code>{tanggal}</code>: Akan diganti dengan tanggal saat ini (format YYYYMMDD).</li>
-                        </ul>
-                        Setelah memasukkan pola, klik "Terapkan Pola ke Semua" untuk melihat hasilnya di daftar file. Anda masih bisa melakukan penyesuaian manual.
+                        <strong>Tentukan Pola Penggantian Nama (Opsional):</strong> Masukkan pola seperti <code>{nomor}</code>, <code>{nama_lama}</code>, atau <code>{tanggal}</code> dan klik "Terapkan Pola ke Semua".
                     </li>
                     <li>
-                        <strong>Proses & Unduh:</strong>
-                        Setelah Anda puas dengan nama-nama baru, klik tombol "Proses & Unduh".
-                        Jika Anda mengunggah file ZIP, Anda akan mengunduh file ZIP baru yang berisi PDF dengan nama yang sudah diganti.
-                        Jika Anda mengunggah file PDF individual, Anda akan mengunduh setiap file PDF dengan nama barunya secara terpisah.
+                        <strong>Proses & Unduh:</strong> Klik "Proses & Unduh" untuk mendapatkan file(s) PDF dengan nama baru.
                     </li>
                     <li>
-                        <strong>Reset:</strong>
-                        Klik tombol "Reset" untuk menghapus semua data dan memulai ulang aplikasi.
+                        <strong>Reset:</strong> Klik "Reset" untuk memulai ulang aplikasi.
                     </li>
                 </ol>
             </div>
