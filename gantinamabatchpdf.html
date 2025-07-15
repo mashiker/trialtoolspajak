@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ganti Nama PDF Batch dalam Arsip</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- JSZip for handling zip files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+        }
+        .container {
+            max-width: 960px;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            border: 1px solid #e2e8f0;
+        }
+        .form-input, .form-select, .form-textarea {
+            border: 1px solid #cbd5e1;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            width: 100%;
+            font-size: 0.9rem;
+        }
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            border-color: #ef4444;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+        }
+        .btn-primary {
+            background-color: #ef4444;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+        }
+        .btn-primary:hover {
+            background-color: #dc2626;
+        }
+        .btn-secondary {
+            background-color: #e2e8f0;
+            color: #475569;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+        }
+        .btn-secondary:hover {
+            background-color: #cbd5e1;
+        }
+        .file-list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+        .file-list-item:last-child {
+            border-bottom: none;
+        }
+        .message-box {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        .message-box.success {
+            background-color: #d1fae5;
+            color: #065f46;
+            border: 1px solid #34d399;
+        }
+        .message-box.error {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #ef4444;
+        }
+        .message-box.info {
+            background-color: #e0f2fe;
+            color: #0369a1;
+            border: 1px solid #38b2ac;
+        }
+        /* Drag and drop specific styles */
+        .drop-zone {
+            border: 2px dashed #cbd5e1;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            background-color: #f1f5f9; /* slate-100 */
+        }
+        .drop-zone.dragover {
+            border-color: #ef4444;
+            background-color: #fef2f2; /* red-50 */
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-20 border-b border-gray-200">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-3">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center space-x-2">
+                    <span class="inline-block p-2 bg-red-600 rounded-lg">
+                       <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 8.36364L12 2L18.3636 2L18.3636 8.36364H12ZM12 12.5455V18.3636H18.3636V12.5455H12ZM2 2L2 8.36364H8.36364L8.36364 2H2ZM2 12.5455L2 22L8.36364 22L8.36364 12.5455H2Z"/></svg>
+                    </span>
+                    <span class="text-xl font-bold text-gray-900 tracking-tight">Archisight Tax</span>
+                </a>
+                <!-- Back Button -->
+                <a href="index.html" class="text-gray-600 hover:text-red-600 text-sm font-medium flex items-center space-x-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                    <span>Kembali ke Halaman Utama</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-center mb-8 text-gray-900">Ganti Nama PDF Batch dalam Arsip</h1>
+
+        <div class="card space-y-6">
+            <div class="info message-box info">
+                <p>Alat ini memungkinkan Anda untuk mengubah nama file PDF secara massal di dalam arsip ZIP atau file PDF individual. Proses ini sepenuhnya dilakukan di browser Anda untuk menjaga privasi data.</p>
+                <p class="mt-2"><strong>Catatan:</strong> Untuk arsip, saat ini hanya mendukung file ZIP. File RAR tidak dapat diproses langsung di browser.</p>
+            </div>
+
+            <!-- Tutorial Section -->
+            <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Cara Penggunaan</h2>
+                <ol class="list-decimal list-inside space-y-3 text-gray-700">
+                    <li>
+                        <strong>Pilih Metode Unggah:</strong>
+                        Pilih apakah Anda ingin mengunggah file ZIP (berisi banyak PDF), satu file PDF individual, atau beberapa file PDF individual secara langsung.
+                    </li>
+                    <li>
+                        <strong>Unggah File Anda:</strong>
+                        Seret & lepas file Anda ke area "Seret & lepas..." atau klik tombol "Pilih File..." untuk memilih file dari komputer Anda.
+                        Setelah file diunggah, daftar file PDF yang terdeteksi akan muncul di bawahnya.
+                    </li>
+                    <li>
+                        <strong>Periksa & Edit Nama File:</strong>
+                        Lihat daftar file PDF yang terdeteksi. Anda dapat mengedit nama baru untuk setiap file secara manual di kolom "Nama Baru".
+                    </li>
+                    <li>
+                        <strong>Tentukan Pola Penggantian Nama (Opsional):</strong>
+                        Jika Anda ingin mengganti nama banyak file secara otomatis, masukkan pola di kolom "Tentukan Pola Penggantian Nama".
+                        Gunakan placeholder berikut:
+                        <ul class="list-disc list-inside ml-4 mt-1 text-sm">
+                            <li><code>{nomor}</code>: Akan diganti dengan nomor urut file (misal: 001, 002, dst.).</li>
+                            <li><code>{nama_lama}</code>: Akan diganti dengan nama asli file (tanpa ekstensi).</li>
+                            <li><code>{tanggal}</code>: Akan diganti dengan tanggal saat ini (format YYYYMMDD).</li>
+                        </ul>
+                        Setelah memasukkan pola, klik "Terapkan Pola ke Semua" untuk melihat hasilnya di daftar file. Anda masih bisa melakukan penyesuaian manual.
+                    </li>
+                    <li>
+                        <strong>Proses & Unduh:</strong>
+                        Setelah Anda puas dengan nama-nama baru, klik tombol "Proses & Unduh".
+                        Jika Anda mengunggah file ZIP, Anda akan mengunduh file ZIP baru yang berisi PDF dengan nama yang sudah diganti.
+                        Jika Anda mengunggah file PDF individual, Anda akan mengunduh setiap file PDF dengan nama barunya secara terpisah.
+                    </li>
+                    <li>
+                        <strong>Reset:</strong>
+                        Klik tombol "Reset" untuk menghapus semua data dan memulai ulang aplikasi.
+                    </li>
+                </ol>
+            </div>
+            <!-- End Tutorial Section -->
+
+            <!-- Bagian Pilih Metode Unggah -->
+            <div>
+                <label class="block text-lg font-medium text-gray-700 mb-2">1. Pilih Metode Unggah File</label>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <label class="inline-flex items-center cursor-pointer">
+                        <input type="radio" name="uploadMethod" value="zip" class="form-radio text-red-600" checked>
+                        <span class="ml-2 text-gray-700">Unggah File ZIP</span>
+                    </label>
+                    <label class="inline-flex items-center cursor-pointer">
+                        <input type="radio" name="uploadMethod" value="singlePdf" class="form-radio text-red-600">
+                        <span class="ml-2 text-gray-700">Unggah Satu File PDF</span>
+                    </label>
+                    <label class="inline-flex items-center cursor-pointer">
+                        <input type="radio" name="uploadMethod" value="multiplePdf" class="form-radio text-red-600">
+                        <span class="ml-2 text-gray-700">Unggah Beberapa File PDF</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Bagian Unggah File ZIP -->
+            <div id="zipUploadSection">
+                <label for="zipFile" class="block text-lg font-medium text-gray-700 mb-2">2. Unggah File ZIP Anda</label>
+                <div id="zipDropZone" class="drop-zone">
+                    <p class="text-gray-600">Seret & lepas file .zip di sini, atau</p>
+                    <input type="file" id="zipFile" accept=".zip" class="hidden">
+                    <button type="button" class="btn-secondary mt-2" onclick="document.getElementById('zipFile').click()">Pilih File ZIP</button>
+                </div>
+                <p class="text-sm text-gray-500 mt-1">Pilih file .zip yang berisi file-file PDF Anda.</p>
+            </div>
+
+            <!-- Bagian Unggah Satu File PDF -->
+            <div id="singlePdfUploadSection" class="hidden">
+                <label for="singlePdfFile" class="block text-lg font-medium text-gray-700 mb-2">2. Unggah Satu File PDF</label>
+                <div id="singlePdfDropZone" class="drop-zone">
+                    <p class="text-gray-600">Seret & lepas file .pdf di sini, atau</p>
+                    <input type="file" id="singlePdfFile" accept=".pdf" class="hidden">
+                    <button type="button" class="btn-secondary mt-2" onclick="document.getElementById('singlePdfFile').click()">Pilih File PDF</button>
+                </div>
+                <p class="text-sm text-gray-500 mt-1">Pilih satu file .pdf.</p>
+            </div>
+
+            <!-- Bagian Unggah Beberapa File PDF -->
+            <div id="multiplePdfUploadSection" class="hidden">
+                <label for="multiplePdfFiles" class="block text-lg font-medium text-gray-700 mb-2">2. Unggah Beberapa File PDF</label>
+                <div id="multiplePdfDropZone" class="drop-zone">
+                    <p class="text-gray-600">Seret & lepas beberapa file .pdf di sini, atau</p>
+                    <input type="file" id="multiplePdfFiles" accept=".pdf" multiple class="hidden">
+                    <button type="button" class="btn-secondary mt-2" onclick="document.getElementById('multiplePdfFiles').click()">Pilih Beberapa File PDF</button>
+                </div>
+                <p class="text-sm text-gray-500 mt-1">Pilih beberapa file .pdf (gunakan Ctrl/Cmd untuk memilih banyak).</p>
+            </div>
+
+            <!-- Daftar File PDF yang Ditemukan -->
+            <div id="fileListSection" class="hidden">
+                <label class="block text-lg font-medium text-gray-700 mb-2">3. File PDF Ditemukan</label>
+                <div id="pdfFileList" class="border border-gray-200 rounded-lg p-4 max-h-80 overflow-y-auto bg-gray-50">
+                    <p class="text-gray-500 text-center">Tidak ada file PDF yang ditemukan.</p>
+                </div>
+                <p class="text-sm text-gray-500 mt-2">Daftar file PDF yang terdeteksi. Anda dapat mengedit nama baru di sini.</p>
+            </div>
+
+            <!-- Pola Penggantian Nama -->
+            <div id="renamePatternSection" class="hidden">
+                <label for="renamePattern" class="block text-lg font-medium text-gray-700 mb-2">4. Tentukan Pola Penggantian Nama</label>
+                <input type="text" id="renamePattern" class="form-input" placeholder="Contoh: Invoice_{nomor}_Tanggal_{tanggal}.pdf">
+                <p class="text-sm text-gray-500 mt-1">Gunakan <code>{nomor}</code> untuk penomoran otomatis, <code>{nama_lama}</code> untuk nama file asli (tanpa ekstensi), atau <code>{tanggal}</code> untuk tanggal saat ini (YYYYMMDD).</p>
+                <div class="mt-2 flex flex-wrap gap-2">
+                    <button type="button" class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium" onclick="insertPattern('{nomor}')">{nomor}</button>
+                    <button type="button" class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium" onclick="insertPattern('{nama_lama}')">{nama_lama}</button>
+                    <button type="button" class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium" onclick="insertPattern('{tanggal}')">{tanggal}</button>
+                </div>
+                <button id="applyPatternBtn" class="mt-4 w-full btn-secondary">Terapkan Pola ke Semua</button>
+            </div>
+
+            <!-- Pesan Status -->
+            <div id="messageBox" class="message-box hidden"></div>
+
+            <!-- Tombol Proses dan Unduh -->
+            <div id="actionButtons" class="hidden flex flex-col sm:flex-row gap-4 justify-center mt-6">
+                <button id="processRenameBtn" class="btn-primary flex-1">Proses & Unduh</button>
+                <button id="resetBtn" class="btn-secondary flex-1">Reset</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-6 px-4 bg-gray-100 mt-12">
+        <div class="max-w-3xl mx-auto text-xs text-gray-600">
+            <div class="flex justify-center flex-wrap gap-x-4 gap-y-2 mb-4 text-sm">
+                <a href="about-us.html" class="text-gray-700 hover:text-red-600 font-semibold">Tentang Kami</a>
+                <span class="text-gray-400 hidden sm:inline">|</span>
+                <a href="kebijakan-privasi.html" class="text-gray-700 hover:text-red-600 font-semibold">Kebijakan Privasi</a>
+                <span class="text-gray-400 hidden sm:inline">|</span>
+                <a href="sitemap.html" class="text-gray-700 hover:text-red-600 font-semibold">Peta Situs</a>
+            </div>
+            <p class="font-semibold">Disclaimer Privasi:</p>
+            <p>Aplikasi ini adalah alat bantu kalkulasi semata. Seluruh data yang Anda masukkan hanya diproses di perangkat Anda dan tidak disimpan atau dikirim ke server mana pun.</p>
+            <p class="mt-2">Dibuat oleh Tim Archisight Tax. &copy; 2025</p>
+        </div>
+    </footer>
+
+    <script>
+        let pdfFiles = []; // Stores { name: "original.pdf", content: Blob, newName: "new.pdf", type: "zip" | "single" | "multiple" }
+        let currentUploadMethod = 'zip'; // Default method
+
+        // Get DOM elements
+        const uploadMethodRadios = document.querySelectorAll('input[name="uploadMethod"]');
+        const zipUploadSection = document.getElementById('zipUploadSection');
+        const singlePdfUploadSection = document.getElementById('singlePdfUploadSection');
+        const multiplePdfUploadSection = document.getElementById('multiplePdfUploadSection');
+
+        // File input elements
+        const zipFileInput = document.getElementById('zipFile');
+        const singlePdfFileInput = document.getElementById('singlePdfFile');
+        const multiplePdfFileInput = document.getElementById('multiplePdfFiles');
+
+        // Drop zone elements
+        const zipDropZone = document.getElementById('zipDropZone');
+        const singlePdfDropZone = document.getElementById('singlePdfDropZone');
+        const multiplePdfDropZone = document.getElementById('multiplePdfDropZone');
+
+        const pdfFileListDiv = document.getElementById('pdfFileList');
+        const fileListSection = document.getElementById('fileListSection');
+        const renamePatternSection = document.getElementById('renamePatternSection');
+        const renamePatternInput = document.getElementById('renamePattern');
+        const applyPatternBtn = document.getElementById('applyPatternBtn');
+        const processRenameBtn = document.getElementById('processRenameBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const messageBox = document.getElementById('messageBox');
+        const actionButtons = document.getElementById('actionButtons');
+
+        // Function to display messages
+        function showMessage(message, type) {
+            messageBox.textContent = message;
+            messageBox.className = `message-box ${type}`;
+            messageBox.classList.remove('hidden');
+        }
+
+        // Function to hide messages
+        function hideMessage() {
+            messageBox.classList.add('hidden');
+        }
+
+        // Function to reset all inputs and display
+        function resetApp() {
+            pdfFiles = [];
+            zipFileInput.value = '';
+            singlePdfFileInput.value = '';
+            multiplePdfFileInput.value = '';
+            pdfFileListDiv.innerHTML = '<p class="text-gray-500 text-center">Tidak ada file PDF yang ditemukan.</p>';
+            fileListSection.classList.add('hidden');
+            renamePatternSection.classList.add('hidden');
+            actionButtons.classList.add('hidden');
+            renamePatternInput.value = '';
+            hideMessage();
+            // Ensure the correct upload section is visible based on currentUploadMethod
+            showUploadSection(currentUploadMethod);
+        }
+
+        // Function to show/hide upload sections based on selected method
+        function showUploadSection(method) {
+            zipUploadSection.classList.add('hidden');
+            singlePdfUploadSection.classList.add('hidden');
+            multiplePdfUploadSection.classList.add('hidden');
+
+            if (method === 'zip') {
+                zipUploadSection.classList.remove('hidden');
+            } else if (method === 'singlePdf') {
+                singlePdfUploadSection.classList.remove('hidden');
+            } else if (method === 'multiplePdf') {
+                multiplePdfUploadSection.classList.remove('hidden');
+            }
+        }
+
+        // Event listener for upload method radio buttons
+        uploadMethodRadios.forEach(radio => {
+            radio.addEventListener('change', (event) => {
+                currentUploadMethod = event.target.value;
+                resetApp(); // Reset app state when method changes
+            });
+        });
+
+        // --- File Input Change Listeners ---
+        zipFileInput.addEventListener('change', async (event) => {
+            await handleFileUpload(event.target.files, 'zip');
+        });
+
+        singlePdfFileInput.addEventListener('change', async (event) => {
+            await handleFileUpload(event.target.files, 'single');
+        });
+
+        multiplePdfFileInput.addEventListener('change', async (event) => {
+            await handleFileUpload(event.target.files, 'multiple');
+        });
+
+        // --- Drag and Drop Listeners ---
+        const dropZones = [zipDropZone, singlePdfDropZone, multiplePdfDropZone];
+
+        dropZones.forEach(zone => {
+            zone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                zone.classList.add('dragover');
+            });
+
+            zone.addEventListener('dragleave', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                zone.classList.remove('dragover');
+            });
+
+            zone.addEventListener('drop', async (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                zone.classList.remove('dragover');
+
+                const files = e.dataTransfer.files;
+                if (zone.id === 'zipDropZone' && currentUploadMethod === 'zip') {
+                    await handleFileUpload(files, 'zip');
+                } else if (zone.id === 'singlePdfDropZone' && currentUploadMethod === 'singlePdf') {
+                    // Only process the first file for single PDF upload
+                    await handleFileUpload([files[0]], 'single');
+                } else if (zone.id === 'multiplePdfDropZone' && currentUploadMethod === 'multiplePdf') {
+                    await handleFileUpload(files, 'multiple');
+                } else {
+                    showMessage('File yang dijatuhkan tidak sesuai dengan metode unggah yang dipilih.', 'error');
+                }
+            });
+        });
+
+        // --- Unified File Handling Function ---
+        async function handleFileUpload(files, methodType) {
+            resetApp(); // Reset before processing new files
+            if (files.length === 0) return;
+
+            // Validate file types based on the selected method
+            if (methodType === 'zip') {
+                if (files.length !== 1 || !files[0].name.toLowerCase().endsWith('.zip')) {
+                    showMessage('Untuk unggah ZIP, harap seret atau pilih satu file .zip.', 'error');
+                    return;
+                }
+            } else if (methodType === 'single') {
+                if (files.length !== 1 || !files[0].name.toLowerCase().endsWith('.pdf')) {
+                    showMessage('Untuk unggah satu PDF, harap seret atau pilih satu file .pdf.', 'error');
+                    return;
+                }
+            } else if (methodType === 'multiple') {
+                for (const file of files) {
+                    if (!file.name.toLowerCase().endsWith('.pdf')) {
+                        showMessage(`File "${file.name}" bukan file PDF dan akan diabaikan.`, 'error');
+                        return; // Stop processing if any non-PDF is found in multiple upload
+                    }
+                }
+            }
+
+            showMessage(`Membaca file${files.length > 1 ? 's' : ''}...`, 'info');
+
+            try {
+                pdfFiles = [];
+                if (methodType === 'zip') {
+                    const zip = new JSZip();
+                    await zip.loadAsync(files[0]);
+
+                    zip.forEach((relativePath, zipEntry) => {
+                        if (!zipEntry.dir && relativePath.toLowerCase().endsWith('.pdf')) {
+                            pdfFiles.push({
+                                name: relativePath,
+                                content: zipEntry,
+                                newName: relativePath,
+                                type: 'zip'
+                            });
+                        }
+                    });
+
+                    if (pdfFiles.length === 0) {
+                        showMessage('Tidak ada file PDF yang ditemukan dalam arsip ZIP ini.', 'error');
+                        pdfFileListDiv.innerHTML = '<p class="text-gray-500 text-center">Tidak ada file PDF yang ditemukan.</p>';
+                        return;
+                    }
+
+                } else { // single or multiple PDF upload
+                    for (const file of files) {
+                        pdfFiles.push({
+                            name: file.name,
+                            content: file, // Store the File object directly
+                            newName: file.name,
+                            type: methodType
+                        });
+                    }
+                    if (pdfFiles.length === 0) {
+                        showMessage('Tidak ada file PDF yang valid ditemukan.', 'error');
+                        pdfFileListDiv.innerHTML = '<p class="text-gray-500 text-center">Tidak ada file PDF yang ditemukan.</p>';
+                        return;
+                    }
+                }
+
+                displayPdfFileList();
+                fileListSection.classList.remove('hidden');
+                renamePatternSection.classList.remove('hidden');
+                actionButtons.classList.remove('hidden');
+                showMessage(`Ditemukan ${pdfFiles.length} file PDF.`, 'success');
+
+            } catch (error) {
+                console.error('Error handling file upload:', error);
+                showMessage(`Gagal memproses file: ${error.message}. Pastikan file valid.`, 'error');
+                resetApp();
+            }
+        }
+
+        // Function to display the list of PDF files
+        function displayPdfFileList() {
+            pdfFileListDiv.innerHTML = ''; // Clear previous list
+            pdfFiles.forEach((file, index) => {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-list-item';
+                fileItem.innerHTML = `
+                    <div class="flex-grow mr-4">
+                        <p class="text-sm text-gray-700 font-medium">Asli: <span class="original-name">${file.name}</span></p>
+                        <div class="flex items-center mt-1">
+                            <label for="new-name-${index}" class="text-xs text-gray-500 mr-2 whitespace-nowrap">Nama Baru:</label>
+                            <input type="text" id="new-name-${index}" class="form-input py-1 px-2 text-sm" value="${file.newName}" data-index="${index}">
+                        </div>
+                    </div>
+                `;
+                pdfFileListDiv.appendChild(fileItem);
+
+                // Add event listener for each new name input
+                fileItem.querySelector(`#new-name-${index}`).addEventListener('input', (e) => {
+                    pdfFiles[index].newName = e.target.value;
+                });
+            });
+        }
+
+        // Function to insert pattern into renamePattern input
+        window.insertPattern = (pattern) => {
+            const start = renamePatternInput.selectionStart;
+            const end = renamePatternInput.selectionEnd;
+            const currentValue = renamePatternInput.value;
+            renamePatternInput.value = currentValue.substring(0, start) + pattern + currentValue.substring(end);
+            renamePatternInput.focus();
+            renamePatternInput.selectionEnd = start + pattern.length;
+        };
+
+        // Event listener for "Apply Pattern to All" button
+        applyPatternBtn.addEventListener('click', () => {
+            const pattern = renamePatternInput.value;
+            if (!pattern) {
+                showMessage('Pola penggantian nama tidak boleh kosong.', 'error');
+                return;
+            }
+
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months start at 0!
+            const dd = String(today.getDate()).padStart(2, '0');
+            const formattedDate = `${yyyy}${mm}${dd}`;
+
+            pdfFiles.forEach((file, index) => {
+                const originalNameWithoutExt = file.name.split('.').slice(0, -1).join('.');
+                let newFileName = pattern
+                    .replace(/{nomor}/g, String(index + 1).padStart(3, '0')) // Automatic numbering 001, 002, etc.
+                    .replace(/{nama_lama}/g, originalNameWithoutExt)
+                    .replace(/{tanggal}/g, formattedDate);
+
+                // Ensure .pdf extension remains if not in pattern
+                if (!newFileName.toLowerCase().endsWith('.pdf')) {
+                    newFileName += '.pdf';
+                }
+
+                file.newName = newFileName;
+                document.getElementById(`new-name-${index}`).value = newFileName;
+            });
+            showMessage('Pola penggantian nama berhasil diterapkan.', 'success');
+        });
+
+        // Event listener for "Process & Download" button
+        processRenameBtn.addEventListener('click', async () => {
+            if (pdfFiles.length === 0) {
+                showMessage('Tidak ada file PDF untuk diproses.', 'error');
+                return;
+            }
+
+            showMessage('Memproses penggantian nama dan membuat file(s) baru...', 'info');
+
+            try {
+                let hasError = false;
+                const processedFiles = [];
+
+                // Validate new file names for uniqueness before processing
+                const newNameSet = new Set();
+                for (const file of pdfFiles) {
+                    const newFileName = file.newName.trim();
+                    if (!newFileName) {
+                        showMessage(`Nama baru untuk file "${file.name}" tidak boleh kosong.`, 'error');
+                        hasError = true;
+                        break;
+                    }
+                    if (!newFileName.toLowerCase().endsWith('.pdf')) {
+                        showMessage(`Nama baru untuk file "${file.name}" harus berakhiran '.pdf'.`, 'error');
+                        hasError = true;
+                        break;
+                    }
+                    if (newNameSet.has(newFileName)) {
+                        showMessage(`Nama file "${newFileName}" duplikat. Pastikan semua nama baru unik.`, 'error');
+                        hasError = true;
+                        break;
+                    }
+                    newNameSet.add(newFileName);
+
+                    let fileContentBlob;
+                    if (file.type === 'zip') {
+                        // If from ZIP, content is a JSZip object, need to convert to Blob
+                        fileContentBlob = await file.content.async('blob');
+                    } else {
+                        // If directly uploaded, content is already a File object (which is a Blob)
+                        fileContentBlob = file.content;
+                    }
+                    processedFiles.push({ name: newFileName, blob: fileContentBlob });
+                }
+
+                if (hasError) {
+                    return; // Stop process if there's an error
+                }
+
+                if (currentUploadMethod === 'zip') {
+                    // Re-zip the processed files
+                    const newZip = new JSZip();
+                    for (const pFile of processedFiles) {
+                        newZip.file(pFile.name, pFile.blob);
+                    }
+                    const content = await newZip.generateAsync({ type: "blob" });
+                    const downloadLink = document.createElement('a');
+                    downloadLink.href = URL.createObjectURL(content);
+                    downloadLink.download = `renamed_pdfs_${Date.now()}.zip`;
+                    document.body.appendChild(downloadLink);
+                    downloadLink.click();
+                    document.body.removeChild(downloadLink);
+                    URL.revokeObjectURL(downloadLink.href);
+                    showMessage('Arsip ZIP baru berhasil diunduh!', 'success');
+
+                } else {
+                    // Download individual files
+                    for (const pFile of processedFiles) {
+                        const downloadLink = document.createElement('a');
+                        downloadLink.href = URL.createObjectURL(pFile.blob);
+                        downloadLink.download = pFile.name;
+                        document.body.appendChild(downloadLink);
+                        downloadLink.click();
+                        document.body.removeChild(downloadLink);
+                        URL.revokeObjectURL(downloadLink.href);
+                    }
+                    showMessage('File(s) PDF baru berhasil diunduh!', 'success');
+                }
+
+            } catch (error) {
+                console.error('Error processing and downloading files:', error);
+                showMessage(`Gagal memproses file(s): ${error.message}`, 'error');
+            }
+        });
+
+        // Event listener for Reset button
+        resetBtn.addEventListener('click', resetApp);
+
+        // Initialize the app on load
+        resetApp();
+        // Set initial upload section visibility
+        showUploadSection(currentUploadMethod);
+    </script>
+</body>
+</html>
