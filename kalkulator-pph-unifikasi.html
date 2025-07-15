@@ -24,6 +24,33 @@
         .btn-primary { background-color: #dc2626; color: white; transition: background-color 0.2s ease; }
         .btn-primary:hover { background-color: #b91c1c; }
         #input-table-unifikasi tbody tr:nth-child(even) { background-color: #f9fafb; }
+        
+        /* --- Styles for Searchable Dropdown --- */
+        .searchable-dropdown {
+            position: relative;
+        }
+        .searchable-dropdown-options {
+            display: none;
+            /* FIX: Position is now set by JavaScript to 'fixed' to overlay the page */
+            position: absolute; 
+            background-color: white;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            z-index: 50; /* Increased z-index to ensure it's on top */
+            max-height: 250px;
+            overflow-y: auto;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .searchable-dropdown-options a {
+            color: black;
+            padding: 10px 12px;
+            text-decoration: none;
+            display: block;
+            font-size: 0.875rem;
+        }
+        .searchable-dropdown-options a:hover {
+            background-color: #fef2f2; /* red-50 */
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -149,18 +176,46 @@
             const taxTypesUnifikasi = {
                 '28-403-01': { category: 'PPh Pasal 4 ayat (2)', desc: 'Bunga Deposito/Tabungan/Diskonto SBI - Pihak dalam negeri dan BUT', rate: 20 },
                 '28-403-02': { category: 'PPh Pasal 4 ayat (2)', desc: 'Bunga Deposito/Tabungan/Diskonto SBI - Pihak luar negeri', rate: 20 },
+                '28-403-03': { category: 'PPh Pasal 4 ayat (2)', desc: 'Bunga Simpanan Anggota Koperasi', rate: 10 },
                 '28-404-01': { category: 'PPh Pasal 4 ayat (2)', desc: 'Bunga Obligasi (termasuk SUN) < 5 tahun', rate: 5 },
                 '28-404-02': { category: 'PPh Pasal 4 ayat (2)', desc: 'Bunga Obligasi (termasuk SUN) > 5 tahun', rate: 10 },
                 '28-405-01': { category: 'PPh Pasal 4 ayat (2)', desc: 'Persewaan Tanah dan/atau Bangunan', rate: 10 },
+                '28-408-01': { category: 'PPh Pasal 4 ayat (2)', desc: 'Hadiah Undian', rate: 25 },
                 '28-409-01': { category: 'PPh Pasal 4 ayat (2)', desc: 'Jasa Konstruksi - Pelaksana (Kecil)', rate: 1.75 },
                 '28-409-02': { category: 'PPh Pasal 4 ayat (2)', desc: 'Jasa Konstruksi - Pelaksana (Menengah/Besar)', rate: 2.65 },
+                '28-409-03': { category: 'PPh Pasal 4 ayat (2)', desc: 'Jasa Konstruksi - Pelaksana (Tanpa Sertifikat)', rate: 4 },
+                '28-409-04': { category: 'PPh Pasal 4 ayat (2)', desc: 'Jasa Konstruksi - Perencana/Pengawas (Memiliki Sertifikat)', rate: 3.5 },
                 '28-409-05': { category: 'PPh Pasal 4 ayat (2)', desc: 'Jasa Konstruksi - Konsultan', rate: 3.5 },
+                '28-409-06': { category: 'PPh Pasal 4 ayat (2)', desc: 'Jasa Konstruksi - Perencana/Pengawas (Tanpa Sertifikat)', rate: 6 },
+                '28-410-01': { category: 'PPh Pasal 4 ayat (2)', desc: 'Pengalihan Hak atas Tanah/Bangunan oleh WP Real Estate', rate: 1 },
+                '28-410-02': { category: 'PPh Pasal 4 ayat (2)', desc: 'Pengalihan Hak atas Tanah/Bangunan oleh WP selain Real Estate', rate: 2.5 },
+                '28-411-01': { category: 'PPh Pasal 4 ayat (2)', desc: 'Transaksi Penjualan Saham di Bursa Efek (Bukan Saham Pendiri)', rate: 0.1 },
+                '28-411-02': { category: 'PPh Pasal 4 ayat (2)', desc: 'Transaksi Penjualan Saham di Bursa Efek (Saham Pendiri)', rate: 0.6 },
+                '28-413-01': { category: 'PPh Pasal 4 ayat (2)', desc: 'Usaha Wajib Pajak Tertentu (PP 23/2018)', rate: 0.5 },
+                '28-417-01': { category: 'PPh Pasal 4 ayat (2)', desc: 'Penyalur/Dealer Produk BBM', rate: 0.25 },
                 '28-419-01': { category: 'PPh Pasal 4 ayat (2)', desc: 'Dividen yang diterima Orang Pribadi', rate: 10 },
                 '28-499-01': { category: 'PPh Pasal 4 ayat (2)', desc: 'Transaksi Derivatif (Bursa)', rate: 2.5 },
+                '28-499-99': { category: 'PPh Pasal 4 ayat (2)', desc: 'Lainnya', rate: 10 },
                 '27-102-01': { category: 'PPh Pasal 15', desc: 'Pelayaran Dalam Negeri', rate: 1.2 },
                 '27-102-02': { category: 'PPh Pasal 15', desc: 'Penerbangan Dalam Negeri', rate: 1.8 },
                 '27-102-03': { category: 'PPh Pasal 15', desc: 'Pelayaran/Penerbangan Luar Negeri', rate: 2.64 },
+                '27-103-01': { category: 'PPh Pasal 15', desc: 'Kerja Sama Bentuk BOT', rate: 5 },
+                '27-104-01': { category: 'PPh Pasal 15', desc: 'Perwakilan Dagang Asing', rate: 0.44 },
+                '22-100-01': { category: 'PPh Pasal 22', desc: 'Atas impor yang menggunakan Angka Pengenal Impor (API)', rate: 2.5 },
+                '22-100-02': { category: 'PPh Pasal 22', desc: 'Atas impor yang tidak menggunakan Angka Pengenal Impor (API)', rate: 7.5 },
+                '22-100-03': { category: 'PPh Pasal 22', desc: 'Atas impor yang tidak dikuasai', rate: 7.5 },
+                '22-100-04': { category: 'PPh Pasal 22', desc: 'Atas impor gandum, terigu dan tepung gandum oleh importir yang menggunakan API', rate: 0.5 },
+                '22-100-05': { category: 'PPh Pasal 22', desc: 'Atas impor kedelai oleh importir yang menggunakan API', rate: 0.5 },
+                '22-100-06': { category: 'PPh Pasal 22', desc: 'Atas pembelian barang oleh BUMN/BUMD', rate: 1.5 },
+                '22-100-07': { category: 'PPh Pasal 22', desc: 'Atas penjualan hasil produksi kepada distributor dalam negeri oleh badan usaha di bidang industri semen', rate: 0.25 },
+                '22-100-08': { category: 'PPh Pasal 22', desc: 'Atas penjualan hasil produksi kepada distributor dalam negeri oleh badan usaha di bidang industri kertas', rate: 0.1 },
+                '22-100-09': { category: 'PPh Pasal 22', desc: 'Atas penjualan hasil produksi kepada distributor dalam negeri oleh badan usaha di bidang industri baja', rate: 0.3 },
+                '22-100-10': { category: 'PPh Pasal 22', desc: 'Atas penjualan hasil produksi kepada distributor dalam negeri oleh badan usaha di bidang industri otomotif', rate: 0.45 },
+                '22-100-11': { category: 'PPh Pasal 22', desc: 'Atas penjualan hasil produksi kepada distributor dalam negeri oleh badan usaha di bidang industri farmasi', rate: 0.3 },
+                '22-100-12': { category: 'PPh Pasal 22', desc: 'Atas penjualan kendaraan bermotor di dalam negeri oleh Agen Tunggal Pemegang Merek (ATPM), Agen Pemegang Merek (APM), dan importir umum kendaraan bermotor', rate: 0.45 },
                 '22-100-13': { category: 'PPh Pasal 22', desc: 'Pembelian oleh Badan Usaha Berupa Batubara, Mineral Logam dan Bukan Logam dari Badan atau Orang', rate: 1.5 },
+                '22-100-14': { category: 'PPh Pasal 22', desc: 'Atas penjualan emas batangan di dalam negeri oleh badan usaha', rate: 0.45 },
+                '22-100-15': { category: 'PPh Pasal 22', desc: 'Atas penjualan barang yang tergolong sangat mewah', rate: 5 },
                 '22-101-01': { category: 'PPh Pasal 22', desc: 'Impor dengan API', rate: 2.5 },
                 '22-101-02': { category: 'PPh Pasal 22', desc: 'Impor tanpa API', rate: 7.5 },
                 '22-401-01': { category: 'PPh Pasal 22', desc: 'Pembelian oleh Bendaharawan/BUMN/BUMD', rate: 1.5 },
@@ -176,12 +231,54 @@
                 '24-104-02': { category: 'PPh Pasal 23', desc: 'Jasa Teknik', rate: 2 },
                 '24-104-03': { category: 'PPh Pasal 23', desc: 'Jasa Manajemen', rate: 2 },
                 '24-104-04': { category: 'PPh Pasal 23', desc: 'Jasa Konsultan (selain konsultan konstruksi)', rate: 2 },
+                '24-104-05': { category: 'PPh Pasal 23', desc: 'Jasa perancang/desain (design);', rate: 2 },
+                '24-104-06': { category: 'PPh Pasal 23', desc: 'Jasa pengolahan limbah;', rate: 2 },
+                '24-104-07': { category: 'PPh Pasal 23', desc: 'Jasa penyedia tenaga kerja dan/atau tenaga ahli (outsourcing services);', rate: 2 },
+                '24-104-08': { category: 'PPh Pasal 23', desc: 'Jasa perantara dan/atau keagenan;', rate: 2 },
+                '24-104-09': { category: 'PPh Pasal 23', desc: 'Jasa di bidang perdagangan surat-surat berharga, kecuali yang dilakukan oleh Bursa Efek, KSEI dan KPEI;', rate: 2 },
+                '24-104-10': { category: 'PPh Pasal 23', desc: 'Jasa kustodian/penyimpanan/penitipan, kecuali yang dilakukan oleh KSEI;', rate: 2 },
+                '24-104-11': { category: 'PPh Pasal 23', desc: 'Jasa pengisian suara (dubbing) dan/atau sulih suara;', rate: 2 },
+                '24-104-12': { category: 'PPh Pasal 23', desc: 'Jasa mixing film;', rate: 2 },
+                '24-104-13': { category: 'PPh Pasal 23', desc: 'Jasa pembuatan sarana promosi film, iklan, poster, foto, slide, klise, banner, pamflet, baliho dan folder;', rate: 2 },
+                '24-104-14': { category: 'PPh Pasal 23', desc: 'Jasa sehubungan dengan software atau hardware atau sistem komputer, termasuk perawatan, pemeliharaan dan perbaikan;', rate: 2 },
+                '24-104-15': { category: 'PPh Pasal 23', desc: 'Jasa pembuatan dan/atau pengelolaan website;', rate: 2 },
+                '24-104-16': { category: 'PPh Pasal 23', desc: 'Jasa internet termasuk sambungannya;', rate: 2 },
+                '24-104-17': { category: 'PPh Pasal 23', desc: 'Jasa penyimpanan, pengolahan, dan/atau penyaluran data/informasi (termasuk contact center);', rate: 2 },
+                '24-104-18': { category: 'PPh Pasal 23', desc: 'Jasa instalasi/pemasangan mesin, peralatan, listrik, telepon, air, gas, AC, dan/atau TV kabel, selain yang dilakukan oleh Wajib Pajak yang ruang lingkupnya di bidang konstruksi dan mempunyai izin dan/atau sertifikasi sebagai pengusaha konstruksi;', rate: 2 },
+                '24-104-19': { category: 'PPh Pasal 23', desc: 'Jasa perawatan/perbaikan/pemeliharaan mesin, peralatan, listrik, telepon, air, gas, AC, dan/atau TV kabel, selain yang dilakukan oleh Wajib Pajak yang ruang lingkupnya di bidang konstruksi dan mempunyai izin dan/atau sertifikasi sebagai pengusaha konstruksi;', rate: 2 },
+                '24-104-20': { category: 'PPh Pasal 23', desc: 'Jasa perawatan kendaraan dan/atau alat transportasi darat, laut dan udara;', rate: 2 },
+                '24-104-21': { category: 'PPh Pasal 23', desc: 'Jasa maklon;', rate: 2 },
+                '24-104-22': { category: 'PPh Pasal 23', desc: 'Jasa penyelidikan dan keamanan;', rate: 2 },
+                '24-104-23': { category: 'PPh Pasal 23', desc: 'Jasa penyelenggara kegiatan atau event organizer;', rate: 2 },
+                '24-104-24': { category: 'PPh Pasal 23', desc: 'Jasa pengepakan;', rate: 2 },
                 '24-104-25': { category: 'PPh Pasal 23', desc: 'Jasa Penilai (Appraisal)', rate: 2 },
                 '24-104-26': { category: 'PPh Pasal 23', desc: 'Jasa Aktuaris', rate: 2 },
+                '24-104-27': { category: 'PPh Pasal 23', desc: 'Jasa akuntansi, pembukuan, dan atestasi laporan keuangan;', rate: 2 },
+                '24-104-28': { category: 'PPh Pasal 23', desc: 'Jasa hukum;', rate: 2 },
+                '24-104-29': { category: 'PPh Pasal 23', desc: 'Jasa arsitektur;', rate: 2 },
+                '24-104-30': { category: 'PPh Pasal 23', desc: 'Jasa perencanaan kota dan arsitektur landscape;', rate: 2 },
+                '24-104-31': { category: 'PPh Pasal 23', desc: 'Jasa penambangan dan jasa penunjang di bidang penambangan selain migas;', rate: 2 },
+                '24-104-32': { category: 'PPh Pasal 23', desc: 'Jasa penunjang di bidang penerbangan dan bandar udara;', rate: 2 },
+                '24-104-33': { category: 'PPh Pasal 23', desc: 'Jasa penebangan hutan;', rate: 2 },
+                '24-104-34': { category: 'PPh Pasal 23', desc: 'Jasa pengangkutan/ekspedisi kecuali yang telah diatur dalam Pasal 15 UU PPh;', rate: 2 },
+                '24-104-35': { category: 'PPh Pasal 23', desc: 'Jasa telekomunikasi yang tidak dikecualikan dari objek PPh;', rate: 2 },
+                '24-104-36': { category: 'PPh Pasal 23', desc: 'Jasa penyediaan tempat dan/atau waktu dalam media massa, media luar ruang atau media lain untuk penyampaian informasi, dan/atau jasa periklanan;', rate: 2 },
+                '24-104-37': { category: 'PPh Pasal 23', desc: 'Jasa pembasmian hama;', rate: 2 },
+                '24-104-38': { category: 'PPh Pasal 23', desc: 'Jasa kebersihan atau cleaning service;', rate: 2 },
+                '24-104-39': { category: 'PPh Pasal 23', desc: 'Jasa katering atau tata boga;', rate: 2 },
+                '24-104-40': { category: 'PPh Pasal 23', desc: 'Jasa freight forwarding;', rate: 2 },
+                '24-104-41': { category: 'PPh Pasal 23', desc: 'Jasa logistik;', rate: 2 },
+                '24-104-42': { category: 'PPh Pasal 23', desc: 'Jasa pengurusan dokumen;', rate: 2 },
+                '24-104-43': { category: 'PPh Pasal 23', desc: 'Jasa selain jasa-jasa tersebut di atas yang pembayarannya dibebankan pada APBN/APBD.', rate: 2 },
                 '29-100-01': { category: 'PPh Pasal 26', desc: 'Dividen', rate: 20 },
                 '29-101-01': { category: 'PPh Pasal 26', desc: 'Bunga', rate: 20 },
                 '29-102-01': { category: 'PPh Pasal 26', desc: 'Royalti, Sewa, dan Penghasilan Lain', rate: 20 },
+                '29-103-01': { category: 'PPh Pasal 26', desc: 'Imbalan Sehubungan dengan Jasa, Pekerjaan, dan Kegiatan', rate: 20 },
                 '29-104-01': { category: 'PPh Pasal 26', desc: 'Imbalan Jasa, Pekerjaan, dan Kegiatan', rate: 20 },
+                '29-105-01': { category: 'PPh Pasal 26', desc: 'Hadiah dan Penghargaan', rate: 20 },
+                '29-106-01': { category: 'PPh Pasal 26', desc: 'Pensiun dan Pembayaran Berkala Lainnya', rate: 20 },
+                '29-107-01': { category: 'PPh Pasal 26', desc: 'Premi Swap dan Transaksi Lindung Nilai Lainnya', rate: 20 },
+                '29-108-01': { category: 'PPh Pasal 26', desc: 'Keuntungan karena Pembebasan Utang', rate: 20 }
             };
 
             const groupedTaxes = {};
@@ -193,15 +290,6 @@
                 groupedTaxes[tax.category].push({ code, ...tax });
             }
 
-            let taxOptionsHtml = '<option value="">-- Pilih Jenis Pajak --</option>';
-            for (const category in groupedTaxes) {
-                taxOptionsHtml += `<optgroup label="${category}">`;
-                groupedTaxes[category].forEach(tax => {
-                    taxOptionsHtml += `<option value="${tax.code}">${tax.code} - ${tax.desc}</option>`;
-                });
-                taxOptionsHtml += `</optgroup>`;
-            }
-
             function addUnifikasiRow() {
                 const id = unifikasiTransactionCounter++;
                 const newRow = document.createElement('tr');
@@ -211,21 +299,105 @@
                     <td class="text-center text-sm text-gray-500">${id + 1}</td>
                     <td><input type="text" class="form-input invoice-no" placeholder="Opsional"></td>
                     <td><input type="text" class="form-input company-name" placeholder="Nama Perusahaan"></td>
-                    <td><select class="form-select pph-type">${taxOptionsHtml}</select></td>
+                    <td>
+                        <div class="searchable-dropdown">
+                            <input type="text" class="form-input pph-type-search" placeholder="Cari Jenis Pajak...">
+                            <div class="searchable-dropdown-options"></div>
+                            <input type="hidden" class="pph-type-hidden">
+                        </div>
+                    </td>
                     <td><input type="number" class="form-input pph-rate" step="0.01" placeholder="0"></td>
                     <td><input type="number" class="form-input dpp" placeholder="100000"></td>
                     <td><select class="form-select calculation-method"><option value="gross">Gross</option><option value="grossup">Gross-up</option></select></td>
                     <td><div class="flex items-center gap-2"><select class="form-select ppn-option"><option value="none">Tanpa PPN</option><option value="11">PPN 11%</option><option value="1.1">PPN 1.1%</option><option value="custom">PPN Custom</option></select><input type="number" class="form-input ppn-custom-rate hidden" placeholder="Tarif %"></div></td>
                     <td class="text-center"><button class="delete-btn" title="Hapus Baris"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button></td>`;
                 rowsContainer.appendChild(newRow);
-                newRow.querySelector('.pph-type').addEventListener('change', () => updateUnifikasiPphRate(newRow));
+                
+                const searchInput = newRow.querySelector('.pph-type-search');
+                const optionsContainer = newRow.querySelector('.searchable-dropdown-options');
+                const hiddenInput = newRow.querySelector('.pph-type-hidden');
+
+                populateDropdownOptions(optionsContainer);
+
+                searchInput.addEventListener('focus', () => {
+                    document.querySelectorAll('.searchable-dropdown-options').forEach(container => {
+                        if (container !== optionsContainer) {
+                            container.style.display = 'none';
+                        }
+                    });
+                    
+                    const rect = searchInput.getBoundingClientRect();
+                    
+                    optionsContainer.style.position = 'fixed';
+                    optionsContainer.style.top = `${rect.bottom + 2}px`;
+                    optionsContainer.style.left = `${rect.left}px`;
+                    optionsContainer.style.width = 'auto';
+                    optionsContainer.style.minWidth = '450px';
+                    optionsContainer.style.display = 'block';
+                });
+
+                searchInput.addEventListener('input', () => {
+                    filterDropdownOptions(searchInput, optionsContainer);
+                });
+
+                optionsContainer.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (e.target.tagName === 'A') {
+                        const code = e.target.dataset.code;
+                        const desc = e.target.textContent;
+                        searchInput.value = desc;
+                        hiddenInput.value = code;
+                        optionsContainer.style.display = 'none';
+                        updateUnifikasiPphRate(newRow);
+                    }
+                });
+
                 newRow.querySelector('.ppn-option').addEventListener('change', () => handleUnifikasiPpnOptionChange(newRow));
                 newRow.querySelector('.delete-btn').addEventListener('click', () => deleteUnifikasiRow(newRow));
-                updateUnifikasiPphRate(newRow);
             }
 
+            function populateDropdownOptions(container) {
+                container.innerHTML = '';
+                for (const category in groupedTaxes) {
+                    const groupLabel = document.createElement('div');
+                    groupLabel.className = 'px-4 py-2 text-xs font-bold text-gray-500 bg-gray-100';
+                    groupLabel.textContent = category;
+                    container.appendChild(groupLabel);
+                    groupedTaxes[category].forEach(tax => {
+                        const optionLink = document.createElement('a');
+                        optionLink.href = '#';
+                        optionLink.textContent = `${tax.code} - ${tax.desc}`;
+                        optionLink.dataset.code = tax.code;
+                        optionLink.dataset.rate = tax.rate;
+                        container.appendChild(optionLink);
+                    });
+                }
+            }
+
+            function filterDropdownOptions(input, container) {
+                const filter = input.value.toUpperCase();
+                const options = container.getElementsByTagName('a');
+                for (let i = 0; i < options.length; i++) {
+                    const txtValue = options[i].textContent || options[i].innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        options[i].style.display = "";
+                    } else {
+                        options[i].style.display = "none";
+                    }
+                }
+            }
+            
+            document.addEventListener('click', (e) => {
+                if (!e.target.classList.contains('pph-type-search') && !e.target.closest('.searchable-dropdown-options')) {
+                    document.querySelectorAll('.searchable-dropdown-options').forEach(container => {
+                        container.style.display = 'none';
+                    });
+                }
+            });
+
+
             function updateUnifikasiPphRate(row) {
-                const selectedCode = row.querySelector('.pph-type').value;
+                const selectedCode = row.querySelector('.pph-type-hidden').value;
                 const taxInfo = taxTypesUnifikasi[selectedCode];
                 row.querySelector('.pph-rate').value = taxInfo ? taxInfo.rate : 0;
             }
@@ -251,15 +423,14 @@
                         const dppInput = parseFloat(row.querySelector('.dpp').value);
                         if (isNaN(dppInput) || dppInput <= 0) throw new Error(`DPP pada baris #${index + 1} tidak valid.`);
                         
-                        const pphTypeSelect = row.querySelector('.pph-type');
-                        const selectedTaxKey = pphTypeSelect.value;
+                        const selectedTaxKey = row.querySelector('.pph-type-hidden').value;
                         if (!selectedTaxKey) throw new Error(`Jenis Pajak pada baris #${index + 1} belum dipilih.`);
                         
                         const pphRateValue = parseFloat(row.querySelector('.pph-rate').value);
                         if (isNaN(pphRateValue) || pphRateValue < 0) throw new Error(`Tarif PPh pada baris #${index + 1} tidak valid.`);
                         const pphRate = pphRateValue / 100;
 
-                        const pphDesc = pphTypeSelect.options[pphTypeSelect.selectedIndex].text;
+                        const pphDesc = row.querySelector('.pph-type-search').value;
                         const calculationMethod = row.querySelector('.calculation-method').value;
 
                         let dppGrossup = dppInput;
