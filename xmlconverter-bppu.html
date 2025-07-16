@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BPPU XML Converter</title>
+    <!-- Memuat Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Memuat Font Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Icon Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa; /* Warna latar belakang abu-abu sangat terang */
+        }
+        .form-input { 
+            @apply w-full px-3 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all; 
+        }
+        .form-label { 
+            @apply block mb-1.5 text-sm font-medium text-gray-600; 
+        }
+        .table-input, .table-select { 
+            @apply w-full px-2 py-1.5 text-sm bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-red-500 transition-all; 
+        }
+        .delete-btn { 
+            @apply text-gray-400 hover:text-red-600 transition-colors; 
+        }
+        .tab-btn { 
+            @apply px-6 py-3 text-base font-semibold rounded-md transition-all duration-300 ease-in-out; 
+        }
+        .tab-btn.active { 
+            @apply bg-red-600 text-white shadow-lg; 
+        }
+        .tab-btn.inactive { 
+            @apply text-gray-600 bg-white hover:bg-red-50; 
+        }
+        .main-action-btn {
+            @apply bg-red-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition duration-300 shadow-lg transform hover:scale-105;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
+        <header class="mb-10 text-center">
+            <h1 class="text-4xl font-bold text-red-600">BPPU XML Converter</h1>
+            <p class="mt-2 text-lg text-gray-500">Alat bantu modern untuk membuat file XML Unifikasi.</p>
+        </header>
+
+        <!-- Navigasi Tab -->
+        <div class="mb-8 flex justify-center">
+            <nav class="flex space-x-4 p-2 bg-gray-200 rounded-lg" aria-label="Tabs">
+                <button id="tab-btn-converter" class="tab-btn active">Konverter</button>
+                <button id="tab-btn-referensi" class="tab-btn inactive">Referensi</button>
+            </nav>
+        </div>
+
+        <!-- Konten Tab -->
+        <div id="tab-content-converter">
+            <!-- Bagian Form Header -->
+            <section class="mb-8 bg-white p-6 rounded-xl shadow-lg">
+                <h2 class="text-xl font-bold text-gray-700 mb-4 border-b pb-3">Informasi Utama</h2>
+                <div id="header-form" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div>
+                        <label for="npwpPemotong" class="form-label">NPWP Pemotong*</label>
+                        <input type="text" id="npwpPemotong" class="form-input" value="3172022408981234">
+                    </div>
+                     <div>
+                        <label for="idTkuPemotong" class="form-label">ID TKU Pemotong*</label>
+                        <input type="text" id="idTkuPemotong" class="form-input" value="3172022407981234000000">
+                    </div>
+                    <div>
+                        <label for="idTkuPenerima" class="form-label">ID TKU Penerima*</label>
+                        <input type="text" id="idTkuPenerima" class="form-input" value="3172024806201234000000">
+                    </div>
+                    <div>
+                        <label for="masaPajak" class="form-label">Masa Pajak*</label>
+                        <input type="number" id="masaPajak" class="form-input" value="1">
+                    </div>
+                    <div>
+                        <label for="tahunPajak" class="form-label">Tahun Pajak*</label>
+                        <input type="number" id="tahunPajak" class="form-input" value="2025">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bagian Tabel Data Transaksi -->
+            <section class="mb-8 bg-white p-6 rounded-xl shadow-lg">
+                 <h2 class="text-xl font-bold text-gray-700 mb-4">Input Transaksi</h2>
+                 <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left">
+                        <thead class="text-xs text-gray-600 uppercase bg-gray-100">
+                            <tr>
+                                <th class="px-3 py-3 min-w-[180px]">Fasilitas</th>
+                                <th class="px-3 py-3 min-w-[250px]">Kode Objek Pajak</th>
+                                <th class="px-3 py-3 min-w-[120px]">DPP</th>
+                                <th class="px-3 py-3 min-w-[90px]">Tarif</th>
+                                <th class="px-3 py-3 min-w-[200px]">Jenis Dok.</th>
+                                <th class="px-3 py-3 min-w-[150px]">Nomor Dok.</th>
+                                <th class="px-3 py-3 min-w-[150px]">Tgl Dok.</th>
+                                <th class="px-3 py-3 min-w-[180px]">Opsi Bayar</th>
+                                <th class="px-3 py-3 min-w-[120px]">No SP2D</th>
+                                <th class="px-3 py-3 min-w-[150px]">Tgl Potong</th>
+                                <th class="px-3 py-3 w-12 text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="data-table-body">
+                            <!-- Baris data akan ditambahkan oleh JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                 <div class="mt-4">
+                     <button id="add-row-btn" class="bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded-lg hover:bg-gray-300 transition duration-300 "><i class="fas fa-plus mr-2"></i>Tambah Baris</button>
+                 </div>
+            </section>
+            
+            <!-- Tombol Aksi Utama -->
+            <section class="mb-12 flex flex-wrap items-center justify-center gap-4">
+                 <button id="generate-button" class="main-action-btn"><i class="fas fa-cogs mr-2"></i>Buat & Unduh XML</button>
+                 <button id="template-btn" class="bg-white border border-gray-300 text-gray-700 font-semibold py-3 px-6 rounded-lg hover:bg-gray-100 transition duration-300 shadow-sm"><i class="fas fa-file-download mr-2"></i>Unduh Template</button>
+                 <button id="import-btn" class="bg-white border border-gray-300 text-gray-700 font-semibold py-3 px-6 rounded-lg hover:bg-gray-100 transition duration-300 shadow-sm"><i class="fas fa-file-import mr-2"></i>Impor Data</button>
+            </section>
+
+            <!-- Bagian Cara Penggunaan -->
+            <section>
+                <h2 class="text-2xl font-semibold mb-6 text-center text-gray-800">Cara Penggunaan</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-red-500">
+                        <h3 class="text-lg font-bold mb-3 text-red-800">Pengisian Manual</h3>
+                        <ol class="list-decimal list-inside space-y-2 text-gray-700">
+                            <li>Isi <strong>Informasi Utama</strong> pada bagian atas.</li>
+                            <li>Klik tombol <strong>"Tambah Baris"</strong> untuk menambahkan transaksi.</li>
+                            <li>Isi detail pada setiap kolom. Tarif akan terisi otomatis saat memilih Kode Objek Pajak.</li>
+                            <li>Ulangi untuk semua data transaksi Anda.</li>
+                            <li>Jika selesai, klik <strong>"Buat & Unduh XML"</strong> untuk mendapatkan hasilnya.</li>
+                        </ol>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-gray-500">
+                        <h3 class="text-lg font-bold mb-3 text-gray-800">Menggunakan Fitur Impor</h3>
+                         <ol class="list-decimal list-inside space-y-2 text-gray-700">
+                            <li>Klik <strong>"Unduh Template"</strong> untuk mendapatkan file CSV.</li>
+                            <li>Buka dan isi data transaksi Anda pada file template tersebut.</li>
+                            <li>Simpan file dalam format CSV.</li>
+                            <li>Klik <strong>"Impor Data"</strong> dan pilih file CSV yang sudah Anda siapkan.</li>
+                            <li>Tabel akan terisi otomatis. Periksa kembali data Anda.</li>
+                             <li>Klik <strong>"Buat & Unduh XML"</strong> untuk mengunduh file hasil konversi.</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="tab-content-referensi" class="hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Tabel Referensi Kode Objek Pajak -->
+                <div id="ref-kode-objek-container"></div>
+                <!-- Kontainer untuk referensi lainnya -->
+                <div class="space-y-8">
+                    <div id="ref-fasilitas-container"></div>
+                    <div id="ref-jenis-dok-container"></div>
+                    <div id="ref-opsi-bayar-container"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tableBody = document.getElementById('data-table-body');
+            const addRowBtn = document.getElementById('add-row-btn');
+            const generateBtn = document.getElementById('generate-button');
+            
+            const tabBtnConverter = document.getElementById('tab-btn-converter');
+            const tabBtnReferensi = document.getElementById('tab-btn-referensi');
+            const tabContentConverter = document.getElementById('tab-content-converter');
+            const tabContentReferensi = document.getElementById('tab-content-referensi');
+
+            const refData = {
+                kodeObjek: [ { code: '24-101-01', name: 'Dividen', rate: 15 }, { code: '24-104-05', name: 'Jasa Aktuaris', rate: 2 }, { code: '28-409-25', name: 'Pekerjaan Konstruksi Terintegrasi (bersertifikat)', rate: 2.65 }, { code: '28-409-26', name: 'Pekerjaan Konstruksi Terintegrasi (tanpa sertifikat)', rate: 4 }, { code: '28-409-27', name: 'Jasa Konsultansi Konstruksi (bersertifikat)', rate: 3.5 }, { code: '28-409-28', name: 'Jasa Konsultansi Konstruksi (tanpa sertifikat)', rate: 6 }, { code: '28-409-08', name: 'Jasa Perencanaan Konstruksi (berkualifikasi)', rate: 4 }, { code: '28-409-09', name: 'Jasa Perencanaan Konstruksi (tanpa kualifikasi)', rate: 6 }, { code: '28-409-10', name: 'Jasa Pelaksanaan Konstruksi (kecil)', rate: 2 }, { code: '28-409-11', name: 'Jasa Pelaksanaan Konstruksi (menengah/besar)', rate: 3 }, { code: '28-409-12', name: 'Jasa Pelaksanaan Konstruksi (tanpa kualifikasi)', rate: 4 }, { code: '28-409-13', name: 'Jasa Pengawasan Konstruksi (berkualifikasi)', rate: 4 }, { code: '24-104-06', name: 'Jasa Akuntansi, Pembukuan, Atestasi Lapkeu', rate: 2 }, { code: '28-409-14', name: 'Jasa Pengawasan Konstruksi (tanpa kualifikasi)', rate: 6 }, { code: '28-417-01', name: 'Bunga Simpanan Koperasi (<= Rp240rb)', rate: 0 }, { code: '28-417-02', name: 'Bunga Simpanan Koperasi (> Rp240rb)', rate: 10 }, { code: '28-419-01', name: 'Dividen diterima OP Dalam Negeri', rate: 10 }, { code: '28-423-01', name: 'Penjualan/Jasa oleh WP PP 23/55', rate: 0.5 }, { code: '28-423-02', name: 'Pembelian oleh WP PP 55', rate: 0 }, { code: '28-410-02', name: 'Imbalan ke Perusahaan Pelayaran DN', rate: 1.2 }, { code: '28-411-02', name: 'Charter Kapal/Pesawat ke LN via BUT', rate: 2.64 }, { code: '29-101-01', name: 'Charter Pesawat ke Penerbangan DN', rate: 1.8 }, { code: '28-421-01', name: 'Uplift Hulu Migas', rate: 20 }, { code: '24-104-07', name: 'Jasa Hukum', rate: 2 }, { code: '28-421-02', name: 'Participating Interest Eksplorasi Migas', rate: 5 }, { code: '28-421-03', name: 'Participating Interest Eksploitasi Migas', rate: 7 }, { code: '22-900-01', name: 'Pembelian Barang/Bahan oleh BUMN', rate: 1.5 }, { code: '22-100-07', name: 'Penjualan Hasil Produksi (Semen)', rate: 0.25 }, { code: '22-100-08', name: 'Penjualan Hasil Produksi (Baja)', rate: 0.3 }, { code: '24-104-08', name: 'Jasa Arsitektur', rate: 2 }, { code: '22-100-09', name: 'Penjualan Hasil Produksi (Otomotif)', rate: 0.45 }, { code: '22-100-10', name: 'Penjualan Hasil Produksi (Farmasi)', rate: 0.3 }, { code: '22-100-11', name: 'Penjualan Hasil Produksi (Kertas)', rate: 0.1 }, { code: '22-100-12', name: 'Penjualan Kendaraan Bermotor oleh ATPM/APM', rate: 0.45 }, { code: '22-100-13', name: 'Pembelian Komoditas Tambang dari Pemegang IUP', rate: 1.5 }, { code: '22-100-14', name: 'Penjualan Emas Batangan oleh Badan Usaha', rate: 0.45 }, { code: '22-100-15', name: 'Pembelian Bahan Hasil Kehutanan (belum diolah)', rate: 0.25 }, { code: '22-100-16', name: 'Pembelian Bahan Hasil Perkebunan (belum diolah)', rate: 0.25 }, { code: '22-100-17', name: 'Pembelian Bahan Hasil Pertanian (belum diolah)', rate: 0.25 }, { code: '22-100-18', name: 'Pembelian Bahan Hasil Peternakan (belum diolah)', rate: 0.25 }, { code: '24-104-09', name: 'Jasa Perencanaan Kota & Arsitektur Landscape', rate: 2 }, { code: '22-100-19', name: 'Pembelian Bahan Hasil Perikanan (belum diolah)', rate: 0.25 }, { code: '22-401-01', name: 'Penjualan BBM Pertamina ke SPBU (Final)', rate: 0.25 }, { code: '22-100-20', name: 'Penjualan BBM Pertamina ke Non-SPBU (Tidak Final)', rate: 0.3 }, { code: '22-401-02', name: 'Penjualan BBM Non-Pertamina ke SPBU (Final)', rate: 0.3 }, { code: '22-100-21', name: 'Penjualan BBM Non-Pertamina ke Non-SPBU (Tidak Final)', rate: 0.3 }, { code: '22-100-22', name: 'Penjualan Pelumas oleh Importir/Produsen', rate: 0.3 }, { code: '22-100-23', name: 'Penjualan Pulsa/Kartu Perdana oleh Distributor Tk.2', rate: 0.5 }, { code: '22-100-24', name: 'Penjualan BBG ke Non-SPBU (Tidak Final)', rate: 0.3 }, { code: '22-401-03', name: 'Penjualan BBG ke SPBU (Final)', rate: 0.3 }, { code: '22-401-04', name: 'Penjualan BBM Pertamina ke Agen/Penyalur (Final)', rate: 0.3 }, { code: '24-104-10', name: 'Jasa Perancang (Design)', rate: 2 }, { code: '22-403-01', name: 'Penjualan Barang Sangat Mewah (selain properti)', rate: 5 }, { code: '22-403-02', name: 'Penjualan Barang Sangat Mewah (properti)', rate: 1 }, { code: '22-404-01', name: 'Ekspor Komoditas Tambang (Batubara, Mineral)', rate: 1.5 }, { code: '22-405-01', name: 'Aset Kripto (oleh Pedagang Fisik)', rate: 0.1 }, { code: '22-405-02', name: 'Aset Kripto (bukan Pedagang Fisik)', rate: 0.2 }, { code: '22-101-01', name: 'Transaksi via Sistem Info Pengadaan Pemerintah (Tidak Final)', rate: 0.5 }, { code: '22-101-02', name: 'Transaksi via Sistem Info Pengadaan Pemerintah (Final)', rate: 0.5 }, { code: '22-102-01', name: 'Transaksi via PMSE (Tidak Final)', rate: 0.5 }, { code: '22-102-02', name: 'Transaksi via PMSE (Final)', rate: 0.5 }, { code: '22-100-25', name: 'Penjualan Emas Batangan oleh Pengusaha Emas', rate: 0.25 }, { code: '24-104-11', name: 'Jasa Pengeboran (Drilling) Migas (kecuali BUT)', rate: 2 }, { code: '22-100-26', name: 'Penjualan Emas Perhiasan oleh Pengusaha Emas', rate: 0.25 }, { code: '22-100-27', name: 'Penjualan Perhiasan selain Emas oleh Pengusaha Emas', rate: 0.25 }, { code: '28-499-02', name: 'Kerja Sama dengan LPI', rate: 7.5 }, { code: '28-402-01', name: 'Pengalihan Hak atas Tanah/Bangunan', rate: 2.5 }, { code: '28-402-02', name: 'Pengalihan Rumah Sederhana/Rusun Sederhana', rate: 1 }, { code: '28-402-03', name: 'Pengalihan Hak atas Tanah/Bangunan ke Pemerintah', rate: 0 }, { code: '28-410-01', name: 'Pengangkutan Orang/Barang oleh Pelayaran DN', rate: 1.2 }, { code: '28-411-01', name: 'Pengangkutan Orang/Barang oleh Pelayaran LN', rate: 2.64 }, { code: '28-413-01', name: 'Penghasilan Kantor Perwakilan Dagang Asing', rate: 0.44 }, { code: '28-499-01', name: 'Jasa Maklon Internasional Mainan Anak', rate: 2.1 }, { code: '24-104-12', name: 'Jasa Penunjang Panas Bumi & Migas', rate: 2 }, { code: '22-910-01', name: 'Pemungutan oleh Bendaharawan', rate: 1.5 }, { code: '28-423-03', name: 'Transaksi WP OP PP 55 (peredaran <= 500jt)', rate: 0.5 }, { code: '28-423-12', name: 'PPh UMKM 0% di IKN', rate: 0 }, { code: '28-423-13', name: 'Pembelian oleh WP Fasilitas PPh UMKM 0% di IKN', rate: 0 }, { code: '28-404-12', name: 'Instrumen Keuangan DHE SDA Valas (>6 bln)', rate: 0 }, { code: '28-404-13', name: 'Instrumen Keuangan DHE SDA Valas (6 bln)', rate: 2.5 }, { code: '28-404-14', name: 'Instrumen Keuangan DHE SDA Valas (>3-6 bln)', rate: 7.5 }, { code: '28-404-15', name: 'Instrumen Keuangan DHE SDA Valas (1-3 bln)', rate: 10 }, { code: '28-404-16', name: 'Instrumen Keuangan DHE SDA IDR (>=6 bln)', rate: 0 }, { code: '28-404-17', name: 'Instrumen Keuangan DHE SDA Valas (3-6 bln)', rate: 2.5 }, { code: '24-104-13', name: 'Jasa Penambangan & Penunjang Panas Bumi & Migas', rate: 2 }, { code: '22-406-01', name: 'PPh 22 Proyek Pemerintah (Hibah/Pinjaman LN)', rate: 0 }, { code: '24-106-01', name: 'PPh 23 Proyek Pemerintah (Hibah/Pinjaman LN)', rate: 0 }, { code: '28-403-04', name: 'Persewaan Tanah/Bangunan Proyek Pemerintah (Hibah/Pinjaman LN)', rate: 10 }, { code: '28-409-43', name: 'Konstruksi (Kecil) Proyek Pemerintah (Hibah/Pinjaman LN)', rate: 1.75 }, { code: '28-409-44', name: 'Konstruksi (Tanpa Sertifikat) Proyek Pemerintah (Hibah/Pinjaman LN)', rate: 4 }, { code: '28-409-45', name: 'Konstruksi (Selain Kecil) Proyek Pemerintah (Hibah/Pinjaman LN)', rate: 2.65 }, { code: '28-409-46', name: 'Konstruksi Terintegrasi (Bersertifikat) Proyek Pemerintah (Hibah/Pinjaman LN)', rate: 2.65 }, { code: '28-409-47', name: 'Konstruksi Terintegrasi (Tanpa Sertifikat) Proyek Pemerintah (Hibah/Pinjaman LN)', rate: 4 }, { code: '28-409-48', name: 'Konsultansi Konstruksi (Bersertifikat) Proyek Pemerintah (Hibah/Pinjaman LN)', rate: 3.5 }, { code: '28-409-49', name: 'Konsultansi Konstruksi (Tanpa Sertifikat) Proyek Pemerintah (Hibah/Pinjaman LN)', rate: 6 }, { code: '24-104-14', name: 'Jasa Penunjang Penerbangan & Bandar Udara', rate: 2 }, { code: '28-409-50', name: 'Perencanaan Konstruksi (Berkualifikasi) Proyek Pemerintah (Hibah/Pinjaman LN)', rate: 4 }, { code: '28-409-51', name: 'Perencanaan Konstruksi (Tanpa Kualifikasi) Proyek Pemerintah (Hibah/Pinjaman LN)', rate: 6 }, { code: '28-409-52', name: 'Pelaksanaan Konstruksi (Kecil) Proyek Pemerintah (Hibah/Pinjaman LN)', rate: 2 }, { code: '28-409-53', name: 'Pelaksanaan Konstruksi (Menengah/Besar) Proyek Pemerintah (Hibah/Pinjaman LN)', rate: 3 }, { code: '28-409-54', name: 'Pelaksanaan Konstruksi (Tanpa Kualifikasi) Proyek Pemerintah (Hibah/Pinjaman LN)', rate: 4 }, { code: '28-409-55', name: 'Pengawasan Konstruksi (Berkualifikasi) Proyek Pemerintah (Hibah/Pinjaman LN)', rate: 4 }, { code: '28-409-56', name: 'Pengawasan Konstruksi (Tanpa Kualifikasi) Proyek Pemerintah (Hibah/Pinjaman LN)', rate: 6 }, { code: '28-402-04', name: 'Pengalihan Tanah/Bangunan Proyek Pemerintah (Hibah/Pinjaman LN)', rate: 2.5 }, { code: '28-410-06', name: 'Imbalan Pelayaran DN Proyek Pemerintah (Hibah/Pinjaman LN)', rate: 1.2 }, { code: '28-411-05', name: 'Charter Kapal/Pesawat LN via BUT Proyek Pemerintah (Hibah/Pinjaman LN)', rate: 2.64 }, { code: '24-102-01', name: 'Bunga (Selain PPh Final)', rate: 15 }, { code: '24-104-15', name: 'Jasa Penebangan Hutan', rate: 2 }, { code: '29-101-02', name: 'Charter Pesawat DN Proyek Pemerintah (Hibah/Pinjaman LN)', rate: 1.8 }, { code: '28-410-05', name: 'Pengangkutan oleh Pelayaran DN Proyek Pemerintah (Hibah/Pinjaman LN)', rate: 1.2 }, { code: '28-411-04', name: 'Pengangkutan oleh Pelayaran LN Proyek Pemerintah (Hibah/Pinjaman LN)', rate: 2.64 }, { code: '22-401-05', name: 'Penjualan BBM Non-Pertamina ke SPBU Proyek Pemerintah (Hibah/Pinjaman LN)', rate: 0.3 }, { code: '28-423-14', name: 'Penjualan/Jasa WP PP 23/55 Proyek Pemerintah (Hibah/Pinjaman LN)', rate: 0.5 }, { code: '28-423-15', name: 'Penjualan/Jasa WP UMKM 0% IKN Proyek Pemerintah (Hibah/Pinjaman LN)', rate: 0 }, { code: '24-104-16', name: 'Jasa Pengolahan Limbah', rate: 2 }, { code: '24-104-17', name: 'Jasa Penyedia Tenaga Kerja (Outsourcing)', rate: 2 }, { code: '24-104-18', name: 'Jasa Perantara/Keagenan', rate: 2 }, { code: '24-104-19', name: 'Jasa Perdagangan Surat Berharga (selain Bursa, KSEI, KPEI)', rate: 2 }, { code: '24-104-20', name: 'Jasa Kustodian/Penyimpanan (selain KSEI)', rate: 2 }, { code: '24-104-21', name: 'Jasa Dubbing/Sulih Suara', rate: 2 }, { code: '24-104-22', name: 'Jasa Mixing Film', rate: 2 }, { code: '24-104-23', name: 'Jasa Pembuatan Sarana Promosi', rate: 2 }, { code: '24-104-24', name: 'Jasa Terkait Software/Hardware/Sistem Komputer', rate: 2 }, { code: '24-103-01', name: 'Royalti', rate: 15 }, { code: '24-104-25', name: 'Jasa Pembuatan/Pengelolaan Website', rate: 2 }, { code: '24-104-26', name: 'Jasa Internet & Sambungannya', rate: 2 }, { code: '24-104-27', name: 'Jasa Penyimpanan/Pengolahan/Penyaluran Data', rate: 2 }, { code: '24-104-28', name: 'Jasa Instalasi (selain konstruksi)', rate: 2 }, { code: '24-104-29', name: 'Jasa Perawatan (selain konstruksi)', rate: 2 }, { code: '24-104-30', name: 'Jasa Perawatan Kendaraan', rate: 2 }, { code: '24-104-31', name: 'Jasa Maklon', rate: 2 }, { code: '24-104-32', name: 'Jasa Penyelidikan & Keamanan', rate: 2 }, { code: '24-104-33', name: 'Jasa Event Organizer', rate: 2 }, { code: '24-104-34', name: 'Jasa Penyediaan Tempat di Media/Periklanan', rate: 2 }, { code: '24-100-01', name: 'Hadiah/Penghargaan (selain PPh 21)', rate: 15 }, { code: '24-104-35', name: 'Jasa Pembasmian Hama', rate: 2 }, { code: '24-104-36', name: 'Jasa Kebersihan/Cleaning Service', rate: 2 }, { code: '24-104-37', name: 'Jasa Sedot Septic Tank', rate: 2 }, { code: '24-104-38', name: 'Jasa Pemeliharaan Kolam', rate: 2 }, { code: '24-104-39', name: 'Jasa Katering/Tata Boga', rate: 2 }, { code: '24-104-40', name: 'Jasa Freight Forwarding', rate: 2 }, { code: '24-104-41', name: 'Jasa Logistik', rate: 2 }, { code: '24-104-42', name: 'Jasa Pengurusan Dokumen', rate: 2 }, { code: '24-104-43', name: 'Jasa Pengepakan', rate: 2 }, { code: '24-104-44', name: 'Jasa Loading & Unloading', rate: 2 }, { code: '24-100-02', name: 'Sewa Harta (selain Tanah/Bangunan)', rate: 2 }, { code: '24-104-45', name: 'Jasa Laboratorium/Pengujian (selain pendidikan)', rate: 2 }, { code: '24-104-46', name: 'Jasa Pengelolaan Parkir', rate: 2 }, { code: '24-104-47', name: 'Jasa Penyondiran Tanah', rate: 2 }, { code: '24-104-48', name: 'Jasa Penyiapan/Pengolahan Lahan', rate: 2 }, { code: '24-104-49', name: 'Jasa Pembibitan/Penanaman Bibit', rate: 2 }, { code: '24-104-50', name: 'Jasa Pemeliharaan Tanaman', rate: 2 }, { code: '24-104-51', name: 'Jasa Pemanenan', rate: 2 }, { code: '24-104-52', name: 'Jasa Pengolahan Hasil Pertanian/Perkebunan/dll', rate: 2 }, { code: '24-104-53', name: 'Jasa Dekorasi', rate: 2 }, { code: '24-104-54', name: 'Jasa Pencetakan/Penerbitan', rate: 2 }, { code: '24-104-01', name: 'Jasa Teknik', rate: 2 }, { code: '24-104-55', name: 'Jasa Penerjemahan', rate: 2 }, { code: '24-104-56', name: 'Jasa Pengangkutan/Ekspedisi (selain PPh 15)', rate: 2 }, { code: '24-104-57', name: 'Jasa Pelayanan Pelabuhan', rate: 2 }, { code: '24-104-58', name: 'Jasa Pengangkutan Melalui Jalur Pipa', rate: 2 }, { code: '24-104-59', name: 'Jasa Pengelolaan Penitipan Anak', rate: 2 }, { code: '24-104-60', name: 'Jasa Pelatihan/Kursus', rate: 2 }, { code: '24-104-61', name: 'Jasa Pengiriman & Pengisian Uang ke ATM', rate: 2 }, { code: '24-104-62', name: 'Jasa Sertifikasi', rate: 2 }, { code: '24-104-63', name: 'Jasa Survey', rate: 2 }, { code: '24-104-64', name: 'Jasa Tester', rate: 2 }, { code: '24-104-02', name: 'Jasa Manajemen', rate: 2 }, { code: '24-104-65', name: 'Jasa Lainnya yg dibayar APBN/APBD', rate: 2 }, { code: '24-104-66', name: 'Jasa Layanan Transaksi Pembayaran (Distribusi Token)', rate: 2 }, { code: '24-104-67', name: 'Jasa Pemasaran (Media Voucher)', rate: 2 }, { code: '24-104-68', name: 'Jasa Layanan Transaksi Pembayaran (Distribusi Voucher)', rate: 2 }, { code: '24-104-69', name: 'Jasa Program Loyalitas Pelanggan', rate: 2 }, { code: '24-105-01', name: 'Bunga Pinjaman via Fintech P2P', rate: 0 }, { code: '28-404-01', name: 'Bunga Tabungan/Deposito (sumber selain DHE)', rate: 20 }, { code: '28-404-02', name: 'Bunga Deposito DHE IDR (tenor 1 bln)', rate: 7.5 }, { code: '28-404-03', name: 'Bunga Deposito DHE IDR (tenor 3 bln)', rate: 5 }, { code: '28-404-04', name: 'Bunga Deposito DHE IDR (tenor >=6 bln)', rate: 0 }, { code: '24-104-03', name: 'Jasa Konsultan', rate: 2 }, { code: '28-404-05', name: 'Bunga Deposito DHE USD (tenor 1 bln)', rate: 10 }, { code: '28-404-06', name: 'Bunga Deposito DHE USD (tenor 3 bln)', rate: 7.5 }, { code: '28-404-07', name: 'Bunga Deposito DHE USD (tenor 6 bln)', rate: 2.5 }, { code: '28-404-08', name: 'Bunga Deposito DHE USD (tenor >6 bln)', rate: 0 }, { code: '28-404-09', name: 'Bunga Deposito/Tabungan di LN via Bank DN', rate: 20 }, { code: '28-404-10', name: 'Diskonto Sertifikat Bank Indonesia', rate: 20 }, { code: '28-404-11', name: 'Jasa Giro', rate: 20 }, { code: '28-401-01', name: 'Bunga Obligasi/SUN/Obligasi Daerah', rate: 15 }, { code: '28-401-06', name: 'Bunga Obligasi', rate: 10 }, { code: '28-401-03', name: 'Bunga Obligasi (administrasi BI)', rate: 10 }, { code: '24-104-04', name: 'Jasa Penilai (Appraisal)', rate: 2 }, { code: '28-401-04', name: 'Diskonto SPN (WP DN & BUT)', rate: 20 }, { code: '28-401-05', name: 'Diskonto SPN (WP LN)', rate: 20 }, { code: '28-407-01', name: 'Transaksi Penjualan Saham Pendiri di Bursa', rate: 0.5 }, { code: '28-406-01', name: 'Transaksi Penjualan Saham Bukan Pendiri di Bursa', rate: 0.1 }, { code: '28-408-01', name: 'Transaksi Penjualan Saham Modal Ventura (non-bursa)', rate: 0.1 }, { code: '28-403-02', name: 'Persewaan Tanah dan/atau Bangunan', rate: 10 }, { code: '28-405-01', name: 'Hadiah Undian', rate: 25 }, { code: '28-409-22', name: 'Pekerjaan Konstruksi (Kualifikasi Kecil)', rate: 1.75 }, { code: '28-409-23', name: 'Pekerjaan Konstruksi (Tanpa Kualifikasi)', rate: 4 }, { code: '28-409-24', name: 'Pekerjaan Konstruksi (Selain Kualifikasi Kecil)', rate: 2.65 } ],
+                fasilitas: [ { code: 'N/A', name: 'Tanpa Fasilitas' }, { code: 'TaxExAr22', name: 'SKB Pemotongan PPh Pasal 22' }, { code: 'TaxExAr23', name: 'SKB Pemotongan PPh Pasal 23' }, { code: 'TaxExIntDep', name: 'SKB PPh Bunga Deposito & Tabungan' }, { code: 'TaxExIntPhtb', name: 'SKB PPh Pengalihan Hak Tanah & Bangunan' }, { code: 'DTP', name: 'PPh Ditanggung Pemerintah (DTP)' }, { code: 'PP23', name: 'Surat Keterangan PP 23/2018' }, { code: 'ETC', name: 'Fasilitas Lainnya' } ],
+                jenisDok: [ { code: 'Announcement', name: 'Pengumuman' }, { code: 'CommercialInvoice', name: 'Surat Tagihan' }, { code: 'Contract', name: 'Kontrak' }, { code: 'CurrentAccount', name: 'Jasa Giro' }, { code: 'Decree', name: 'Decree' }, { code: 'DeedOfEngagement', name: 'Akta Perjanjian' }, { code: 'DeedOfGeneral', name: 'Akta RUPS' }, { code: 'Other', name: 'Lainnya' }, { code: 'OtherFacilityDoc', name: 'Dokumen Fasilitas Lainnya' }, { code: 'PaymentProof', name: 'Bukti Pembayaran' }, { code: 'StatementLetter', name: 'Surat Pernyataan' }, { code: 'TaxInvoice', name: 'Faktur Pajak' }, { code: 'TaxRegulationDoc', name: 'Dokumen Perpajakan' }, { code: 'TradeConfirmation', name: 'Trade Confirmation' } ],
+                opsiBayar: [ { code: 'N/A', name: '-' }, { code: 'Imprest', name: 'Uang Persediaan' }, { code: 'Direct', name: 'Pembayaran Langsung' } ]
+            };
+
+            const switchTab = (targetTab) => {
+                if (targetTab === 'converter') {
+                    tabContentConverter.classList.remove('hidden');
+                    tabContentReferensi.classList.add('hidden');
+                    tabBtnConverter.classList.add('active');
+                    tabBtnConverter.classList.remove('inactive');
+                    tabBtnReferensi.classList.add('inactive');
+                    tabBtnReferensi.classList.remove('active');
+                } else {
+                    tabContentConverter.classList.add('hidden');
+                    tabContentReferensi.classList.remove('hidden');
+                    tabBtnReferensi.classList.add('active');
+                    tabBtnReferensi.classList.remove('inactive');
+                    tabBtnConverter.classList.add('inactive');
+                    tabBtnConverter.classList.remove('active');
+                }
+            };
+            
+            tabBtnConverter.addEventListener('click', () => switchTab('converter'));
+            tabBtnReferensi.addEventListener('click', () => switchTab('referensi'));
+
+            const createRow = () => {
+                const row = document.createElement('tr');
+                row.className = 'bg-white border-b hover:bg-gray-50';
+                row.innerHTML = `<td class="px-2 py-2"><select class="table-select fasilitas"></select></td><td class="px-2 py-2"><select class="table-select kodeObjekPajak"></select></td><td class="px-2 py-2"><input type="number" class="table-input dpp" placeholder="10000" value="10000"></td><td class="px-2 py-2"><input type="number" step="0.01" class="table-input tarif" placeholder="0.25"></td><td class="px-2 py-2"><select class="table-select jenisDok"></select></td><td class="px-2 py-2"><input type="text" class="table-input nomorDok" placeholder="010..." value="0100012292489165"></td><td class="px-2 py-2"><input type="date" class="table-input tanggalDok" value="2024-01-13"></td><td class="px-2 py-2"><select class="table-select opsiBayar"></select></td><td class="px-2 py-2"><input type="text" class="table-input noSp2d" placeholder="isi manual"></td><td class="px-2 py-2"><input type="date" class="table-input tglPemotongan" value="2025-01-01"></td><td class="px-2 py-2 text-center"><button class="delete-btn" onclick="deleteRow(this)"><i class="fas fa-trash-alt"></i></button></td>`;
+                
+                const fasilitasSelect = row.querySelector('.fasilitas');
+                refData.fasilitas.forEach(opt => fasilitasSelect.add(new Option(opt.code, opt.code)));
+                
+                const kodeObjekSelect = row.querySelector('.kodeObjekPajak');
+                refData.kodeObjek.forEach(opt => kodeObjekSelect.add(new Option(opt.code, opt.code)));
+
+                const jenisDokSelect = row.querySelector('.jenisDok');
+                refData.jenisDok.forEach(opt => jenisDokSelect.add(new Option(opt.code, opt.code)));
+                
+                const opsiBayarSelect = row.querySelector('.opsiBayar');
+                refData.opsiBayar.forEach(opt => opsiBayarSelect.add(new Option(opt.code, opt.code)));
+                
+                const tarifInput = row.querySelector('.tarif');
+                const updateTarif = () => {
+                    const selectedObj = refData.kodeObjek.find(o => o.code === kodeObjekSelect.value);
+                    if (selectedObj) tarifInput.value = selectedObj.rate;
+                };
+                kodeObjekSelect.addEventListener('change', updateTarif);
+                
+                fasilitasSelect.value = 'N/A';
+                kodeObjekSelect.value = '22-100-07';
+                jenisDokSelect.value = 'CommercialInvoice';
+                opsiBayarSelect.value = 'N/A';
+                updateTarif();
+
+                tableBody.appendChild(row);
+            };
+
+            window.deleteRow = (btn) => btn.closest('tr').remove();
+
+            const generateXml = () => {
+                const headerData = { tin: document.getElementById('npwpPemotong').value, masaPajak: document.getElementById('masaPajak').value, tahunPajak: document.getElementById('tahunPajak').value, idTkuPenerima: document.getElementById('idTkuPenerima').value, idTkuPemotong: document.getElementById('idTkuPemotong').value };
+                const rows = tableBody.querySelectorAll('tr');
+                if (rows.length === 0) { alert("Error: Tambahkan setidaknya satu baris data."); return; }
+                let xmlParts = ['<PphUnifikasiBatch>'];
+                rows.forEach(row => {
+                    const d = { f: row.querySelector('.fasilitas').value, k: row.querySelector('.kodeObjekPajak').value, dpp: row.querySelector('.dpp').value, t: row.querySelector('.tarif').value, jd: row.querySelector('.jenisDok').value, nd: row.querySelector('.nomorDok').value, td: row.querySelector('.tanggalDok').value, ob: row.querySelector('.opsiBayar').value, ns: row.querySelector('.noSp2d').value, tp: row.querySelector('.tglPemotongan').value };
+                    xmlParts.push(`\n  <WithholdingTax>\n    <TIN>${headerData.tin}</TIN>\n    <TaxPeriodMonth>${headerData.masaPajak}</TaxPeriodMonth>\n    <TaxPeriodYear>${headerData.tahunPajak}</TaxPeriodYear>\n    <CounterpartTin>${headerData.idTkuPenerima}</CounterpartTin>\n    <IDPlaceOfBusinessActivityOfIncomeRecipient>${headerData.idTkuPenerima}</IDPlaceOfBusinessActivityOfIncomeRecipient>\n    <TaxCertificate>${d.f}</TaxCertificate>\n    <TaxObjectCode>${d.k}</TaxObjectCode>\n    <TaxBase>${d.dpp}</TaxBase>\n    <Rate>${d.t}</Rate>\n    <Document>${d.jd}</Document>\n    <DocumentNumber>${d.nd}</DocumentNumber>\n    <DocumentDate>${d.td}</DocumentDate>\n    <IDPlaceOfBusinessActivity>${headerData.idTkuPemotong}</IDPlaceOfBusinessActivity>\n    <GovTreasurerOpt>${d.ob}</GovTreasurerOpt>\n    <SP2DNumber>${d.ns}</SP2DNumber>\n    <WithholdingDate>${d.tp}</WithholdingDate>\n  </WithholdingTax>`);
+                });
+                xmlParts.push('\n</PphUnifikasiBatch>');
+                const finalXml = xmlParts.join('');
+                const blob = new Blob([finalXml], { type: 'application/xml' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `bppu_${headerData.tahunPajak}_${headerData.masaPajak}.xml`;
+                a.click();
+                URL.revokeObjectURL(url);
+            };
+
+            const createRefTable = (title, headers, data, containerId) => {
+                const container = document.getElementById(containerId);
+                let tableHTML = `<h3 class="text-xl font-semibold mb-4 text-gray-800">${title}</h3><div class="overflow-x-auto bg-white rounded-lg shadow-lg max-h-[40rem] overflow-y-auto"><table class="w-full text-sm text-left">`;
+                tableHTML += `<thead class="text-xs text-gray-600 uppercase bg-gray-100 sticky top-0"><tr>`;
+                headers.forEach(h => tableHTML += `<th class="px-4 py-3">${h}</th>`);
+                tableHTML += `</tr></thead><tbody>`;
+                data.forEach(item => {
+                    tableHTML += `<tr class="bg-white border-b hover:bg-gray-50">`;
+                    headers.forEach(h => {
+                        const key = h.toLowerCase().replace(/\s/g, '');
+                        tableHTML += `<td class="px-4 py-2">${item[key] || ''}</td>`
+                    });
+                    tableHTML += `</tr>`;
+                });
+                tableHTML += `</tbody></table></div>`;
+                container.innerHTML = tableHTML;
+            };
+
+            const populateReferenceTables = () => {
+                createRefTable('Kode Objek Pajak', ['Code', 'Name', 'Rate'], refData.kodeObjek, 'ref-kode-objek-container');
+                createRefTable('Fasilitas', ['Code', 'Name'], refData.fasilitas, 'ref-fasilitas-container');
+                createRefTable('Jenis Dokumen', ['Code', 'Name'], refData.jenisDok, 'ref-jenis-dok-container');
+                createRefTable('Opsi Bayar', ['Code', 'Name'], refData.opsiBayar, 'ref-opsi-bayar-container');
+            };
+
+            addRowBtn.addEventListener('click', createRow);
+            generateBtn.addEventListener('click', generateXml);
+            
+            populateReferenceTables();
+            createRow();
+        });
+    </script>
+</body>
+</html>
